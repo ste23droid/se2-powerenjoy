@@ -19,19 +19,15 @@ CONSTRAINTS
 
 
 DOMAIN ASSUMPTIONS
-* The personal informations provided by the user during registration are valid
+* The personal informations provided by the user during the registration procedure correspond to the truth
 * A safe-area is an area owned by the company with a finite number of parking slots
 * Registered users won’t drive the cars if their driving license is no more valid after the registration procedure
-* No other user except the registered user making the reservation will use the reserved car
-* All the GPS signals are not altered, they’re always right
-* The GPS of a car can never be turned off
-* All the sensors in the car works correctly
-* An auto occurring in an accident will always be able to communicate to the system the “Unavailable” status
-* The PIN received back by a user after the registration will always be known by the user
-* The registered user cannot terminate a ride in a non-safe area
+* A registered user unabled to exploit an existing reservation of a car cannot let another registered user to use that reserved car
+* The GPS signals are not altered, they’re always right
+* Every car has a GPS module that can never be turned off
+* Every car has a 3G module that cannot be turned off
+* All the sensors in the car work correctly
+* A car occurring in an accident will always be able to communicate to the system its “Unavailable” status
+* The unique PIN received back by a user after the registration will always be known by the user
+* A registered user cannot terminate a reservation in a non-safe area
 * The safe areas are uniformly distributed in the city
-
-
-
-
-TEXT ASSUMPTIONS
