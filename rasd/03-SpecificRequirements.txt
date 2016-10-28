@@ -12,13 +12,23 @@ EXTERNAL INTERFACE REQUIREMENTS
 
 FUNCTIONAL REQUIREMENTS
 * G1: Allow registered users to find available cars and reserve them
-1. R[1] The system should allow registered users to find available cars in the city starting from their GPS location or from a specified address
-2. R[2] The system should not allow a registered user to make another car reservation if there is a previous reservation not terminated yet
-3. R[3] The system should allow guest users to register to the system
-4. R[4] The system should allow registered users to log in
-* G2:
-* G3
-* G4:
+1. R[1] The system shall allow registered users to find available cars in the city starting from their GPS location or from a specified address in the city
+2. R[2] The system shall not allow a registered user to make another car reservation if there is a previous reservation not terminated yet
+3. R[3] The system shall allow guest users to register to the system
+4. R[4] The system shall allow registered users to log in only if the provided credentials are correct
+5. R[5] The system shall send a unique PIN to the registered user who has  completed the registration procedure
+6. R[6] The system shall not allow the registration of a user if the email provided is already been used by a registered user
+* G2: Allow registered users to use the reserved car
+1. R[1] The system shall guarantee that a registered user which has reserved a car can unlock it
+2. R[2] The system shall guarantee that, when a user leaves the car in a safe area and exits it, the car is locked automatically and set as available
+* G3:  Guarantee a uniform distribution of the cars in the city
+1. R[1] The system shall encourage users to share the car by applying a discount of 10% on the last ride to registered users which have picked up at least two other passengers during the ride
+2. R[2] The system shall detect the presence of passengers in the reserved and unlocked car
+3. R[3] The system shall implement a money saving option in which the users inserts his destination and the system shows the safe areas where to leave the car in order to get a discount
+* G.4 : Encourage registered users to use properly the reserved cars
+1. R[1] The system shall apply a discount of 20% on the last ride to registered users leaving after the ride more than 50% of the battery in the reserved car
+2. R[2] The system shall apply a discount of 30% on the last ride to registered users who leave the reserved car in a power station and plug it
+3. R[3] The system shall charge 30% more on the last ride to registered users who leave the car more than 3 km from the nearest power grid station or with more than 80% of the battery empty
 
 
 SCENARIOS
@@ -78,6 +88,8 @@ after reaching his destination, Lorenzo is notified via app about the charged pr
 
 
 
+
+
 Scenario 7: plugging the car
 Thomas loves going to the cinema. Tonight, Thomas wants to watch an interesting action movie that he heard of from a friend: as a registered user of PowerEnjoy he logs into the site, he looks for a car near his home address, and reserves it for the following hour: 
 when the time comes, Thomas picks up the car by telling his position
@@ -95,12 +107,12 @@ via the PowerEnjoy app and unlocks the car. After his journey, Thomas parks the 
 UML MODELS
 
 
-USE CASES //manca qualcosa o c’è qualcosa che non va messo?
+USE CASES 
 -Sign up
 -Log in
 -unlock the car
--find an available car (without money saving option)
--find an available car with money saving option //va messo insieme a quello sopra?
+-find an available car
+-money saving option
 -receive a notification of discounts or additional charges
 -update personal information
 
@@ -116,7 +128,7 @@ Flow of events: 1. The guest opens the PowerEnJoy website or mobile application
 6. The system confirms the registration by sending an e-mail with the new user’s password
 Postconditions:  the guest in now a user registered to the PowerEnJoy service
 Exceptions: a. the form is not fully compiled
-b.the driving license information inserted by the guest is not valid
+          b.the driving license information inserted by the guest is not valid
 
 
 Use case : log in
@@ -144,4 +156,33 @@ Exceptions: a. e-mail or password(pin?) provided are incorrect
 b. the system controls if the user is close to the car and the control fails
 
 
+Use case: money saving option
+Actors: user
+Preconditions: the user has already made a reservation for a car
+Flow of events: 1. When the time established for his reservation comes, the user gets close to the car and unlocks it
+2. The user enters the car
+3. The user inserts his personal PIN code 
+4. The system verifies the correspondence of the PIN with the user that reserved the car and unlocks the engine
+5. The user selects the money saving options by pressing a button on the screen in the car
+6. The user inserts his destination address in the form that appears on the screen
+7. The system locates the destination on the map and finds all the power grid stations that are in a radius of 2 km from the destination[a] and have at least a plug available
+8. The user starts his ride by turning on the engine[b]
+Postconditions: the user can leave his car in one of the stations located by the system in order to get a discount
+Exceptions: a. There are no power grid stations in a radius of 2 km from the destination and with at least one plug available
+b. The destination address inserted in not valid
+c. The PIN code inserted is incorrect
+
+
 NON FUNCTIONAL REQUIREMENTS
+
+
+
+
+
+
+
+
+
+
+[a]qualcosa del genere? su questo non saprei come fare, non può visualizzarle tutte, dobbiamo decidere un vincolo
+[b]o può anche attivare dopo l'opzione?
