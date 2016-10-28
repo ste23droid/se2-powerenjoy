@@ -1,0 +1,147 @@
+﻿SPECIFIC REQUIREMENTS
+
+
+EXTERNAL INTERFACE REQUIREMENTS
+1. USER INTERFACES
+2. API INTERFACES
+3. HARDWARE INTERFACES
+4. SOFTWARE INTERFACES
+5. COMMUNICATION INTERFACES
+6. MEMORY
+
+
+FUNCTIONAL REQUIREMENTS
+* G1: Allow registered users to find available cars and reserve them
+1. R[1] The system should allow registered users to find available cars in the city starting from their GPS location or from a specified address
+2. R[2] The system should not allow a registered user to make another car reservation if there is a previous reservation not terminated yet
+3. R[3] The system should allow guest users to register to the system
+4. R[4] The system should allow registered users to log in
+* G2:
+* G3
+* G4:
+
+
+SCENARIOS
+These scenarios are a description of imagined sequences of events that include the interaction of the S2B with its environment and users, as well as the interaction among its components.
+
+
+SCENARIO 1
+Alonso doesn’t like the public transportation, he thinks that those vehicles are too slow to move in the city. A friend told him that a new car-sharing service called PowerEnjoy is available in the town, so Alonso decides to go on the PowerEnjoy website and register.
+During the registration procedure, Alonso inserts correctly his Driving License ID and a valid credit card that the system can later use to charge money in case the car-sharing service will be used by Alonso. Alonso decides to start using PowerEnjoy the day after the registration.
+
+
+SCENARIO 2
+Alicia lives in the suburbs of the city and has just known from a close friend that her favourite dress shop Dressando in the center of the city offers special discounts for that day only. Unfortunately, it’s raining and the car used by her family is in that moment used by her mother at work, so she decides that it’s the time to try the PowerEnjoy service instead of walking, to exploit the Dressando special discount. Alicia has registered to PowerEnjoy two days ago. Alicia opens the PowerEnjoy app on her smartphone, successfully logs to the service and locates an available car near her house. She goes out and when she is near the car, she selects the car in the map and presses the button “Reserve”. A new activity opens and Alicia fills the form and then presses the button “Unlock your car”. The system unlocks the car and Alicia starts driving to the Dressando shop.
+
+
+SCENARIO: group trip
+Aldo, Giovanni and Giacomo will have a very demanding day on the 26 of October. They are vegetarians and to pass some time together they booked long time before at “Gnam Veggy”, the best veggie burger restaurant of the city, for the 17:00 of the 26 of October. 
+On the 26 of October, unfortunately, a strike of the metro transportation and of the surface trams has been planned, but the three friends don’t know about this.
+At 16:20 of the 26 of October, Aldo discovers about the strike and since he knows that a strike should not be underestimated, he proposes to his friends to use PowerEnjoy and reserve a car. He also knows that if he’ll drive and at least two other passengers are going with him, they’ll receive a discount of 10% on their ride. The discount is enough to make Giovanni and Giacomo to agree. Aldo opens his laptop, goes to the PowerEnjoy website and logs in. He lives in “Via Garibaldi 23”, so he inputs his location in the box near the map of the city and identifies an available car in the neighborhood. He selects the car and reserves it
+starting from 16:40. At 16:40, the three friends are near the reserved car, Aldo unlocks the vehicle and they go in. The next day Aldo controls the account of his credit card and notices that the ride was correctly discounted by 10%.
+
+
+Scenario 3: car left  with no more than 50% of the battery empty
+Bill, that is already registered to PowerEnJoy, needs to cover a short distance by car. He logs to the PowerEnJoy application on his smartphone and selects the “find available cars” button; he then reserves the available car that is closest to him for up to one hour after his reservation.
+Within one hour from the reservation time, the user goes on the chosen location and through the application on his smartphone informs the system that he is nearby by clicking on the dedicated button. The car unlocks itself and he enters. He immediately inserts his password in order to enable the engine, he turns on the engine and the system starts charging him for a given amount of money.
+After covering a short distance, Bill finds a safe area for parking and exits the car. The system automatically locks the car. After a short time, the user receives a notification from the PowerEnJoy application, where he is informed that he received a 20% discount on his last ride, because he left his car with less than 50% of the battery empty.
+
+
+Scenario 4: user with unvirtuous behavior
+Mike has to go to a concert in Milan and decides to use PowerEnJoy to reach his destination; he is registered to the system. About an hour before the time he wants to leave, he logs to PowerEnJoy and reserves a car that is close to where he lives. He doesn’t use the money saving option, as he doesn’t like to travel by feet, so he always parks the car as close to his destination as possible.
+When the time comes, he reaches the location and he clicks on the “unlock your car” button and enters the car. Mike doesn’t like to travel with other passengers, so he doesn’t pick up anyone onto the car during his ride.
+The concert holds far away from where Mike lives, so when he reaches the destination the car has more than 80% of the battery empty. There are no special parking areas with power grid stations nearby, so he leaves the electric car in the safe area that is closest to the concert. He exits the car and receives a notification telling him that he is charged 30% more than the specified price on his ride, because he left the car with more than 80% of the battery empty and he did not get any discount because he did not try to act in a virtuous way.
+
+
+Scenario 5: missed reservation
+John is a regular employee in a business company in Milan and after a long day of work he
+is finally close to going back home. While checking the last reports, his friend Paul reminds
+him about the national strike of the public transport occurring that day: John, who has 
+already tried the PowerEnjoy services a couple of times, decides to log in the site, locates
+an available car near his office address, and reserves it. Fifteen minutes later, John's colleague Mary offers him a ride back home: John, who has always had a crush on Mary, cannot refuse and accepts enthusiastically. On the way back home with Mary, John suddenly remembers of his missed reservation: he checks his profile in the PowerEnjoy app and sees that he has paid a little fee of 1 euro. 
+A trivial cost for being able to talk with Mary on the way home.
+
+
+Scenario 6: saving money option
+Lorenzo is a student of Politecnico of Milan but, unfortunately, he has having quite 
+a struggle in succeeding in the exams. Since his parents are becoming tired of economically
+supporting him, Lorenzo is trying to sparing some of his monthly budget.
+After finding out about the money saving option offered by PowerEnjoy, Lorenzo, a loyal 
+customer of the company for the last two years, decides to give it a try.
+Lorenzo starts up the PowerEnjoy app and logs into the system, finds an available car 
+from his current position and enables the money saving option: he enters the address of
+his destination, that is the home of his physics tutor, and reserves the car. The system tells 
+Lorenzo via app the designed safe park area, conviniently close to his destination.
+When Lorenzo reches the reserved car, he is able to unlock it using the PowerEnjoy app:
+after reaching his destination, Lorenzo is notified via app about the charged price and the applied discount. Lorenzo can now travel through the city without the worry of spending too much money, thus focusing more on his studies.
+
+
+
+
+Scenario 7: plugging the car
+Thomas loves going to the cinema. Tonight, Thomas wants to watch an interesting action movie that he heard of from a friend: as a registered user of PowerEnjoy he logs into the site, he looks for a car near his home address, and reserves it for the following hour: 
+when the time comes, Thomas picks up the car by telling his position
+via the PowerEnjoy app and unlocks the car. After his journey, Thomas parks the car in one of the special area of the city. Thomas remembers that he has not chosen the saving money option and notices that the car has 40% of battery left, so he decides to plug the car into the power grid. While entering the cinema, Thomas gets a notification from the PowerEnjoy app: he obtained a 30% discount on the last ride. Happy for his reward, now Thomas can now enjoy better the movie.
+
+
+
+
+
+
+
+
+
+
+UML MODELS
+
+
+USE CASES //manca qualcosa o c’è qualcosa che non va messo?
+-Sign up
+-Log in
+-unlock the car
+-find an available car (without money saving option)
+-find an available car with money saving option //va messo insieme a quello sopra?
+-receive a notification of discounts or additional charges
+-update personal information
+
+
+Use case: sign up
+Actors: guest 
+Preconditions: the guest is not registered to PowerEnJoy
+Flow of events: 1. The guest opens the PowerEnJoy website or mobile application
+2. The guest goes into the “sign up” tab
+3. The guest fills the form with his credentials and payment information
+4. The guest confirms the information provided
+5. The system verifies the correctness of the information provided
+6. The system confirms the registration by sending an e-mail with the new user’s password
+Postconditions:  the guest in now a user registered to the PowerEnJoy service
+Exceptions: a. the form is not fully compiled
+b.the driving license information inserted by the guest is not valid
+
+
+Use case : log in
+Actors: guest
+Preconditions: the guest is already registered to PowerEnJoy
+Flow of events: 1. The guest opens the PowerEnJoy website or mobile application
+2. The guest opens the “log in” tab
+3. The guest inserts his e-mail and password
+4. The system verifies the correctness of the e-mail and password
+Postconditions:  the guest is logged into the PowerEnJoy service and can reserve a car or tell the system he is nearby the car he reserved
+Exceptions: e-mail or password provided are incorrect
+
+
+Use case: unlock the car
+Actors: guest, user
+Preconditions: the guest is already registered to PowerEnJoy
+Flow of events: 1. The guest opens the PowerEnJoy mobile application
+2. The guest selects the “unlock your car” button
+3. The guest inserts his e-mail and password
+4. the system verifies the correctness of the e-mail and password
+5. the system gets the user’s location from the gps signal of his smartphone and verifies that it is close to the reserved car’s gps signal
+6. the verification is successful and the car unlocks automatically
+Postconditions:  the car is automatically unlocked and the user can enter to start his ride
+Exceptions: a. e-mail or password(pin?) provided are incorrect
+b. the system controls if the user is close to the car and the control fails
+
+
+NON FUNCTIONAL REQUIREMENTS
