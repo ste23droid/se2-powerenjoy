@@ -40,7 +40,8 @@ company to reduce the maintenance time of the cars.
 
 
 Scope
-This section shows the analysis of the world and shared phenomena for PowerEnjoy
+In order to make a first analysis of the application domain, we have followed the concepts and ideas provided in the paper by M. Jackson & P. Zave on “The World and the Machine”.
+The application domain can be divided in three main parts: the World, the Shared Phenomena and the Machine. In the World there are all the 
 
 
 Actual System
@@ -48,6 +49,10 @@ Our customers don’t have by now a software for the management of the car-shari
 
 
 Actors
+The main actors involved in the interactions with the S2B are the following:
+* Guest User: all the guest users can only see the introductory login page and 
+        decide to register to the system by following the registration procedure
+* Registered Users: this users, after a successfull login, can access to all the main functionalities of the S2B, among which: research of available cars inside the city, reservation of an available car, unlocking of a reserved car.
 
 
 
