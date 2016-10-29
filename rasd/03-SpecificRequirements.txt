@@ -1,4 +1,4 @@
-﻿SPECIFIC REQUIREMENTS
+SPECIFIC REQUIREMENTS
 
 
 EXTERNAL INTERFACE REQUIREMENTS
@@ -171,6 +171,80 @@ Postconditions: the user can leave his car in one of the stations located by the
 Exceptions: a. There are no power grid stations in a radius of 2 km from the destination and with at least one plug available
 b. The destination address inserted in not valid
 c. The PIN code inserted is incorrect
+
+G4, UC.1.1
+Use case: PayLastRide
+Actors: Payment service
+Goal: [G4]
+Preconditions: After the login (G1, UC?) the registered user has localized and reserved a car (G1, UC?). The user has unlocked the car (G2, UC?). The user has driven the reserved car and parked it in a safe area. The user has exited the car. The system has handled the car’s lock (G2, UC?). 
+Flow of events: 
+1. The system evaluates the total minutes of the user’s last ride.
+2. Based on the previous evaluated minutes, the system calculates the bill’s user.
+PostConditions:        
+The system evaluates if any discount or penalty can be applied: after registering the original amount of the bill, it proceedes to evaluate the first possible discount (G4, UC.2.1).
+After evaluating all discounts and penalties, the systems applies them on the original bill. The system interacts with an external payment system and charges the user.
+Exceptions:
+The systems is notified that the payment was not succesfull. The system blocks the user.
+
+
+G4, UC.2.1
+UseCase: GetBatteryDiscount
+Actor: Car’s battery sensor
+Goal: [G4]
+Preconditions:
+The system has evaluated the bill of the user’s lat ride.
+Event flow:
+1. The system asks the battery sensor of the car about the remaining charge.
+2. The car’s sensor provides the remaining battery percentage to the system.
+Postconditions:        
+The remaining battery is more than 50% and the system registers a 20% discount on the original calculated bill. The system evaluates a second possible discount (G4, UC.3.1)
+Exceptions:
+The remaining battery is less than 50% and no discount is applied. 
+
+
+G4, UC.3.1
+Use case: PlugCarAndGetDiscount
+Actors: Registered User, car’s battery sensor
+Goal: [G4]
+Preconditions: The system has evaluated the remaining battery percentage in order to apply the related discount (G4, UC.2.1)
+Event flow:
+1. The user plugs the car into a power grid.
+2. The system asks the car’s sensor if the car is recharging.
+3. The car’s sensor tells the system that the car is recharging.
+Postconditions:        
+The system adds a 30% discount on any eventual previous discount (G4, UC.2.1) on the original calculated bill: The system proceeds to evaluate a possible penalty for the user (G4, UC.4.1)
+Exceptions:
+The user does not plug the car into a power grid, the battery is not recharging and the system doesn’t apply any discount.
+
+
+G4, UC.4.1
+UseCase: ParkFarFromGrid
+Actors: Car’s battery sensor, car’s GPS
+Goal: [G4]
+Preconditions: The system has evaluated if the car was recharging in order to apply the related discount (G4, UC.3.1)
+Event flow:
+1. The system asks the car’s position to the car’s GPS.
+2. The car’s GPS provides the coordinates.
+3. The system evaluates that the car is more than 3 KM from the nearest power grid
+4. The system charges 30% more on the last ride 
+Postconditions:        
+The system charges 30% more on the last ride, still considering eventual previous discount (G4, UC.2.1, UC.3.1) on the original bill.
+Exceptions:
+The system evaluates that car is less than 3 KM from the nearest power grid and no penalty is applied. The system checks for the battery status (G4, U.C.4.2).
+
+
+G4, UC.4.2
+Use case: LeaveLowBattery
+Actors: Car’s battery sensor
+Goal: [G4]
+Preconditions: The system has evaluated that the car was no more than 3 KM far from a power grid (G4, UC.4.1)
+Event flow:
+1. The system asks the battery sensor of the car about the remaining charge.
+2. The car’s sensor provides the remaining battery percentage to the system.
+Postconditions:        
+The remaining battery is less than 20% and the system registers a 30% charge on the last ride, that will be subtracted to any eventual previous discount (G4, UC.2.1, UC.3.1) on the original calculated bill. 
+Exceptions:
+The remaining battery is more than 20% and no extra charge on the last ride is applied.
 
 
 NON FUNCTIONAL REQUIREMENTS
