@@ -1,4 +1,4 @@
-﻿SPECIFIC REQUIREMENTS
+SPECIFIC REQUIREMENTS
 
 
 EXTERNAL INTERFACE REQUIREMENTS
@@ -208,6 +208,26 @@ Postconditions: The system evaluates the presence of other possibile discounts o
 Exceptions: The system establishes that during the last ride there have never been two other passengers on the car and the discount is not applied.
 
 
+Use case: LockTheCarAutomatically
+Actors: User, car’s GPS, car’s door sensor
+Preconditions: the registered user has logged into the system, localized and reserved a car. He has then picked up the car within 1 hour from his reservation, and finally concluded his journey by stopping the car.
+Flow of events: 
+1. The user presses on the on-board display the option “Conclude your rental”.
+2. The system asks the car’s GPS the current location of the car
+3. The car’s GPS provides the required information to the system.
+4. The system confirms that the received coordinates corresponds to one of the known safe areas.
+5. The user exits the car, closing the car door behind him.
+6. The system asks the car’s sensors if the car door is closed.
+7. The car’s sensor tells the system that the door has been closed.
+8. The system demands the car lock.
+9. The car locks down.
+10. The system stops charging the user.
+Postconditions: The system proceeds with the evaluation of the user’s bill (G4, UC.4.1). 
+?? The system checks if the car has more than 20% battery, so that there’s no need to call the maintenance?? The system sets the car as available for another reservation.
+Exceptions: The system can’t find a correspondence between the coordinates of the car and the coordinates of any safe area. The system notificates the user trough the on-board display that his rental cannot end until he has reached a safe area.
+
+
+G3
 Use case: MoneySavingOption
 Actors: user
 Preconditions: the user has already unlocked the engine with his PIN
@@ -301,6 +321,16 @@ Exceptions:
 The remaining battery is more than 20% and no extra charge on the last ride is applied.
 
 
+G4, UC.5-6.2
+Use Case: MissReservation
+Actors: Registered user, Payment service
+Goal: [G4]
+Preconditions: The user has logged into the system (G1, UC?), located and reserved a car (G1, UC?). 
+Flow of events: 
+1. The user does not pick up the reserved car within 1 hour from his reservation
+2. The system interacts with an external payment service and charge the user a fee of 1 EUR
+Postconditions: The car that the user eserved is now tagged as available, and other users can reserve it.
+Exceptions: The users picks up the car in time and no fee is applied. The user does not have the requested money and the system, notified by the payment service, blocks his profile.
 
 
 
