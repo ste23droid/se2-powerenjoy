@@ -58,13 +58,18 @@ The main actors involved in the interactions with the S2B are the following:
 
 
 Definitions
+* Guest user: physical person whose email is not known by the S2B
+* Registered user: physical person whose credentials are known by the S2B
+* Credentials: email and password
+* Car: an electric car
+* Safe Area : private area owned by the company. Each safe area is made of parking slots
+* Power safe area: it’s a special kind of safe area where each parking slot has a dedicated power plug that can be used to recharge a car
+* City area: the city area is the set of all the GPS positions within the boundaries of the city
 
 
 Acronyms
 * S2B = Software to be
 * API = Application Programming Interface
-
-
 
 
 Abbreviations
@@ -78,6 +83,7 @@ Reference Documents
 * IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements Specifications: this document has been used for defining the general structure of the whole RASD
 * IEEE ISO/IEC/29148 - IEEE Standard On Requirement Engineering: this document has been used for all the general concepts about requirement engineering
 * Specification Document of PowerEnjoy
+* Paper by Jackson and Zave on the word and the machine
 
 
 Overview
