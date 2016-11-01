@@ -2,32 +2,119 @@
 
 
 PRODUCT PERSPECTIVE 
+The proposed solution for the system of PowerEnjoy won’t have to rely or to be interfaced with a previous car-sharing system of the same company. The system core functionalities will be developed from scratch, however part of the offered functionalities will rely on external services for these main reasons:
+1. Some functionalities cannot work without interfacing with specific databases or informative systems
+2. Reduce development costs by relying on APIs well known and already present in the market
+3. Guarantee the portability of the system on multiple platforms
+
+
+The system will be developed having in mind mobile devices (Android, iOS) and car touchscreen as core devices. However efforts will be done during the development to try to rely the least as possible to native Android SDK APIs or to Swift SDK APIs, so a future development of a web application for PowerEnjoy won’t need much changes in the internal logics of the system.
+
+
+* SYSTEM INTERFACES
+        The main system interface to take into account for the S2B is the interaction 
+with the CAN Bus within every car. The S2B shall be able to read and write signals on the CAN Bus. However the details about the design of this interface will not 
+be provided as part of this document.
+
+
+* USER INTERFACES
+        The interface of the system on smartphone devices will be developed to support 
+screen devices ranging from 3 inches diagonal and up, to support both smartphone devices with small screen size and phablets. The interface should also support a correct visualization even when the smartphone screen is rotated (orientation change).
+After the user is logged in, the user won’t be redirected immediately on a map activity to find and reserve available cars, he/she will be redirected on a menu activity. This decision will help in the future if our customer will ask us to add new functionalities like: support the user to change his/her personal informations, support the user to pay PowerEnjoy when there are some debt since one or more payments on his credit card has failed.
+The interface of the system on the car’s screen will be developed to be simple and immediate.
+
+
+* SOFTWARE INTERFACES
+        The system will use the following external services to provide part of its 
+functionalities:
+* -Name : Google Maps
+                -Mnemonic: MapsService
+                -Source: https://developers.google.com/maps/
+* -Name : -----
+        -Mnemonic: BillingService
+        -Source: -----
+* -Name: Driving License Verification APIs
+                -Mnemonic: CivilMotorization
+                -Source: this interface is not publicy available and a strict collaboration with 
+   the government of the city will be needed to use this external service
 
 
 PRODUCT FUNCTIONS
+The main functionalities that will be provided by the S2B considering also the functionalities provided in part through external interfacing are the followings:
+* Guest registration
+* User login
+* Visualization of available cars on a map of the city
+* Find available cars inside the city area
+* Reserve available cars inside the city area
+* Unlock a reserved car through smartphone mobile application
+* Computation of the best power safe area to save money for the user
+* Cost and discount computation for every car reservation
+* Car reservation payment handling
 
 
 USER CHARACTERISTICS
+The usage of the S2B will not require users with a particular educational level, experience or technical expertise. Every user who knows how to use applications on a smartphone device, how to enable an internet connection, how to enable GPS and who is familiar in providing payment informations on e-commerce websites, has enough expertise to use the S2B easily. In order to guarantee more usability of the software, a design based on the guidelines for Android and iOS applications will be adopted where possible.
 
 
 CONSTRAINTS
-1 REGULATORY POLICE
-2 HARDWARE LIMITATIONS
-3 INTERFACES TO OTHER APPLICATIONS
-4 PARALLEL OPERATIONS
-5 DOCUMENTS RELATED
+1. REGULATORY POLICIES
+        The S2B will ask users for permissions to acquire their GPS position.
+1. HARDWARE LIMITATIONS
+        The hardware limitations for the mobile application are the followings:
+* 3G connection enabled
+* GPS connection enabled
+* Memory to download the application package
+* Memory to install the application package
+1. PARALLEL OPERATIONS
+        The S2B shall support parallel requests by multiple users for all the functionalities 
+that can be provided to final users like login, research of available cars, car 
+reservation and so on.
 
 
+ASSUMPTIONS AND DEPENDENCIES
 DOMAIN ASSUMPTIONS
-* The personal informations provided by the user during the registration procedure correspond to the truth
-* A safe-area is an area owned by the company with a finite number of parking slots
-* Registered users won’t drive the cars if their driving license is no more valid after the registration procedure
-* A registered user unabled to exploit an existing reservation of a car cannot let another registered user to use that reserved car
-* The GPS signals are not altered, they’re always right
+We assume that these properties hold in the analyzed world:
+
+
+* The personal informations provided by the user during the registration procedure correspond to the truth. 
+* The set of the safe areas is initialized in the S2B at startup-time
+* Every safe-area has a predefined number of parking slots
+* The safe areas are far enough from each other such that each safe-area can be identified by a unique GPS coordinate
+* Every car is identified by a unique license plate
+* The number of available cars of the company is less than or equal to the sum of all the parking slots in all the safe areas, considering both normal safe areas and power safe areas
+* A user won’t drive a car if his driving license is no more valid after the registration procedure
+* A user cannot let another user to use the car he has reserved by providing its PIN to him/her
+* The GPS data are always correct
 * Every car has a GPS module that can never be turned off
-* Every car has a 3G module that cannot be turned off
-* All the sensors in the car work correctly
-* A car occurring in an accident will always be able to communicate to the system its “Unavailable” status
+* Every car has a 3G module that can never be turned off
+* All the sensors in the cars work correctly
+* A car occurring in a failure will always be able to communicate to the system about it
 * The unique PIN received back by a user after the registration will always be known by the user
-* A registered user cannot terminate a reservation in a non-safe area
-* The safe areas are uniformly distributed in the city
+* The mobile phone used by guests and users it’s provided with GPS technology and with at least 3G connectivity technology
+* Guests and users cannot interact with the functionalities of the S2B through the mobile application without GPS and 3G connection enabled
+* Every parking slot in a power safe area has a working power plug
+* The users always parks properly is a parking slot of a safe area
+* When the car’s battery is 95% empty, the user must end his ride by parking in a safe area
+* From every location inside the city area, a safe area with at least one parking slot available can be reached with less than 5% of battery
+
+
+TEXT ASSUMPTIONS
+* There is not a previous system, the system will be developed from scratch
+* The main device used by users to access the functionalities of the S2B it’s a mobile device, however part of the interaction between the user and the S2B happens through the screen on board of every car
+* The company has already bought all the electric cars that will be used by users, we have to develop the software of the car which interacts with the user through a screen in the car and with the car hardware
+* The user cannot cancel a reservation of a car. We assume that our customers wants to encourage the usage of the electric cars in the short time. In fact a user can only select a starting time for the reservation of a car which is at most 1 hour after the current S2B time, so we think that there is an high probability that a user performing a reservation of a car will actually be very interested in exploiting that reservation.
+* We assume that a user is considered near a car when its GPS position is inside a radius of 10 meters starting from the car GPS location
+* We assume that for users :“find the locations of available cars within a certain distance from their current location or from a specified address” shall be inteded as the fact that only users inside the city area should be able to find available cars starting from their GPS location or by inserting an address inside the city area.
+        We’ve made this assumption since if a user manages to find an then reserve
+        a car while still outside the city area, during the time needed to reach the reserved 
+car, a reservation by another user will probably happen.
+* We assume that the battery cited in the text is considered as the electric car tank. In fact in the real world every electric car has two main batteries: the battery array which serves as a tank and a 12 V battery which is necessary to guarantee the lock/unlock of the car, the ignition of the engine, the work of the ECU and all the general usage of the services in the car even if the tank is empty.
+* The car has a backup battery, so that the operator can reach a power grid station in order to recharge a car
+* When a car is recharged, the backup battery is recharged as well if needed
+* We assume from the text that every car has at least 3 seats
+* We assume that “a car is parked” means that the user is inside a safe area and the user can terminate the ride by pressing the button “Terminate Ride” on the screen of the car
+* We assume that “exits the car” means that the user can go out of the car and all the doors and windows in the car are closed
+* We assume that “pick up a car” means to unlock an available car
+* The software on board of the car is always on
+* A car is available only if it is inside a safe area
+* An available car is locked
