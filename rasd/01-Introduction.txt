@@ -24,17 +24,19 @@ Finally, in order to guarantee a uniform distribution of cars in the city, the u
 
 
 Goals
-The main goals that PowerEnjoy should fullfill for our customers are the followings:
-* G1: The system shall allow registered users to find available cars and reserve them.
-        This is the main goal to be fullfilled by the S2B. All the operations to 
+The overall, high level objectives which provide the motivations for the system in the world are the followings:
+
+
+* G1: The system shall allow users to find available cars and reserve them.
+        This is the main goal to be fulfilled by the S2B. All the operations to 
             achieve this goal will be done by final users through a mobile application
-* G2: The system shall guarantee the usage of the cars.
-        This goals aims to guarantee to registered users the usage of reserved cars and to 
+* G2: The system shall guarantee the usage of the cars as much as possible?
+        This goals aims to guarantee to users the usage of reserved cars and the 
 access to the reserved cars through a mobile application
 * G3: The system shall guarantee a uniform distribution of the cars in the city.
-        This goals aims to exploit as much as possible the usage of the cars by the users 
-and to incentivize new users to enroll to PowerEnjoy
-* G4: The system shall encourage registered users to use properly the reserved cars 
+        This goals aims to exploit the usage of the cars by the users as much as possible
+and to incentivize new users to sign up to PowerEnjoy
+* G4: The system shall encourage users to use properly the reserved cars 
         This goal aims to incentivize users to use properly the fleet of cars provided by the 
 company to reduce the maintenance time of the cars.
 
@@ -45,31 +47,38 @@ The application domain can be divided in three main parts: the World, the Shared
 
 
 Actual System
-Our customers don’t have by now a software for the management of the car-sharing service which they would like to provide, so we assume that the S2B will not incorporate any previous legacy software and will be developed from scratch. However to system will interact with external software to support part of the functionalities. More details about external interfaces will be explained in the Section 3 of this document.
+Our customers don’t have by now a software for the management of the car-sharing service which they would like to provide, so we assume that the S2B will not incorporate any previous legacy software and will be developed from scratch. However to system will interact with external software to support part of its functionalities. More details about external interfaces will be explained in the Section 3 of this document.
 
 
 Actors
-The main actors involved in the interactions with the S2B are the following:
-* Guest User: all the guest users can only see the introductory login page and 
+The main physical actors involved in the interactions with the S2B are the following:
+* Guest: all the guest users can only see the introductory login page and 
         decide to register to the system by following the registration procedure
-* Registered Users: this users, after a successfull login, can access to all the main functionalities of the S2B, among which: research of available cars inside the city, reservation of an available car, unlocking of a reserved car.
-
-
+* User: this users, after a successfull login, can access to all the main functionalities of the S2B, among which: research of available cars inside the city, reservation of an available car, unlocking of a reserved car.
 
 
 Definitions
-* Guest user: physical person whose email is not known by the S2B
-* Registered user: physical person whose credentials are known by the S2B
+* Actor: class of people or system that interact with the S2B
+* Guest: physical person whose email is not known by the S2B
+* User: physical person whose credentials are known by the S2B
 * Credentials: email and password
 * Car: an electric car
 * Safe Area : private area owned by the company. Each safe area is made of parking slots
 * Power safe area: it’s a special kind of safe area where each parking slot has a dedicated power plug that can be used to recharge a car
 * City area: the city area is the set of all the GPS positions within the boundaries of the city
+* Environment: the world in which reside the goals and domain assumptions of this software to be
+* PIN: unique password received by the user from the S2B at the end of the registration procedure. This password will be then used to access to the system. This password should not be confused with the password used by the user to perform the login.
+* Car failure: mechanical problem in the car. Examples of car failures are: battery empty, battery damaged, engine broken, failures caused by accidents and so on
 
 
 Acronyms
+* RASD = Requirements Analysis and Specification Document
 * S2B = Software to be
 * API = Application Programming Interface
+* ECU = Engine Control Unit
+* SDK = Software Development Kit
+* GPS = Global Positioning System
+* 3G =  3rd generation of wireless mobile telecommunications technology
 
 
 Abbreviations
@@ -80,15 +89,15 @@ Abbreviations
 
 
 Reference Documents
-* IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements Specifications: this document has been used for defining the general structure of the whole RASD
-* IEEE ISO/IEC/29148 - IEEE Standard On Requirement Engineering: this document has been used for all the general concepts about requirement engineering
 * Specification Document of PowerEnjoy
-* Paper by Jackson and Zave on the word and the machine
+* IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements Specifications: this document has been used for defining the general structure of the whole RASD (called SRS in the IEEE document)
+* IEEE ISO/IEC/29148 - IEEE Standard On Requirement Engineering: this document has been used for all the general concepts about requirement engineering
+* Paper by Jackson and Zave on the World and the Machine: this document has been used to understand better where to put the boundaries of the S2B
 
 
 Overview
 This document has been structured by following the IEEE Std 830-1998 with some minor modifications. The whole document is divided in four sections.
-* Section 1: Introduction, this section presents the main goals and users of the S2B. This section is audienced to all the stakeholder which have a legitimate interest in the system
-* Section 2: Overall Description, this section provides more informations about the boundaries of the S2B and the interactions between the S2B and external interfaces. This part is audienced to all the stakeholders
-* Section 3: Specific Requirements, this section provides more informations about all the aspects in Section 2 and is mainly audienced to the developers
-* Section 4: Appendix, this sections provides the models of the system created using Alloy
+* Section 1: Introduction, this section presents the main goals and relevant actors of the S2B. This section is audienced to all the stakeholder which have a legitimate interest in the system
+* Section 2: Overall Description, this section provides more informations about the boundaries of the S2B and the interactions between the S2B and external interfaces. It will also highlight the domain and text assumptions for S2B. This part is audienced to all the stakeholders.
+* Section 3: Specific Requirements, this section is the body of the whole RASD. It provides more informations about all the aspects in Section 2 and is mainly audienced to the developers. This section provides some mockups for the interfaces within the boundaries of the S2B, some informations about the external services used and also some scenarios of the use of the software system with related use cases and UML diagrams. In this section all the goals of the S2B will be investigated deeply and for every goal a list of functional and non-functional requirements will be presented.
+* Section 4: Appendix, this sections provides the models of the system created using Alloy. Alloy will be used to verify some critical aspects of the S2B.
