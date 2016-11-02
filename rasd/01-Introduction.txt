@@ -30,7 +30,7 @@ The overall, high level objectives which provide the motivations for the system 
 * G1: The system shall allow users to find available cars and reserve them.
         This is the main goal to be fulfilled by the S2B. All the operations to 
             achieve this goal will be done by final users through a mobile application
-* G2: The system shall guarantee the usage of the cars as much as possible?
+* G2: The system shall guarantee the usage of the cars
         This goals aims to guarantee to users the usage of reserved cars and the 
 access to the reserved cars through a mobile application
 * G3: The system shall guarantee a uniform distribution of the cars in the city.
@@ -39,6 +39,9 @@ and to incentivize new users to sign up to PowerEnjoy
 * G4: The system shall encourage users to use properly the reserved cars 
         This goal aims to incentivize users to use properly the fleet of cars provided by the 
 company to reduce the maintenance time of the cars.
+
+
+All the goals contribute together to guarantee the main goal for PowerEnjoy, which is that the cars are used as much as possible by the users.
 
 
 Scope
@@ -57,18 +60,23 @@ The main physical actors involved in the interactions with the S2B are the follo
 * User: this users, after a successfull login, can access to all the main functionalities of the S2B, among which: research of available cars inside the city, reservation of an available car, unlocking of a reserved car.
 
 
+Definitions, acronyms, abbreviations
+
+
 Definitions
 * Actor: class of people or system that interact with the S2B
 * Guest: physical person whose email is not known by the S2B
 * User: physical person whose credentials are known by the S2B
 * Credentials: email and password
-* Car: an electric car
-* Safe Area : private area owned by the company. Each safe area is made of parking slots
+* Car: an electric car of the PowerEnjoy company
+* Safe Area : private area owned by the company. Each safe area is made of multiple parking slots
 * Power safe area: it’s a special kind of safe area where each parking slot has a dedicated power plug that can be used to recharge a car
 * City area: the city area is the set of all the GPS positions within the boundaries of the city
 * Environment: the world in which reside the goals and domain assumptions of this software to be
 * PIN: unique password received by the user from the S2B at the end of the registration procedure. This password will be then used to access to the system. This password should not be confused with the password used by the user to perform the login.
-* Car failure: mechanical problem in the car. Examples of car failures are: battery empty, battery damaged, engine broken, failures caused by accidents and so on
+* Car failure: mechanical problem in the car. Examples of car failures are: battery damaged, engine broken, flat tires, and failures caused by accidents
+* Service battery: battery inside the car which provides the energy needed for the functioning of all the electrical equipment in the car. This battery can work even when the main battery of the car is empty
+* Battery (Battery Array):  is the energy tank of the car
 
 
 Acronyms
@@ -78,14 +86,14 @@ Acronyms
 * ECU = Engine Control Unit
 * SDK = Software Development Kit
 * GPS = Global Positioning System
-* 3G =  3rd generation of wireless mobile telecommunications technology
+* 3G =  3rd generation wireless mobile telecommunications technology
 
 
 Abbreviations
 * G[i] = ith goal
 * R[i] = ith requirement
 * D[i] = ith domain assumption
-* Im[i] = ith interface mockup
+* M[i] = ith mockup
 
 
 Reference Documents
@@ -93,6 +101,7 @@ Reference Documents
 * IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements Specifications: this document has been used for defining the general structure of the whole RASD (called SRS in the IEEE document)
 * IEEE ISO/IEC/29148 - IEEE Standard On Requirement Engineering: this document has been used for all the general concepts about requirement engineering
 * Paper by Jackson and Zave on the World and the Machine: this document has been used to understand better where to put the boundaries of the S2B
+* Maintencance manual for electric cars involved in a famous car sharing service: http://www.sharengo.eu/cs/wp-content/uploads/2014/05/Manuale-duso-e-manutenzione-Icar0.pdf
 
 
 Overview
