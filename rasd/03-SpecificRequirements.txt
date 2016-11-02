@@ -3,11 +3,9 @@
 
 EXTERNAL INTERFACE REQUIREMENTS
 1. USER INTERFACES
-2. API INTERFACES
-3. HARDWARE INTERFACES
-4. SOFTWARE INTERFACES
-5. COMMUNICATION INTERFACES
-6. MEMORY
+2. HARDWARE INTERFACES
+3. SOFTWARE INTERFACES
+4. MEMORY
 
 
 FUNCTIONAL REQUIREMENTS
@@ -22,23 +20,8 @@ FUNCTIONAL REQUIREMENTS
 8. The system shall not allow a guest to complete the registration if he/she is not at least 18 years old
 9. The system shall not allow a guest to complete the registration if he/she has an invalid driving license
 10. The system shall not allow a guest to complete the registration if he/she has provided an invalid payment method
-11. The system shall guarantee that at most one user can succeed to reserve a specified car at a specified time (minute precision)
+11. The system shall guarantee that a can cannot be reserved at the same time by more than one user
 * G2 : Allow users to use the reserved cars
-1. The system shall guarantee that a user which has reserved a car can unlock it if at most one hour has passed from his reservation and the user is at most 10 meters away from the car (soste escluse)
-2. The system shall guarantee that the engine of the car ignites if and only if the PIN inserted by the user is correct
-3. The system shall guarantee that, if the engine is not turned on within 5 minutes from the unlocking of the car, the car is set to unavailable (because the car door might be open, or the user might be in the car without turning on the engine)
-4. The system shall be able to check when a car is leaving or entering a safe area (in order to keep the number of available parking slots updated)
-5. The system shall guarantee that, when the battery of a car is more than 95% empty or it cannot be used because it is damaged, the car is set to unavailable
-6. The system shall guarantee that, when a car is unavailable, an operator provides to fix it as soon as possible
-7. The system shall guarantee that, when a car is set as unavailable, the last non terminated reservation is ended automatically
-8. The system shall guarantee that, when a user parks the car in a safe area and exits it closing the doors, the car is locked automatically and set as available
-9. The system shall guarantee that, when a user parks the car in a safe area, turns off the engine and doesn't close the doors, the car is set to unavailable
-10. The system shall guarantee the unlock of a reserved car if and only if the user requesting the unlock is the one who made the last reservation for that car
-11. The system shall guarantee the termination of a reservation only if the car is parked in a safe area
-
-
-             NEW REQUIREMENTS
-        
                 1) The system shall guarantee that if a user doesn’t unlock the car he/she has 
      reserved within 1 hour from the reservation time, the reservation 
      expires, the user shall pay a fee of 1 EUR and the car is set as available
@@ -87,19 +70,12 @@ FUNCTIONAL REQUIREMENTS
 6. The system shall tag a car as available if it is not picked up within 1 hour from its last reservation
 
 
-Goals 2, 3, and 4 contribute together to guarantee that cars are used as much as possible by the users.
-
-
 SCENARIOS
 The following scenarios are a description of imagined sequences of events that include the interaction of the S2B with its environment and users, as well as the interaction among its components. Scenarios are useful to identify requirements that may not have been formally specified by any of the stakeholders. 
 
 
 SCENARIO 1: REGISTRATION
 Alonso doesn’t like the public transportation, he thinks that those vehicles are too slow to move in the city. A friend told him that a new car-sharing service called PowerEnjoy is available in the town, so Alonso decides to go on the app store and download the PowerEnjoy mobile app. Alonso opens the PowerEnjoy app. He presses the button “Register” and the registration procedure starts. Alonso fills correctly the registration form with his personal data, he provides a valid credit card, its driving license id and presses the button “Complete” to end the registration procedure. The registration procedure completes correctly and Alonso receives an email with a PIN to use the cars with PowerEnjoy.
-
-
-
-
 
 
 SCENARIO 2: LOGIN, RESERVATION AND CAR UNLOCK
@@ -469,13 +445,13 @@ Exceptions: The users picks up the car in time and no fee is applied. The user d
 NON FUNCTIONAL REQUIREMENTS
 
 
-
-
-
-
-
-
-
-
+1. PERFORMANCE REQUIREMENTS
+2. DESIGN CONSTRAINTS
+3. SOFTWARE SYSTEM ATTRIBUTES
+   1. RELIABILITY
+   2. AVAILABILITY
+   3. SECURITY
+   4. MAINTAINABILITY
+   5. PORTABILITY
 [a]qualcosa del genere? su questo non saprei come fare, non può visualizzarle tutte, dobbiamo decidere un vincolo
 [b]o può anche attivare dopo l'opzione?
