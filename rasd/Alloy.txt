@@ -1,0 +1,92 @@
+﻿module util/boolean
+module util/integer
+
+
+sig Name, Surname, Addr{}
+sig Username, Password, PIN{}
+
+
+sig RegisteredUser{
+        name: some Name,
+        surname: some Surname,
+        address: one Addr,
+        username: one Username -> one Password,
+        pin: one PIN,
+        loggedIn: one Bool,
+        reservation: lone Reservation,
+position: one GPS,
+}
+
+
+sig Reservation{
+        moment: one Moment
+        reservedCar: one Car
+        requestUnlock: lone requestUnlock
+        unlockOutcome: one Bool
+}
+
+
+sig Moment{
+        seconds: Int
+        minutes: Int, 
+        hours: Int
+}
+
+
+sig GPS{
+coordinateX: one Int //Alloy doesn’t support Float
+coordinateY: one Int
+}
+
+
+
+
+sig RequestUnlock{
+correctPosition: one Bool
+correctTime: one Bool
+}
+
+
+sig Car{
+        position: one GPS,
+        available: one Bool
+        InMaintenance : one Bool,
+        reservation: lone Reservation,
+        locked: lone Lock,
+}
+
+
+
+
+pred NoSameUsernameForDifferentUsers[u1: User, u2: User]{
+        u1.username != u2.username
+}
+
+
+pred NoSamePINForDifferentUsers[u1: User, u2: User]{
+        u1.pin != u2.pin
+}
+
+
+//A reserved car is set as unavailble
+pred AllowReservationOfAvailableCars [u1: User, c: Car]{
+        u1.reservation.reservedCar = c  implies 
+(c.available = False and c.InMaintenance = False and
+c.reservation = u1.reservation.reservedCar)
+}
+
+
+pred NoReservationOfSameCarAtSameTime[u1: User, u2: User, c: Car]{
+(u1.reservation.reservedCar = c and u1.reservation.moment =  
+u2.reservation.moment) implies (u2.reservation.reservedCar != c)
+}
+
+
+//If the user is near the car and in time and requests the car unlock, 
+//the car unlock outcome will be positive and car will be unlocked.
+pred UnlockToStartRental[u1: User, c: Car]{
+        ( (u1.reservation != none and u1.reservation.requestUnlock != none) and 
+          (u1.reservation.requestUnlock.correctPosition = True and
+           u1.reservation.requestUnlock.correctTime = True) ) implies
+        (u1.reservation.unlockOutcome = True and c.locked = False)
+}
