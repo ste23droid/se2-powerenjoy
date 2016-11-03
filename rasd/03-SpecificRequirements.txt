@@ -1,4 +1,4 @@
-﻿SPECIFIC REQUIREMENTS
+SPECIFIC REQUIREMENTS
 
 
 EXTERNAL INTERFACE REQUIREMENTS
@@ -7,6 +7,15 @@ EXTERNAL INTERFACE REQUIREMENTS
 3. SOFTWARE INTERFACES
 4. MEMORY
 
+HARDWARE INTERFACES
+//Riporta acronimo e secondo documento della prof nella bibliografia
+In order to retrieve data from the car’s sensor and in order to operate on the car’s actuators, the S2B shall interact with a software interface implemented on the vehicles: this software layer, in particular, shall receive the data from a low-level board that uses a CAN-bus, directly connected with the electronic hardware of the vehicles. Using the methods offered by this software interface, the S2B shall get all the desired data and control some functions of the vehicle. 
+Further details about the design of the underneath software/hardware solution, however, are beyond the purposes of this document. It is noticeable, though, that similar solutions were already theorized.
+
+SOFTWARE INTERFACES
+
+MEMORY
+The S2B shall require the necessary memory for downloading and installing the PowerEnjoy app’s package on the customer’s smartphone.
 
 FUNCTIONAL REQUIREMENTS
 * G1: Allow users to find available cars and reserve them
