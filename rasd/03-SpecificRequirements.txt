@@ -95,31 +95,27 @@ The concert holds far away from where Mike lives, so when he reaches the destina
 
 
 Scenario 6: missed reservation
-John is a regular employee in a business company in Milan and after a long day of work he
+John is a regular employee in a business company and after a long day of work he
 is finally close to going back home. While checking the last reports, his friend Paul reminds
 him about the national strike of the public transport occurring that day: John, who has 
-already tried the PowerEnjoy services a couple of times, decides to login using the PowerEnjoy application, he presses the “Find available cars” button and when the map activity is complete loaded, he locates an available car near his office address, and reserves it. Fifteen minutes later, John's colleague Mary offers him a ride back home: John, who has always had a crush on Mary, cannot refuse and accepts enthusiastically. On the way back home with Mary, John suddenly remembers of his missed reservation: he checks his profile in the PowerEnjoy app and sees that he has paid a little fee of 1 euro. 
+already tried the PowerEnjoy services a couple of times, decides to login using the PowerEnjoy application, he presses the “Find available cars” button and when the map activity is completely loaded, he locates an available car near his office address and reserves it. Fifteen minutes later, John's colleague Mary offers him a ride back home: John, who has always had a crush on Mary, cannot refuse and accepts enthusiastically. On the way back home with Mary, John suddenly remembers of his missed reservation: he checks his profile in the PowerEnjoy app and sees that he has paid a little fee of 1 euro. 
 A trivial cost for being able to talk with Mary on the way home.
+
 
 
 Scenario 7: saving money option
 Lorenzo is a student of Politecnico of Milan but, unfortunately, he has having quite 
 a struggle in succeeding in the exams. Since his parents are becoming tired of economically
 supporting him, Lorenzo is trying to sparing some of his monthly budget.
-After finding out about the money saving option offered by PowerEnjoy, Lorenzo, a loyal 
-customer of the company for the last two years, decides to give it a try.
-Lorenzo starts up the PowerEnjoy app and logs into the system, finds an available car 
-from his current position and enables the money saving option: he enters the address of
-his destination, that is the home of his physics tutor, and reserves the car. The system tells 
-Lorenzo via app the designed safe park area, conveniently close to his destination.
-When Lorenzo reaches the reserved car, he is able to unlock it using the PowerEnjoy app:
-after reaching his destination, Lorenzo is notified via app about the charged price and the applied discount. Lorenzo can now travel through the city without the worry of spending too much money, thus focusing more on his studies.
+After finding out about the money saving option offered by PowerEnjoy, Lorenzo, already a  registered user, decides to give it a try.
+Lorenzo starts up the PowerEnjoy app on his smartphone; from the menu of the main screen of the app he selects the button for the login and inserts his credentials; once logged in, he uses the function for finding an available car from his current position and he reserves it. Ten minutes later, Lorenzo is close to the car: using the PowerEnjoy app, Lorenzo unlocks the car by selecting the corresponding option on the menu; once in the vehicle, Lorenzo checks the “Saving money option” showed on the screen: he then enters his destination, the home of his physics tutor, and the closest safe area to the inserted destination is shown to him; Lorenzo accepts it by pressing a button on the screen and inserts his personal PIN to ignite the vehicle’s engine.
+After his journey, Lorenzo parks in the defined safe area; he then press the option “Conclude your rental” on the car’s screen and exits properly the car. 
+A few minutes later Lorenzo is notified via app about the charged price and the applied discount. Lorenzo can now travel through the city without the worry of spending too much money, thus focusing more on his studies.
 
 
 Scenario 8: plugging the car
-Thomas loves going to the cinema. Tonight, Thomas wants to watch an interesting action movie that he heard of from a friend: as a registered user of PowerEnjoy he logs into the site, he looks for a car near his home address, and reserves it for the following hour: 
-when the time comes, Thomas picks up the car by telling his position
-via the PowerEnjoy app and unlocks the car. After his journey, Thomas parks the car in one of the special area of the city. Thomas remembers that he has not chosen the saving money option and notices that the car has 40% of battery left, so he decides to plug the car into the power grid. While entering the cinema, Thomas gets a notification from the PowerEnjoy app: he obtained a 30% discount on the last ride. Happy for his reward, now Thomas can now enjoy better the movie.
+Thomas loves going to the cinema. Tonight, Thomas wants to watch an interesting action movie that he heard of from a friend: as a registered user of PowerEnjoy he logs into the system selecting the related option in the PowerEnjoy app; he selects the option for locating a car and looks on the map for a car near his home address; he then reserves it.
+After thirty minutes from his reservation, Thomas arrives at a couple of meters from the car: he tells his position to the system via the PowerEnjoy app and unlocks the car. Thomas enters the car, inserts his personal PIN on the screen of the car and ignites the engine of the car. After his journey, Thomas parks the car in one of the special area of the city. Thomas remembers that he has not chosen the saving money option before inserting his PIN and notices that the car has 40% of battery left: after selecting the “Conclude your rental option on the screen” and exiting properly the car, he decides to plug the car into the power grid. While entering the cinema, Thomas gets a notification from the PowerEnjoy app: he obtained a 30% discount on the last ride. Happy for his reward, now Thomas can now enjoy better the movie.
 
 
 UML MODELS
@@ -258,15 +254,13 @@ Goal: [G2]
 Actors: Car
 Entry condition: “LockTheCarAutomatically” use case
 Flow of events:
-1. The system asks the battery sensor of the car about the remaining charge
-2.  The car provides the remaining battery percentage to the system
-3. The system verifies that the car’s battery is at most 95% empty
-4. The system asks the car’s damage sensor if the car has some damage
-5. The car’s damage sensor tells the system that the car has no damage
+The system, using the vehicle software interface, asks the battery sensor of the car about the remaining charge
+The car provides the remaining battery percentage to the system
+The system verifies that the car’s battery is at most 95% empty
+The system asks the car’s damage sensor if the car has some damage
+The car’s damage sensor tells the system that the car has no damage
 Exit conditions: the car is set to available, so that another user can reserve it
-Exceptions: 
-*  The car’s battery is more than 95% empty; the car is set to unavailable, “OperatorChargesCar” use case
-* The car is damaged: the car is set to unavailable “OperatorRepairsCar” use case
+Exceptions:  The car’s battery is more than 95% empty or some car failure has occurred; the car is set to unavailable, and the operator will fix it.
 
 
 Use case: OperatorChargesCar
@@ -289,15 +283,13 @@ Actors: User, car’s GPS, car’s door sensor
 Entry conditions: the User has logged into the system, localized and reserved a car. He has then picked up the car within 1 hour from his reservation, and finally concluded his journey by stopping the car.
 Flow of events: 
 1. The User presses on the on-board display the option “Conclude your rental”.
-2. The system asks the car’s GPS the current location of the car
+2. The system, using the vehicle software interface, asks the car’s GPS the current location of the car.
 3. The car’s GPS provides the required information to the system.
-4. The system confirms that the received coordinates corresponds to one of the known safe areas (maximum 10 meters from the related coordinates) and that there is at least one availbale spot.
+4. The system confirms that the received coordinates corresponds to one of the known safe areas (maximum 10 meters from the related coordinates) and that there is at least one available spot.
 5. The system confirms the end of the rental on the on-board screen.
 6. The system registers that there is one less available spot in that safe area.
-Exit conditions: After the exit of the user, the system procedes to lock down the car (G2, LockTheCarAutomatically)
-Exceptions: The system can’t find a correspondence between the coordinates of the car and the coordinates of any safe area. The system notificates the user trough the on-board display that his rental cannot end until he has reached a safe area.
-
-
+Exit conditions: After the exit of the user, the system proceedes to lock down the car (G2, LockTheCarAutomatically)
+Exceptions: The system can’t find a correspondence between the coordinates of the car and the coordinates of any safe area or detects that there are no spots available in that safe area. The system notifies the user trough the on-board display that his rental cannot end until he has reached a safe area.
 
 
 UseCase: LockTheCarAutomatically
@@ -305,17 +297,14 @@ Goal: [G2]
 Actors: User, car
 Entry Conditions: The user has decided to conclude his rental (G2, ConcludeRental) or to make a stop. The user has exited the car.
 Flow of events:
-1. The system asks the car’s sensors if the car doors, the windows and the trunk are closed.
+1. The system, using the vehicle software interface, asks the car’s sensors if the car doors, the windows and the trunk are closed.
 2. The car’s sensor tells the system that the doors, the windows and the trunk have been closed.
 3. The system demands the car lock.
 4. The car locks down.
 5. The system stops charging the User.
 Exit conditions: The system proceeds with the evaluation of the User’s bill (G4, UC.4.1). 
 “setCarToAvailable” use case
-Exceptions: the car sensor tells the system that some car door, window or the trunk isn’t closed; the car status is set to unavailable
-
-
-
+Exceptions: The car’s sensor tells the system that some car door, window or the trunk isn’t closed; the car status is set to unavailable.
 
 
 
@@ -345,7 +334,6 @@ Exceptions: a. There are no power grid stations in a radius of 2 km from the des
 b. The destination address inserted in not valid; the system shows a message on the car screen that says to insert a valid address or cancel the money saving option request
 
 
-G4, UC.1.1
 Use case: PayLastRide
 Goal: [G4]
 Actors: Payment service
@@ -355,82 +343,76 @@ Flow of events:
 2. Based on the previous evaluated minutes, the system calculates the User’s bill value.
 3. The system evaluates possible discounts and penalties, starting from the discount due to the remaining battery (G4, UC.2.1, GetBatteryDiscount).
 4. The system interacts with the external payment service in order to charge the user.
-Exit conditions:        
+Exit conditions:	
 The system notifies the user about the bill of the last ride, including discounts an penalties applied.
 Exceptions:
 The systems is notified that the payment was not successful. The system blocks the User.
 
 
-G4, UC.2.1
 UseCase: GetBatteryDiscount
 Goal: [G4]
 Actor: Car’s battery sensor
 Entry condition:
 The system has evaluated the bill of the User’s last ride (G4, UC.1.1, PayLastRide).
 Flow of events:
-1. The system asks the battery sensor of the car about the remaining charge.
+1. The system, using the vehicle software interface, asks the battery sensor of the car about the remaining charge.
 2. The car’s sensor provides the remaining battery percentage to the system.
-Exit conditions:        
+Exit conditions:	
 The remaining battery is more than 50% and the system registers a 20% discount on the original calculated bill. The system evaluates a second possible discount (G4, UC.3.1)
 Exceptions:
 The remaining battery is less than 50% and no discount is applied. 
 
 
-G4, UC.3.1
 Use case: PlugCarAndGetDiscount
 Goal: [G4]
 Actors: User, car’s battery sensor
 Entry condition: The system has evaluated the remaining battery percentage in order to apply the related discount (G4, UC.2.1)
 Flow of events:
 1. The user plugs the car into a power grid.
-2. The system asks the car’s sensor if the car is recharging.
+2. The system, using the vehicle software interface, asks the car’s sensor if the car is recharging.
 3. The car’s sensor tells the system that the car is recharging.
-Exit conditions:        
+Exit conditions:	
 The system adds a 30% discount on any eventual previous discount (G4, UC.2.1) on the original calculated bill: The system proceeds to evaluate a possible penalty for the user (G4, UC.4.1)
 Exceptions:
 The user does not plug the car into a power grid, the battery is not recharging and the system doesn’t apply any discount.
 
 
-G4, UC.4.1
 UseCase: ParkFarFromGrid
 Goal: [G4]
 Actors: Car’s battery sensor, car’s GPS
 Preconditions: The system has evaluated if the car was recharging in order to apply the related discount (G4, UC.3.1)
 Flow of events:
-1. The system asks the car’s position to the car’s GPS.
+1. The system asks through the vehicle software interface the car’s position, as detected by the car’s GPS.
 2. The car’s GPS provides the coordinates.
-3. The system evaluates that the car is more than 3 KM from the nearest power grid
-4. The system charges 30% more on the last ride 
-Exit conditions:        
+3. The system evaluates that the car is more than 3 KM from the nearest power grid.
+Exit conditions:	
 The system charges 30% more on the last ride, still considering eventual previous discount (G4, UC.2.1, UC.3.1) on the original bill.
 Exceptions:
 The system evaluates that car is less than 3 KM from the nearest power grid and no penalty is applied. The system checks for the battery status (G4, U.C.4.2).
 
 
-G4, UC.4.2
 Use case: LeaveLowBattery
 Goal: [G4]
 Actors: Car’s battery sensor
 Preconditions: The system has evaluated that the car was no more than 3 KM far from a power grid (G4, UC.4.1)
 Flow of events:
-1. The system asks the battery sensor of the car about the remaining charge.
-2. The car’s sensor provides the remaining battery percentage to the system.
-Exit conditions:        
+1. The system, using the vehicle software interface, asks the remaining charge in the car detected by the car’s battery sensor.
+2. The car’s sensor provides the remaining battery percentage to the system through the software interface.
+Exit conditions:	
 The remaining battery is less than 20% and the system registers a 30% charge on the last ride, that will be subtracted to any eventual previous discount (G4, UC.2.1, UC.3.1) on the original calculated bill. 
 Exceptions:
 The remaining battery is more than 20% and no extra charge on the last ride is applied.
 
 
-G4, UC.5-6.2
 Use Case: MissedReservation
 Goal: [G4]
-Actors: user, Payment service
+Actors: User, Payment service
 Preconditions: The user has logged into the system (G1, UC?), located and reserved a car (G1, UC?). 
 Flow of events: 
 1. The user does not pick up the reserved car within 1 hour from his reservation
 2. The system interacts with an external payment service and charge the user a fee of 1 EUR
-3. The system notifes the user about the missed reservation and the consequent fee.
-Exit conditions: The car that the user reserved is now tagged as available, and other users can reserve it.
+3. The system notifies the user about the missed reservation and the consequent fee.
+Exit conditions: The car that the user reserved, still fully functional, is now tagged as available, and other users can reserve it.
 Exceptions: The users picks up the car in time and no fee is applied. The user does not have the requested money and the system, notified by the payment service, blocks his profile.
 
 
