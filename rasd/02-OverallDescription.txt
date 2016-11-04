@@ -4,24 +4,23 @@
 PRODUCT PERSPECTIVE 
 The proposed solution for the system of PowerEnjoy won’t have to rely or to be interfaced with a previous car-sharing system of the same company. The system core functionalities will be developed from scratch, however part of the offered functionalities will rely on external services for these main reasons:
 1. Some functionalities cannot work without interfacing with specific databases or informative systems
-2. Reduce development costs by relying on APIs well known and already present in the market
+2. Reduce development costs by relying on well known  APIs already present in the market
 3. Guarantee the portability of the system on multiple platforms
 
 
-The system will be developed having in mind mobile devices (Android, iOS) and car touchscreen as core devices. However efforts will be done during the development to try to rely the least as possible to native Android SDK APIs or to Swift SDK APIs, so a future development of a web application for PowerEnjoy won’t need much changes in the internal logics of the system.
+The system will be developed having in mind as core devices: mobile devices (Android, iOS) and car touchscreen. However efforts will be done during the development to try to rely the least as possible to native Android SDK APIs or to Swift SDK APIs, so that a future development of a web application for PowerEnjoy won’t need much changes in the internal logics of the system.
 
 
 * USER INTERFACES
-        The interface of the system on smartphone devices will be developed to support 
-screen devices ranging from 3 inches diagonal and up, to support both smartphone devices with small screen size and phablets. The interface should also support a correct visualization even when the smartphone screen is rotated (orientation change).
-After the user is logged in, the user won’t be redirected immediately on a map activity to find and reserve available cars, he/she will be redirected on a menu activity. This decision will help in the future if our customer will ask us to add new functionalities like: support the user to change his/her personal informations, support the user to pay PowerEnjoy when there are some debt since one or more payments on his credit card has failed.
+        The interface of the system on mobile devices will be developed to support 
+screen devices ranging from 3 inches diagonal and up, to support both devices with small screen sizes and phablets. The interface should also support a correct visualization even when the smartphone screen is rotated (orientation change).
+After the user is logged in, the user won’t be redirected immediately on a map activity to find and reserve available cars, he/she will be redirected on a menu activity. This decision will help in the future if our customer will ask us to add new functionalities like: support the user to change his/her personal informations, support the user to pay PowerEnjoy when there are some debts with the company since one or more payments on the credit card of the user have failed.
 The interface of the system on the car’s screen will be developed to be simple and immediate.
 
 
 * HARDWARE INTERFACES
-        The main hardwareinterface to take into account for the S2B is the interaction 
-with the CAN Bus within every car. The S2B shall be able to read and write signals on the CAN Bus. However the details about the design of this interface will not 
-be provided as part of this document.
+        The main hardware interface to take into account for the S2B is the interaction 
+with the hardware of every car. The system shall be able, as expressed further on the Requirements section, to know the status of the car and control some of its function using a software interface implemented on the vehicles.
 
 
 * SOFTWARE INTERFACES
@@ -33,10 +32,6 @@ functionalities:
 * -Name : -----
         -Mnemonic: BillingService
         -Source: -----
-* -Name: Driving License Verification APIs
-                -Mnemonic: CivilMotorization
-                -Source: this interface is not publicy available and a strict collaboration with 
-   the government of the city will be needed to use this external service
 
 
 PRODUCT FUNCTIONS
@@ -89,19 +84,16 @@ DOMAIN ASSUMPTIONS
 * A user won’t drive a car without a valid driving license 
 * A user cannot let another user to use the car he has reserved by providing its PIN to him/her
 * The GPS data are always correct
-* Every car has a GPS module that can never be turned off
-* Every car has a 3G module that can never be turned off
-* The software on board of the car is always on
+* Every car has a GPS module that is always on
+* Every car has a 3G module that is always on
+* The software on board of the car is always on even when the screen on the car is turned off to save battery energy
 * All the sensors in the cars work correctly
-* A car with empty battery or occurring in a mechanical failure will always be able to communicate to the system about the problem
-* A user occurring in a car failure or emptying the battery of his/her reserved car will stop using that car
+* A car with empty battery or occurring in a mechanical failure will always be able to communicate to the system
+* A user occurring in a car failure or emptying the battery of his/her reserved car will stop using that car as soon as possible
 * The unique PIN received back by a user after the registration will always be known by the user
 * The mobile phone used by guests and users it’s provided with GPS technology and with at least 3G connectivity technology
 * Guests and users cannot interact with the functionalities of the S2B through the mobile application without both GPS and 3G connection enabled
 * Every parking slot in a power safe area has a dedicated and working power plug
-* The users always parks properly is a parking slot of a safe area
-* When the car’s battery is 95% empty, the user must end his ride by parking in a safe area
-* From every location inside the city area, a safe area with at least one parking slot available can be reached with less than 5% of battery
 
 
 TEXT ASSUMPTIONS
@@ -114,11 +106,10 @@ TEXT ASSUMPTIONS
         We’ve made this text assumption since we think that if a user manages to find and
 then reserve a car while still outside the city area, during the time needed to reach 
 the reserved car, a reservation by another user will probably happen.
-* We assume that the battery cited in the text is considered as the electric car tank. In fact in the real world every electric car has two main batteries: the battery array which serves as a tank and a service battery (usually 12 V) which provides the energy  necessary for the functioning of all the electrical equipments in the car even when the battery array is empty. The service battery provides energy to guarantee the lock/unlock of the car, the ignition of the engine, the work of the ECU and so on.
+* We assume that the battery cited in the text is considered as the electric car tank. In fact in the real world every electric car has two main batteries: the battery array which serves as a tank and a service battery which provides the energy necessary for the functioning of all the electrical equipments in the car even when the battery array is empty. The service battery provides energy to guarantee the lock/unlock of the car, the ignition of the engine, the work of the ECU and so on.
 * When a car is plugged to a power plug inside a power safe area, the battery array recharges and the service battery recharges as well
 * We assume from the text that every car has at least 3 seats
-* We assume that “a car is parked” means that the user is inside a safe area and the user can terminate the ride by pressing the button “Terminate Ride” on the screen of the car
-* We assume that “exits the car” means that the user goes out of the car and by doing this action he has taken care that all the doors and windows in the car are closed properly
-* We assume that “pick up a car” means to unlock an available car
 * A car is available only if it is inside a safe area
 * An available car is locked
+* The safe areas are distributed uniformly inside the city area (otherwise cars cannot be distributed uniformly in the city)
+* A vehicle not owned by PowerEnjoy cannot be left in a parking slot inside a safe area
