@@ -30,46 +30,29 @@ FUNCTIONAL REQUIREMENTS
 9. The system shall not allow a guest to complete the registration if he/she has an invalid driving license
 10. The system shall not allow a guest to complete the registration if he/she has provided an invalid payment method
 11. The system shall guarantee that a can cannot be reserved at the same time by more than one user
+
 * G2 : Allow users to use the reserved cars
-                1) The system shall guarantee that if a user doesn’t unlock the car he/she has 
-     reserved within 1 hour from the reservation time, the reservation 
-     expires, the user shall pay a fee of 1 EUR and the car is set as available
-3) The system shall guarantee that a reserved car in a safe area can be 
-     unlocked only if the PIN inserted by the user is correct and the unlock has 
-     been requested within 10 meters from the current GPS position of the 
-     car
-4) The system shall guarantee that, if the engine is not turned on within 5 
-    minutes from the unlocking of the car, the car is set to unavailable
-    (because the user may have not entered, or the user might have entered in 
-    the car without turning on the engine using the car without paying also for 
-    days)
-5) The system shall be able to detect when a car is leaving or entering a safe 
-    area (in order to keep the number of available parking slots updated
-                     and avoid the termination of the ride in a full safe area)
-6) The system shall guarantee that, when a car is set as unavailable, the last 
-     non terminated reservation for that car is ended automatically
-7) The system shall guarantee that if car is unavailable, the engine can’t ignite
-8) The system should guarantee that as soon as the engine ignites for the 
-    first time during a reservation, the system starts charging the user with a  
-    given amount of money per minute and the user is notified of the        
-    current charges through a screen on the car.
-
-
-10) The system shall be able to set a car as unavailable if a failure in the 
-      car occurs
-11) The system shall guarantee that, if a user 
-      presses the "Terminate reservation" button on the screen of the car and 
-      the reservation can terminate, the engine will be turned off
-12) The system shall guarantee that, when a user parks the car in a safe area 
-      and exits the car, the car is set to available
-13) The system shall guarantee that, when a user parks the car in a safe area 
-      and doesn't exits the car, the car is set to unavailable
-
+1. The system shall guarantee that a reserved car can be unlocked only by the user who made the reservation and if the unlock is requested within 10 meters from the current GPS position of the car.
+2. The system shall allow the user to ignite the engine only after the insertion of the personal PIN.
+3. The system should guarantee that when the engine ignites for the first time during a reservation, the user starts being charged with a given amount of money per minute.
+4. The system shall show the user of the current charges of his/her reservation through a screen inside the reserved car.
+5. The system shall guarantee that, if the engine is not turned on within 20 minutes from the last unlocking of the car, the car is set to unavailable: the user, in fact, may have not entered, or the user might have entered in  the car without turning on the engine using the car without paying also for days.
+6. The system shall be able to detect when a car is leaving or entering a safe area (in order to keep the number of available parking slots updated and avoid the termination of a ride in a full safe area.
+7. The system shall guarantee that, when a car is set as unavailable the last eventual non terminated reservation for that car expires (eventual perchè potrebbe guastarsi anche in una safe area)
+8. The system shall tag a car as unavailable when the battery is empty or if a car failure (Glossary) occurs.
+9. The system shall stop charging money to the user when he/she has parked in a safe area, selected on the screen of the car the option “Conclude your reservation” and he/she has exited properly (Glossary) the car.
+10. The system shall guarantee that, if a user presses the "Terminate reservation" button on the screen of the reserved car and the reservation can terminate, the engine will be turned off.
+11. The system shall set the car to available when a user parks the car in a safe area and exits properly the car. 
+12. Once the user has communicated to end his reservation or make a stop, and after the user has exited properly the car, the system shall lock the car.
+13. The system shall set the car to unavailable when a user parks the car and doesn't exit properly the car, preventing its the lock.
+14. The system shall be able to locate every car.
+15. The system shall be able to check and set the status of every car (chiedere ogni certo tempo quale sia lo stato dell’auto, controllare che non ci siano stati guasti all’auto).
 
 * G3:  Guarantee a uniform distribution of the cars in the city
 1. The system shall encourage users to share the car by applying a discount of 10% on the last ride to users which have picked up at least two other passengers during the ride
 2. The system shall detect the presence of passengers in the reserved and unlocked car
 3. The system shall implement a money saving option in which the users inserts his destination and the system shows the safe areas where to leave the car in order to get a discount
+
 * G4 : Encourage users to use properly the reserved cars
 1. The system shall evaluate the cost of the user’s last ride using a rate based on a specific amount of EUR per minute
 2. The system shall apply a discount of 20% on the last ride to users leaving after the ride more than 50% of the battery in the reserved car
