@@ -3,27 +3,28 @@ module util/integer
 
 
 sig Name, Surname, Addr{}
-sig Username, Password, PIN{}
+sig Email, Password, PIN{}
 
 
 sig RegisteredUser{
         name: some Name,
         surname: some Surname,
         address: one Addr,
-        username: one Username -> one Password,
+        email: one Email -> one Password,
         pin: one PIN,
-        loggedIn: one Bool,
-        reservation: lone Reservation,
-position: one GPS,
+        suspended: one Bool,
+        reservation: set Reservation
 }
 
 
 sig Reservation{
+        uniqueID: one Int
         moment: one Moment
         reservedCar: one Car
-        requestUnlock: lone requestUnlock
-        unlockOutcome: one Bool
-}
+        requestUnlock: set requestUnlock //user can make or not different car unlock //requests
+        active: one Bool
+        destination: one GPS
+        }
 
 
 sig Moment{
@@ -36,57 +37,114 @@ sig Moment{
 sig GPS{
 coordinateX: one Int //Alloy doesn’t support Float
 coordinateY: one Int
+insideCity: one Bool
+}
+
+
+sig UnlockRequest{
+correctUserPosition: one Bool  
+unlockOutcome: one Bool //the request can have a positive or negative outcome
 }
 
 
 
 
-sig RequestUnlock{
-correctPosition: one Bool
-correctTime: one Bool
-}
+
+
+
+
+
+
+
+
 
 
 sig Car{
         position: one GPS,
         available: one Bool
         InMaintenance : one Bool,
-        reservation: lone Reservation,
-        locked: lone Lock,
+        reserved: one Bool,
+        reservation : set Reservation
+        locked: one Bool,
+        batteryPercentage: one Int
+        inCharge: one Bool
 }
 
 
-
-
-pred NoSameUsernameForDifferentUsers[u1: User, u2: User]{
-        u1.username != u2.username
+//Two different users can’t have the same email
+pred NoSameEmailForDifferentUsers[u1: User, u2: User]{
+        u1.email != u2.email
 }
 
 
+//Two different users can’t have the same PIN
 pred NoSamePINForDifferentUsers[u1: User, u2: User]{
         u1.pin != u2.pin
 }
 
 
-//A reserved car is set as unavailble
-pred AllowReservationOfAvailableCars [u1: User, c: Car]{
-        u1.reservation.reservedCar = c  implies 
+//If a car is reserved, the car can’t be in maintenance or availble to other users.
+pred AllowReservationOfAvailableCars [u1: User, r1: Reservation, c: Car] {
+        u1.reservation != none and r1.active = True implies 
 (c.available = False and c.InMaintenance = False and
-c.reservation = u1.reservation.reservedCar)
+c.reserved = True and c.currentReservation = r1)
 }
 
 
-pred NoReservationOfSameCarAtSameTime[u1: User, u2: User, c: Car]{
-(u1.reservation.reservedCar = c and u1.reservation.moment =  
-u2.reservation.moment) implies (u2.reservation.reservedCar != c)
+pred NoMultipleActiveReservationOnSameCar[c: Car]
+        
 }
 
 
-//If the user is near the car and in time and requests the car unlock, 
-//the car unlock outcome will be positive and car will be unlocked.
-pred UnlockToStartRental[u1: User, c: Car]{
-        ( (u1.reservation != none and u1.reservation.requestUnlock != none) and 
-          (u1.reservation.requestUnlock.correctPosition = True and
-           u1.reservation.requestUnlock.correctTime = True) ) implies
-        (u1.reservation.unlockOutcome = True and c.locked = False)
+fun getCarActiveReservation(c: Car) : Reservation {
+        res: Reservation | res.active = True
 }
+
+
+pred NoMultipleActiveReservation[u1: User] {
+        #getActiveReservation(u1) = 1
+}
+
+
+fun getUserActiveReservation(u: User) : Reservation {
+        res: Reservation | res.active = True
+}
+
+
+
+
+//The unlock request is successful only when the user is close enough to the car and //viceversa
+pred checkUnlockRequest[u1: UnlockRequest] {
+        u1.unlockOutcome = True iff u1.correctUserPosition = True
+
+
+pred  checkEndedReservation [r: Reservation]
+        r.active = False implies 
+
+
+
+
+sig SafeArea {
+        coordinates: one GPS,
+        numberOfSpots: some Int,
+        availableSpots: some Int,
+        powerGrid: one Bool
+}
+
+
+pred totalAvailableSpots [a: SafeArea] {
+        #a.availableSpots <= #a.numberOfSpots
+}
+
+
+//When a car is available, it is locked in a safe area
+fact availableCarPosition [a: SafeArea, c: Car]
+        c.available = True implies (c.locked = True and c.position = a.coordinates)
+
+
+//Safe areas are located at different locations
+fact safeAreasDifferentLocation {
+all disjoint a1, a2 : SafeArea | a1.coordinates != a2.coordinates
+
+
+PROVARE ALLOY SEQ?
