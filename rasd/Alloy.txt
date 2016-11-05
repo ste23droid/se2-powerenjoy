@@ -4,6 +4,7 @@ module util/integer
 
 sig Name, Surname, Addr{}
 sig Email, Password, PIN{}
+sig PaymentMethod
 
 
 sig RegisteredUser{
@@ -13,25 +14,18 @@ sig RegisteredUser{
         email: one Email -> one Password,
         pin: one PIN,
         suspended: one Bool,
-        reservation: set Reservation
+        paymentMethod: one PaymentMethod
+        reservations: set Reservation
 }
 
 
+//A reservation is considered active from its creation until its termination
 sig Reservation{
-        uniqueID: one Int
-        moment: one Moment
         reservedCar: one Car
-        requestUnlock: set requestUnlock //user can make or not different car unlock //requests
+        requestUnlock: set requestUnlock //user can make or different requests
         active: one Bool
         destination: one GPS
         }
-
-
-sig Moment{
-        seconds: Int
-        minutes: Int, 
-        hours: Int
-}
 
 
 sig GPS{
@@ -47,18 +41,6 @@ unlockOutcome: one Bool //the request can have a positive or negative outcome
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 sig Car{
         position: one GPS,
         available: one Bool
@@ -72,50 +54,47 @@ sig Car{
 
 
 //Two different users can’t have the same email
-pred NoSameEmailForDifferentUsers[u1: User, u2: User]{
-        u1.email != u2.email
+fact NoSameEmailForDifferentUsers{
+        no disjoint u1, u2 : User | u1.email = u2.email
 }
 
 
 //Two different users can’t have the same PIN
-pred NoSamePINForDifferentUsers[u1: User, u2: User]{
-        u1.pin != u2.pin
+fact NoSamePINForDifferentUsers{
+        no disjoint u1, u2 : User | u1.pin = u2.pin
 }
 
 
 //If a car is reserved, the car can’t be in maintenance or availble to other users.
-pred AllowReservationOfAvailableCars [u1: User, r1: Reservation, c: Car] {
-        u1.reservation != none and r1.active = True implies 
-(c.available = False and c.InMaintenance = False and
-c.reserved = True and c.currentReservation = r1)
+fact carStatus {
+        all c: Car | c.available = True implies (c.reserved = False and c.inMaintenance = 
+False)
 }
 
 
-pred NoMultipleActiveReservationOnSameCar[c: Car]
-        
+fact NoMultipleActiveReservationOnSameCar {
+        no disjoint r1, r2: Reservation, all c : Car | r1 in c.reservation and r2 in 
+c.reservation and and r1.active = True and r2.active = True
 }
 
 
-fun getCarActiveReservation(c: Car) : Reservation {
-        res: Reservation | res.active = True
+fact NoMultipleActiveReservationForSameUser{
+        no disjoint r1, r2: Reservation, all u1: User | r1 in u1.reservation and r2 in
+u1.reservation and r1.active = True and r2.active = True
 }
 
 
-pred NoMultipleActiveReservation[u1: User] {
-        #getActiveReservation(u1) = 1
+//If a user is suspended, none of his reservation is active
+fact userSuspended {
+        all u: User, all r: Reservation | (u. suspended = True and r in u.reservations) implies
+r.active = False
 }
-
-
-fun getUserActiveReservation(u: User) : Reservation {
-        res: Reservation | res.active = True
-}
-
-
 
 
 //The unlock request is successful only when the user is close enough to the car and //viceversa
-pred checkUnlockRequest[u1: UnlockRequest] {
-        u1.unlockOutcome = True iff u1.correctUserPosition = True
+fact unlockRequestOutcome {
+        all u: UnlockRequest | u1.unlockOutcome = True iff u1.correctUserPosition = True
+}
 
 
 pred  checkEndedReservation [r: Reservation]
@@ -132,8 +111,8 @@ sig SafeArea {
 }
 
 
-pred totalAvailableSpots [a: SafeArea] {
-        #a.availableSpots <= #a.numberOfSpots
+fact totalAvailableSpots  {
+        all a: SafeArea | #a.availableSpots <= #a.numberOfSpots
 }
 
 
@@ -145,6 +124,23 @@ fact availableCarPosition [a: SafeArea, c: Car]
 //Safe areas are located at different locations
 fact safeAreasDifferentLocation {
 all disjoint a1, a2 : SafeArea | a1.coordinates != a2.coordinates
+}
 
 
-PROVARE ALLOY SEQ?
+fact safeAreaInsideCity {
+        all c: Car | c.coordintaes.insideCity = True
+}
+
+
+
+
+
+
+asserts allowReservationOfAvailableCars {
+        all u: User, all r: Reservation | (r.active = True and r in u.reservations) implies 
+(r.reservedCar.available = False and r.reservedCar.InMaintenance = False and
+r.reservedCar.reserved = True and r.reservedCar.reservation = r)
+}
+
+
+Differenza tra fact e predicates -> fact proprietà che sono sempre vere nel modello, predicates proprietà che voglio verificare
