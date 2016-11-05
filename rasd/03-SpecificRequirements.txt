@@ -1,65 +1,216 @@
-SPECIFIC REQUIREMENTS
+﻿SPECIFIC REQUIREMENTS
 
 
 EXTERNAL INTERFACE REQUIREMENTS
 1. USER INTERFACES
-2. HARDWARE INTERFACES
-3. SOFTWARE INTERFACES
-4. MEMORY
+        // mockups
+
+
+
 
 HARDWARE INTERFACES
 //Riporta acronimo e secondo documento della prof nella bibliografia
 In order to retrieve data from the car’s sensor and in order to operate on the car’s actuators, the S2B shall interact with a software interface implemented on the vehicles: this software layer, in particular, shall receive the data from a low-level board that uses a CAN-bus, directly connected with the electronic hardware of the vehicles. Using the methods offered by this software interface, the S2B shall get all the desired data and control some functions of the vehicle. 
 Further details about the design of the underneath software/hardware solution, however, are beyond the purposes of this document. It is noticeable, though, that similar solutions were already theorized.
 
+
 SOFTWARE INTERFACES
+The system will use the following external services to provide part of its functionalities:
+
+
+* -Name : Google Maps
+        -Mnemonic: MapsService
+        -Source: https://developers.google.com/maps/
+
+
+* -Name : -----
+-Mnemonic: BillingService
+-Source: -----
+
 
 MEMORY
-The S2B shall require the necessary memory for downloading and installing the PowerEnjoy app’s package on the customer’s smartphone.
+The S2B shall require at least the necessary memory for downloading and installing the PowerEnjoy app’s package on the customer’s smartphone.
+
 
 FUNCTIONAL REQUIREMENTS
 * G1: Allow users to find available cars and reserve them
-1. The system shall allow a user to find available cars starting from their GPS location only if his/her GPS location is inside the city area
-2. The system shall allow a user to find available cars starting from a specified address inside the city area only if his/her GPS location is inside the city area
-3. The system shall allow a user to reserve a car if and only if the car is available
-4. The system shall not allow a user to make a car reservation if he/she has a car reservation not terminated yet
-5. The system shall allow users to login if and only if the provided credentials are correct
-6. The system shall send an email with a unique PIN to the user at the end of the registration procedure
-7. The system shall not allow a guest to complete the registration if the email provided has already been used by a user
-8. The system shall not allow a guest to complete the registration if he/she is not at least 18 years old
-9. The system shall not allow a guest to complete the registration if he/she has an invalid driving license
-10. The system shall not allow a guest to complete the registration if he/she has provided an invalid payment method
-11. The system shall guarantee that a can cannot be reserved at the same time by more than one user
+1. The system shall allow a user to find available cars starting from his GPS location only if his GPS location is inside the city area
 
-* G2 : Allow users to use the reserved cars
-1. The system shall guarantee that a reserved car can be unlocked only by the user who made the reservation and if the unlock is requested within 10 meters from the current GPS position of the car.
-2. The system shall allow the user to ignite the engine only after the insertion of the personal PIN.
-3. The system should guarantee that when the engine ignites for the first time during a reservation, the user starts being charged with a given amount of money per minute.
-4. The system shall show the user of the current charges of his/her reservation through a screen inside the reserved car.
-5. The system shall guarantee that, if the engine is not turned on within 20 minutes from the last unlocking of the car, the car is set to unavailable: the user, in fact, may have not entered, or the user might have entered in  the car without turning on the engine using the car without paying also for days.
-6. The system shall be able to detect when a car is leaving or entering a safe area (in order to keep the number of available parking slots updated and avoid the termination of a ride in a full safe area.
-7. The system shall guarantee that, when a car is set as unavailable the last eventual non terminated reservation for that car expires (eventual perchè potrebbe guastarsi anche in una safe area)
-8. The system shall tag a car as unavailable when the battery is empty or if a car failure (Glossary) occurs.
-9. The system shall stop charging money to the user when he/she has parked in a safe area, selected on the screen of the car the option “Conclude your reservation” and he/she has exited properly (Glossary) the car.
-10. The system shall guarantee that, if a user presses the "Terminate reservation" button on the screen of the reserved car and the reservation can terminate, the engine will be turned off.
-11. The system shall set the car to available when a user parks the car in a safe area and exits properly the car. 
-12. Once the user has communicated to end his reservation or make a stop, and after the user has exited properly the car, the system shall lock the car.
-13. The system shall set the car to unavailable when a user parks the car and doesn't exit properly the car, preventing its the lock.
-14. The system shall be able to locate every car.
-15. The system shall be able to check and set the status of every car (chiedere ogni certo tempo quale sia lo stato dell’auto, controllare che non ci siano stati guasti all’auto).
+
+1. The system shall allow a user to find available cars starting from a specified address inside the city area only if his GPS location is inside the city area
+
+
+1. The system shall allow a user to reserve a car if and only if that car is available
+
+
+1. The system shall not allow a user to make a car reservation if he has a car reservation not terminated yet
+
+
+1. The system shall allow a user to login if and only if his provided credentials are correct
+
+
+1. The system shall send an email with a unique PIN to a user at the end of his registration procedure
+
+
+1. The system shall not allow a guest to complete the registration if the email provided has already been used by a user
+
+
+1. The system shall not allow a guest to complete the registration if he is not at least 18 years old
+
+
+1. The system shall not allow a guest to complete the registration if he has provided an invalid payment method
+
+
+1. The system shall guarantee that a car cannot be reserved at the same time by more than one user
+
+
+* G2 : Allow users to use the reserved cars in the city
+1. The system shall guarantee that a reserved car can be unlocked only by the user who made its last reservation and only if the unlock is requested within 10 meters from the current GPS position of that car.
+        see RATIONALE 1
+
+
+1. The system shall enable the ignition of the engine of a reserved car only after the successful insertion by the user of his PIN on the screen of that car
+
+
+1. The system shall start charging a user for his car reservation with a given amount of money per minute when the engine of the car ignites for the first time during that reservation.
+                see RATIONALE 2
+                
+1. The system shall display to the user the current charges of his reservation through the screen inside the car he reserved
+
+
+1. The system shall set a reserved car as unavailable if its engine is not turned on within 20 minutes from the last unlocking of that car
+see RATIONALE 3
+
+
+1. The system shall detect when a car leaves or enters a safe area
+see RATIONALE 4
+
+
+1. The system shall expire the last eventual reservation of a car if that car is set as unavailable 
+see RATIONALE 5
+
+
+1. The system shall set a car as unavailable if the ride terminates with more 
+than 80% of its battery empty or if a failure in that car occurs
+
+
+1. The system shall stop charging money to the user when he exits properly from the car he has reserved, after having parked that car in a safe area and having pressed on the screen of that car the button “Terminate reservation”.
+
+
+1. The system shall turn off the engine of a reserved car if the reservation of that car can terminate and the user presses either the "Terminate reservation" button or the “Make a Stop” button on the screen of that car
+        see RATIONALE 6
+        
+1. The system shall set a reserved car as available when the user parks that car in a safe area, presses the button “Terminate Reservation” and exits properly from that car. 
+
+
+1.  The system shall lock a car once the user exits properly from that car after 
+  having communicated his will to end the reservation or to make a stop
+
+
+1. The system shall set a car as unavailable when a user parks that car and doesn't exit properly from that car, preventing its lock.
+
+
+1. The system shall be able to locate every car of the company
+
+
+1. The system shall be able to check and set the status of every car of the company
+
+
+1. The system shall not allow a user to make a car stop inside a safe area
+                see RATIONALE 7
+
 
 * G3:  Guarantee a uniform distribution of the cars in the city
-1. The system shall encourage users to share the car by applying a discount of 10% on the last ride to users which have picked up at least two other passengers during the ride
-2. The system shall detect the presence of passengers in the reserved and unlocked car
-3. The system shall implement a money saving option in which the users inserts his destination and the system shows the safe areas where to leave the car in order to get a discount
+1. The system shall incentivize a user who shares the car he reserved with other passengers by applying a discount of 10% on the last ride if he has picked up at least two other passengers during the last ride and those passengers have stayed on the car for at least 50% of the total time of the ride
+                see RATIONALE 8
+        
+1. The system shall be able to query the sensors in a car in order to get informations about the presence and number of passengers in that car
 
-* G4 : Encourage users to use properly the reserved cars
-1. The system shall evaluate the cost of the user’s last ride using a rate based on a specific amount of EUR per minute
-2. The system shall apply a discount of 20% on the last ride to users leaving after the ride more than 50% of the battery in the reserved car
-3. The system shall apply a discount of 30% on the last ride to users who leave the reserved car in a power station and plug it
-4. The system shall charge 30% more on the last ride to users who leave the car more than 3 km from the nearest power grid station or with more than 80% of the battery empty
-5. The system shall apply a fee of 1 EUR to a user who doesn’t pick up the car he/she has reserved within 1 hour from the reservation
-6. The system shall tag a car as available if it is not picked up within 1 hour from its last reservation
+
+1. The system shall implement a money saving option in which the user inserts his destination on the screen of the car and the system shows on that screen the safe area or power safe area where to leave that car in order to get a discount
+
+
+* G4 : Incentivize users to use properly the reserved cars
+1. The system shall apply a discount of 20% on the last ride to users leaving after the ride more than 50% of the battery in the reserved car
+
+
+1. The system shall apply a discount of 30% on the last ride to users who leave the reserved car in a power station and plug it
+
+
+1. The system shall charge 30% more on the last ride to users who leave the car more than 3 km from the nearest power grid station or with more than 80% of the battery empty
+
+
+1. The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from the reservation (if the reservation still exists), the reservation expires, a fee of 1 EUR is accounted to the user and the car is set as available. The only exception where no fee is applied is described in G2 (un auto puo’ passare in unavailable in questo stato, avremmo un   problema)
+
+
+1. The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, that reservation expires
+
+
+1. The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, a fee of 1 EUR is accounted to that user
+
+
+              7.   The system shall guarantee that if a user doesn’t unlock for the first time the 
+            car he reserved within 1 hour from his reservation, that car is set as 
+available
+
+
+1. The system shall notify the user when the battery of the reserved car he is using is less than or equal to 15%
+                see RATIONALE 9
+
+
+REQUIREMENTS RATIONALES:
+* [RA1] We think that 10 meters is a good distance, otherwise a user can 
+potentially unlock the car he reserved far away from the car position and someone else may enter in that car in the meanwhile.
+
+
+* [RA2] We specified “for the first time” since it can happen that the engine turns off 
+during the car ride and the user may have to turn it on manually again. We 
+want to start charging the user since the first intentional ignition of the engine.
+
+
+* [RA3] This requirement is needed to solve the following problems:
+the user may decide to not enter in the car, or the user may decide to enter in the car 
+without inserting his/her personal PIN (and so the engine can’t ignite).
+In the latter case, the user can potentially occupy the reserved car for days without 
+paying anything.
+We think that 20 minutes is a reasonable time. In fact we don’t want to damage users 
+which may take more time to turn on the engine, for example if they’ve made a stop 
+in order to charge something in the car trunk.
+
+
+* [RA4] This requirement is necessary in order to keep updated the number of available parking slots in a safe area and to avoid the termination of a ride in a safe area which it’s already fully occupied
+        
+* [RA5] Eventual reservation because a car can have failures also when it is still 
+available inside a safe area, or if it has been reserved but
+not picked up yet
+        
+* [RA6] This requirement may help the forgetful users which don’t turn off the engine 
+of the car after the ride, but may also help the company to save money, since 
+the engine is not left on uselessly for no reasons.
+
+
+* [RA7] We think that it’s reasonable not to allow a car stop inside a safe area, 
+otherwise a user can occupy with his reserved car a free parking slot in a safe area and this 
+action may not let another user use that parking slot to terminate his/her reservation
+
+
+* [RA8] 
+-This requirement is listed under this goal since we think that the company 
+wants to avoid this situation: if multiple people who know each other want to 
+go to together to a specified place using the cars of the company, it is better if 
+they share the same car as much as possible instead of going in the same 
+place with multiple cars. Otherwise our company will find multiple cars arriving in very near safe areas and this situation will be harmful since it may go against the goal G3. 
+-With the 50% time constraint, we want to avoid that the user fools the system by picking up 
+two passengers and making them exit immediately after.
+
+
+* [RA9] With this requirement we want to help the user and the company. The user 
+will be less likely to find himself/herself riding a car with no battery, since 
+probably he/she will find a safe area where to leave the car soon after that
+notification is received. The company can save money since maybe the car 
+will be left by the user to a power grid station to recharge and we may avoid
+damages on the car battery on long terms, since Li-ion battery suffer when
+completely discarged.
 
 
 SCENARIOS
@@ -74,6 +225,8 @@ SCENARIO 2: LOGIN, RESERVATION AND CAR UNLOCK
 Alicia lives in the suburbs of the city and has just known from a close friend that her favourite dress shop Dressando in the center of the city offers special discounts for that day only. Unfortunately, it’s raining and the car used by her family is in that moment used by her mother at work, so she decides that it’s the time to try the PowerEnjoy service instead of walking, to exploit the Dressando special discount. Alicia has registered correctly to PowerEnjoy two days ago. Alicia opens the PowerEnjoy app on her smartphone. She inserts correctly her email and password and presses the button “Login”. After the successfull login Alicia is redirected to a menu activity. Alicia presses the button “Find available cars”, she is redirected to a map activity showing the available PowerEnjoy cars. Alicia locates an available car near her house. She selects the car in the map. A dialog pops up and she presses the button “Reserve”. She goes out and when she is 1 meter near the reserved car, she presses the button “Unlock reserved car”. The system unlocks the car and Alicia enters in the car.
 
 
+
+
 SCENARIO 3: GROUP TRIP
 Aldo, Giovanni and Giacomo will have a very demanding day on the 26 of October. They are vegetarians and to pass some time together they booked long time before at “Gnam Veggy”, the best veggie burger restaurant of the city, for the 17:00 of the 26 of October. 
 On the 26 of October, unfortunately, a strike of the metro transportation and of the surface trams has been planned, but the three friends don’t know about this.
@@ -84,12 +237,12 @@ The next day Aldo controls the account of his credit card and notices that the r
 
 
 Scenario 4: car left  with no more than 50% of the battery empty
-Bill, that is already registered to PowerEnJoy, needs to cover a short distance by car. He logs to the PowerEnJoy application on his smartphone and selects the “Find available cars” button; he then reserves the available car that is closest to him. Within one hour from the reservation, Bill goes on the chosen location and through the application on his smartphone informs the system that he is nearby by clicking on the dedicated button. The car unlocks itself and he enters. He immediately inserts his PIN in order to enable the engine, he turns on the engine and the system starts charging him for a given amount of money.
+Bill, that is already registered to PowerEnJoy, needs to cover a short distance by car. He logs to the PowerEnJoy application on his smartphone and selects the “Find available cars” button; he then reserves the available car that is closest to him. Within one hour from the reservation, Bill goes on the chosen location and through the application on his smartphone informs the system that he is nearby by clicking on the dedicated button. The car unlocks itself and he enters. He immediately inserts his PIN code in order to turn on the engine and the system starts charging him for a given amount of money.
 After covering a short distance, Bill finds a safe area for parking and exits the car. The system automatically locks the car. After a short time, the user receives a notification from the PowerEnJoy application, where he is informed that he received a 20% discount on his last ride, because he left his car with less than 50% of the battery empty.
 
 
 Scenario 5: user with unvirtuous behavior
-Mike has to go to a concert in Milan and decides to use PowerEnJoy to reach his destination; he is registered to the system. About an hour before the time he wants to leave, he logs to PowerEnJoy and reserves a car that is close to where he lives. He doesn’t use the money saving option, as he doesn’t like to travel by feet, so he always parks the car as close to his destination as possible.
+Mike has to go to a concert in the city and decides to use PowerEnJoy to reach his destination; he is registered to the system. About an hour before the time he wants to leave, he logs to PowerEnJoy and reserves a car that is close to where he lives. He doesn’t use the money saving option, as he doesn’t like to travel by feet, so he always parks the car as close to his destination as possible.
 When the time comes, he reaches the location and he clicks on the “unlock your car” button and enters the car. Mike doesn’t like to travel with other passengers, so he doesn’t pick up anyone onto the car during his ride.
 The concert holds far away from where Mike lives, so when he reaches the destination the car has more than 80% of the battery empty. There are no special parking areas with power grid stations nearby, so he leaves the electric car in the safe area that is closest to the concert. He exits the car and receives a notification telling him that he is charged 30% more than the specified price on his ride, because he left the car with more than 80% of the battery empty and he did not get any discount because he did not try to act in a virtuous way.
 
@@ -100,7 +253,6 @@ is finally close to going back home. While checking the last reports, his friend
 him about the national strike of the public transport occurring that day: John, who has 
 already tried the PowerEnjoy services a couple of times, decides to login using the PowerEnjoy application, he presses the “Find available cars” button and when the map activity is completely loaded, he locates an available car near his office address and reserves it. Fifteen minutes later, John's colleague Mary offers him a ride back home: John, who has always had a crush on Mary, cannot refuse and accepts enthusiastically. On the way back home with Mary, John suddenly remembers of his missed reservation: he checks his profile in the PowerEnjoy app and sees that he has paid a little fee of 1 euro. 
 A trivial cost for being able to talk with Mary on the way home.
-
 
 
 Scenario 7: saving money option
@@ -134,7 +286,7 @@ USE CASES
 
 
 Use case: GuestRegistration
-Actors: Guest, BillingService, CivilMotorization
+Actors: Guest, BillingService
 Goal: [G1]
 Entry Condition:  none
 Flow of events: 
@@ -145,8 +297,6 @@ Flow of events:
 * The S2B verifies the Guest credentials and personal data.
 * The S2B has verified the correctness of user credentials and asks payment validation to the BillingService
 * The BillingService answers to the S2B that the payment informations are valid.
-* The S2B asks the validation of the driver license to the CivilMotorization
-* The CivilMotorization answers that the driving license is valid
 * The S2B confirms the registration by sending a confirmation message to the Guest
 * The S2B sends an email with the unique PIN generated for the new User
 Exit conditions:  
@@ -219,16 +369,16 @@ Actors: User, Car
 Entry condition: “UserReservesCar” use case
 Flow of events: 
 1. The User selects the “unlock your car” button on the PowerEnJoy mobile application
-3. The system verifies that at most an hour has passed from the User’s reservation
-4. The verification is successful 
-5. The system takes the User’s GPS location  from the User’s mobile phone
-6. The system requests the reserved car’s GPS location to Car 
-7. The car provides its GPS location
-8. The system verifies that the User’s GPS location is at most at 10 m from the reserved car’s GPS location
-Exit conditions:  the verification is successful and the car unlocks automaticallyThe verification is successful and the car unlocks automatically
+2. The system verifies that at most an hour has passed from the User’s reservation (first unlocking) or that the User previously decided to make a stop (by pressing the “make a stop” button on the car screen and exiting the car properly)
+3. The verification is successful 
+4. The system takes the User’s GPS location  from the User’s mobile phone
+5. The system requests the reserved car’s GPS location to Car 
+6. The car provides its GPS location
+7. The system verifies that the User’s GPS location is at most at 10 m from the reserved car’s GPS location
+Exit conditions:  the verification is successful and the car unlocks automatically
 Exceptions: 
 * The User has done no reservation; an error message is displayed
-* More than an hour has passed from the reservation to the unlocking request; “MissedReservation” use case
+* More than an hour has passed from the reservation to the first unlocking request; “MissedReservation” use case
 * The control of the distance between the car and the User fails; the failure is communicated via notification on the PowerEnJoy app and he can try again
 
 
@@ -240,13 +390,15 @@ Flow of events:
 1. The User enters his reserved and unlocked car
 2.  The User types his personal PIN code on the car screen
 3. The User presses “Ok” to confirm his PIN code
-4. The system verifies that at most 5 minutes have passed from the unlocking of the car
+4. The system verifies that at most 20 minutes have passed from the last unlocking of the car
 5. The verification is successful
 6. The system verifies the correct correspondence between the PIN code inserted and the user that reserved the car
-Exit conditions: The verification is successful and the engine ignites automatically; the system starts charging the user for the established amount of money. As soon as the car leaves the safe area, it informs the system that one more parking slot in that specific safe area is free.
+Exit conditions: The verification is successful and the engine ignites; the system starts charging the user for the established amount of money.
 Exceptions: 
 * The PIN code inserted by the User is incorrect; the system shows an error message on the car screen and asks the User to try again
-* More than 5 minutes have passed from the unlocking of the car; the car is set to unavailable and the last non terminated reservation is ended automatically
+* More than 20 minutes have passed from the last unlocking of the car; the car is set to unavailable and the last non terminated reservation is ended automatically
+
+
 
 
 Use case: SetCarToAvailable
@@ -254,24 +406,25 @@ Goal: [G2]
 Actors: Car
 Entry condition: “LockTheCarAutomatically” use case
 Flow of events:
-The system, using the vehicle software interface, asks the battery sensor of the car about the remaining charge
-The car provides the remaining battery percentage to the system
-The system verifies that the car’s battery is at most 95% empty
-The system asks the car’s damage sensor if the car has some damage
-The car’s damage sensor tells the system that the car has no damage
+1. The system, using the vehicle software interface, asks the battery sensor of the car about the remaining charge
+2. The car provides the remaining battery percentage to the system
+3. The system verifies that the car’s battery is at most 80% empty
+4. The system asks the car’s damage sensor if the car has some damage
+5. The car’s damage sensor tells the system that the car has no damage
 Exit conditions: the car is set to available, so that another user can reserve it
-Exceptions:  The car’s battery is more than 95% empty or some car failure has occurred; the car is set to unavailable, and the operator will fix it.
+Exceptions:  The car’s battery is more than 80% empty or some other car failure has occurred; the car is set to unavailable.
 
 
-Use case: OperatorChargesCar
+Use case: OperatorFixesCar
 Goal: [G2]
 Actors: Operator, Car
-Entry condition: the car’s battery is more than 95% empty
+Entry condition: the car status is set to unavailable (some car failure has occurred); the Operator is already logged on the PowerEnJoy mobile application
 Flow of events:
-1. The operator receives a notification (on the PowerEnJoy mobile application?) telling him that a car’s battery is more than 95% empty and showing him the location of the car
-2. The operator sets the car as under maintenance and reaches it
-3. The operator charges the car on-site through a portable electric car charger
-Exit conditions: when the charging is complete, the operator sets the car back to available
+1. The Operator visualizes all the unavailable cars on the city map
+2. The Operator clicks on an unavailable car and visualizes its problem (kind of failure that has occurred)
+3. The Operator sets the unavailable car as under maintenance by clicking on the dedicated button
+4. The operator goes on-site and fixes the car (by charging it through a portable electric car charger or by fixing the failure)
+Exit conditions: when the car is fixed, the Operator sets the car back to available
 Exceptions: none
 
 
@@ -292,6 +445,8 @@ Exit conditions: After the exit of the user, the system proceedes to lock down t
 Exceptions: The system can’t find a correspondence between the coordinates of the car and the coordinates of any safe area or detects that there are no spots available in that safe area. The system notifies the user trough the on-board display that his rental cannot end until he has reached a safe area.
 
 
+
+
 UseCase: LockTheCarAutomatically
 Goal: [G2]
 Actors: User, car
@@ -307,31 +462,32 @@ Exit conditions: The system proceeds with the evaluation of the User’s bill (G
 Exceptions: The car’s sensor tells the system that some car door, window or the trunk isn’t closed; the car status is set to unavailable.
 
 
-
-Use case: discount application for picking up at least two other passengers
+Use case: PassengersDiscount
 Goal: [G3]
 Actors: User, Car
 Entry condition: “EngineUnlocking” use case
-Flow of events: 1. The User turns the engine on
-2. During the ride, the car Passenger Sensor provides info to the system about how many passengers are in the car
-3. “end of the ride” use case
-4. The system calculates the User’s bill based on the total minutes of the ride
-5. The system verifies that in any moment of the ride at least two other passengers where present on the car
-Exit conditions: The system applies a discount of 10% on the previously calculated bill
-Exceptions: The system establishes that during the last ride there have never been two other passengers on the car and the discount is not applied.
+Flow of events: 
+1. During the ride, the system asks the car’s passenger sensors about the number of passengers on the car
+2. The car’s passenger sensors provide the number of passengers on the car 
+3. The User decides to terminate his ride by pressing on the button on the car’s screen
+4. “LockTheCarAutomatically” use case
+5. The system verifies that at least two other passengers were on the car for at least 50% of the total time of the ride
+6. The verification is successful
+Exit conditions: “PayLastRide” use case with a discount of 10% on the user’s bill
+Exceptions: The system establishes that there weren’t at least two other passengers on the car for at least 50% of the total time of the ride and the discount is not applied; “PayLastRide” use case without application of the passengers discount
 
 
 Use case: MoneySavingOption
 Goal: [G3]
-Actors: User
-Entry condition: the User has already unlocked the engine with his PIN
-Flow of events: 1. The User selects the money saving options by pressing a button on the screen in the car
+Actors: User, Car
+Entry condition: “EngineUnlocking” use case
+Flow of events: 1. The User selects the money saving option by pressing a button on the car’s screen
 2. The User inserts his destination address in the form that appears on the screen
-3. The system locates and shows on the car screen the destination on the map and finds all the power grid stations that are in a radius of 2 km from the destination[a] and have at least a plug available
-4. The User starts his ride by turning on the engine[b]
-Exit conditions: the User can leave his car in one of the stations located by the system in order to get a discount at the end of the ride
-Exceptions: a. There are no power grid stations in a radius of 2 km from the destination and with at least one plug available;this information is shown on the car screen
-b. The destination address inserted in not valid; the system shows a message on the car screen that says to insert a valid address or cancel the money saving option request
+3.  The system shows a map on the car’s screen with the location of the safe area or power safe area that is closest to the destination inserted, allows the User to get a discount and helps to reach a uniform distribution of cars in the city
+4. During the ride, the system monitors the status of the shown safe area (number of parking slots that are available) and shows a different safe area (repeating point 3 of the flow) on the car’s screen if there are no more parking slots left in it
+Exit conditions: the User can leave his car in the station located by the system in order to get a discount at the end of the ride
+Exceptions: 
+* The destination address inserted in not valid; the system shows a message on the car screen that says to insert a valid address or cancel the money saving option request
 
 
 Use case: PayLastRide
@@ -341,10 +497,11 @@ Entry condition: After the login (G1, UC?) the User has localized and reserved a
 Flow of events: 
 1. The system evaluates the total minutes of the User’s last ride.
 2. Based on the previous evaluated minutes, the system calculates the User’s bill value.
-3. The system evaluates possible discounts and penalties, starting from the discount due to the remaining battery (G4, UC.2.1, GetBatteryDiscount).
-4. The system interacts with the external payment service in order to charge the user.
-Exit conditions:	
-The system notifies the user about the bill of the last ride, including discounts an penalties applied.
+3. The system evaluates possible discounts and penalties, starting from the discount due to the remaining battery (G4, UC.2.1, GetBatteryDiscount). (passengers discount excluded)
+4. If in “PassengersDiscount” use case the system established that the passengers discount has to be applied, a further discount of 10% on the user’s bill is applied
+5. The system interacts with the external payment service in order to charge the user.
+Exit conditions:        
+The system notifies the user about the bill of the last ride, including discounts and penalties applied.
 Exceptions:
 The systems is notified that the payment was not successful. The system blocks the User.
 
@@ -357,7 +514,7 @@ The system has evaluated the bill of the User’s last ride (G4, UC.1.1, PayLast
 Flow of events:
 1. The system, using the vehicle software interface, asks the battery sensor of the car about the remaining charge.
 2. The car’s sensor provides the remaining battery percentage to the system.
-Exit conditions:	
+Exit conditions:        
 The remaining battery is more than 50% and the system registers a 20% discount on the original calculated bill. The system evaluates a second possible discount (G4, UC.3.1)
 Exceptions:
 The remaining battery is less than 50% and no discount is applied. 
@@ -371,7 +528,7 @@ Flow of events:
 1. The user plugs the car into a power grid.
 2. The system, using the vehicle software interface, asks the car’s sensor if the car is recharging.
 3. The car’s sensor tells the system that the car is recharging.
-Exit conditions:	
+Exit conditions:        
 The system adds a 30% discount on any eventual previous discount (G4, UC.2.1) on the original calculated bill: The system proceeds to evaluate a possible penalty for the user (G4, UC.4.1)
 Exceptions:
 The user does not plug the car into a power grid, the battery is not recharging and the system doesn’t apply any discount.
@@ -385,7 +542,7 @@ Flow of events:
 1. The system asks through the vehicle software interface the car’s position, as detected by the car’s GPS.
 2. The car’s GPS provides the coordinates.
 3. The system evaluates that the car is more than 3 KM from the nearest power grid.
-Exit conditions:	
+Exit conditions:        
 The system charges 30% more on the last ride, still considering eventual previous discount (G4, UC.2.1, UC.3.1) on the original bill.
 Exceptions:
 The system evaluates that car is less than 3 KM from the nearest power grid and no penalty is applied. The system checks for the battery status (G4, U.C.4.2).
@@ -398,7 +555,7 @@ Preconditions: The system has evaluated that the car was no more than 3 KM far f
 Flow of events:
 1. The system, using the vehicle software interface, asks the remaining charge in the car detected by the car’s battery sensor.
 2. The car’s sensor provides the remaining battery percentage to the system through the software interface.
-Exit conditions:	
+Exit conditions:        
 The remaining battery is less than 20% and the system registers a 30% charge on the last ride, that will be subtracted to any eventual previous discount (G4, UC.2.1, UC.3.1) on the original calculated bill. 
 Exceptions:
 The remaining battery is more than 20% and no extra charge on the last ride is applied.
@@ -427,5 +584,6 @@ NON FUNCTIONAL REQUIREMENTS
    3. SECURITY
    4. MAINTAINABILITY
    5. PORTABILITY
-[a]qualcosa del genere? su questo non saprei come fare, non può visualizzarle tutte, dobbiamo decidere un vincolo
-[b]o può anche attivare dopo l'opzione?
+
+
+TRACEABILITY MATRIX
