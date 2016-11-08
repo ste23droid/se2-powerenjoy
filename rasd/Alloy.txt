@@ -1,124 +1,190 @@
-﻿module util/boolean
-module util/integer
+﻿open util/boolean
+
+
+
+
+//SIGNATURES
 
 
 sig Name, Surname, Addr{}
 sig Email, Password, PIN{}
-sig PaymentMethod
+sig PaymentMethod{}
 
 
-sig RegisteredUser{
-        name: some Name,
+
+
+abstract sig User {
+name: some Name,
         surname: some Surname,
         address: one Addr,
-        email: one Email -> one Password,
+        email: one Email,
+    password: one Password,
+}
+
+
+sig RegisteredUser extends User{
         pin: one PIN,
         suspended: one Bool,
-        paymentMethod: one PaymentMethod
+        paymentMethod: one PaymentMethod,
         reservations: set Reservation
 }
 
 
+sig Operator extends User {
+        carUnderMaintenance : lone Car
+}
+
+
 //A reservation is considered active from its creation until its termination
-sig Reservation{
-        reservedCar: one Car
-        requestUnlock: set requestUnlock //user can make or different requests
-        active: one Bool
+sig Reservation {
+        creator : one RegisteredUser,
+        reservedCar: one Car,
+        requestUnlock: some UnlockRequest, //user can make different requests during his reservation
+        active: one Bool,
         destination: one GPS
         }
 
 
 sig GPS{
-coordinateX: one Int //Alloy doesn’t support Float
-coordinateY: one Int
+coordinateX: one Int, //Alloy doesn’t support Float
+coordinateY: one Int,
 insideCity: one Bool
 }
 
 
-sig UnlockRequest{
-correctUserPosition: one Bool  
+sig UnlockRequest {
+correctUserPosition: one Bool, 
 unlockOutcome: one Bool //the request can have a positive or negative outcome
 }
 
 
 sig Car{
         position: one GPS,
-        available: one Bool
-        InMaintenance : one Bool,
+        available: one Bool,
+        inMaintenance: one Bool,
         reserved: one Bool,
-        reservation : set Reservation
+        reservation : set Reservation,
         locked: one Bool,
-        batteryPercentage: one Int
         inCharge: one Bool
 }
 
 
+sig SafeArea {
+        coordinates: one GPS,
+        numberOfSpots: one Int,
+        availableSpots: one Int,
+        powerGrid: one Bool
+}{
+        numberOfSpots > 0
+        availableSpots >= 0
+}
+
+
+
+
+//FACTS
+
+
 //Two different users can’t have the same email
-fact NoSameEmailForDifferentUsers{
+fact NoSameEmailForDifferentUsers {
         no disjoint u1, u2 : User | u1.email = u2.email
 }
 
 
-//Two different users can’t have the same PIN
-fact NoSamePINForDifferentUsers{
-        no disjoint u1, u2 : User | u1.pin = u2.pin
+//Two different registered users can’t have the same PIN
+fact NoSamePINForDifferentUsers {
+        no disjoint u1, u2 : RegisteredUser | u1.pin = u2.pin
 }
 
 
-//If a car is reserved, the car can’t be in maintenance or availble to other users.
-fact carStatus {
-        all c: Car | c.available = True implies (c.reserved = False and c.inMaintenance = 
-False)
+//If a car is under maintenance, one and at most one operator is taking care of it
+fact carUnderMaintenanceByOperator {
+        all c: Car | one o: Operator | c.inMaintenance = True implies o.carUnderMaintenance = c
+}
+
+
+fact associatedCarToOperator {
+        all o: Operator | all c: Car | c = o.carUnderMaintenance implies c.inMaintenance = True
+}
+
+
+
+
+//If a car is available only one reservation on it is active, if it's reserved any reservation on it is active
+fact carAvailableAndReserved{
+        all c: Car | (c.available = True iff #getActiveCarReservation[c] = 0) 
+        and (#getActiveCarReservation[c] = 1 iff c.reserved = True)
+}
+
+
+//A Car is in maintenance when is not available or reserved and vice versa
+fact carMaintenance {
+        all c: Car | (c.reserved = False and c.available = False) iff c.inMaintenance = True
+}
+
+
+//If a Reservation instance is related to a User entity, then it is also related to the corresponding Car entity 
+fact ReservationUserAndCar {
+        all r: Reservation | all u: RegisteredUser | all c: Car |  ( (r in u.reservations) and c = r.reservedCar)
+        implies (r in c.reservation)
+}
+
+
+//A Car entity is associated with only the Reservation entities on that car
+fact CarReservation {
+        all c: Car | all r: Reservation | r in c.reservation implies r.reservedCar = c  
+}
+
+
+//A User entity is associated with only the Reservation entities created by that User
+fact UserReservation {
+        all r: Reservation | all u: RegisteredUser | r in u.reservations implies r.creator = u
 }
 
 
 fact NoMultipleActiveReservationOnSameCar {
-        no disjoint r1, r2: Reservation, all c : Car | r1 in c.reservation and r2 in 
-c.reservation and and r1.active = True and r2.active = True
+        all c: Car | #getActiveCarReservation[c] <= 1
 }
 
 
 fact NoMultipleActiveReservationForSameUser{
-        no disjoint r1, r2: Reservation, all u1: User | r1 in u1.reservation and r2 in
-u1.reservation and r1.active = True and r2.active = True
+        all u: RegisteredUser | #getActiveUserReservation[u] <= 1
 }
 
 
 //If a user is suspended, none of his reservation is active
 fact userSuspended {
-        all u: User, all r: Reservation | (u. suspended = True and r in u.reservations) implies
-r.active = False
+        all u: RegisteredUser | all r: Reservation | (u. suspended = True and r in u.reservations) implies
+        r.active = False
 }
 
 
-//The unlock request is successful only when the user is close enough to the car and //viceversa
+//The unlock request is successful only when the user is close enough to the car and vice versa
 fact unlockRequestOutcome {
-        all u: UnlockRequest | u1.unlockOutcome = True iff u1.correctUserPosition = True
+        all u: UnlockRequest | u.unlockOutcome = True iff u.correctUserPosition = True
 }
 
 
-pred  checkEndedReservation [r: Reservation]
-        r.active = False implies 
-
-
-
-
-sig SafeArea {
-        coordinates: one GPS,
-        numberOfSpots: some Int,
-        availableSpots: some Int,
-        powerGrid: one Bool
+//Each Reservation has a unique set of UnlockRequest
+fact unlockRequestAndReservation {
+        all disjoint r1, r2 : Reservation | r1.requestUnlock & r2.requestUnlock = none
 }
+
+
 
 
 fact totalAvailableSpots  {
-        all a: SafeArea | #a.availableSpots <= #a.numberOfSpots
+        all a: SafeArea | a.availableSpots <= a.numberOfSpots
 }
 
 
-//When a car is available, it is locked in a safe area
-fact availableCarPosition [a: SafeArea, c: Car]
-        c.available = True implies (c.locked = True and c.position = a.coordinates)
+
+
+//When a car is available, it is locked and situated in a safe area
+fact availableCarPosition {
+        all c : Car | some a: SafeArea | c.available = True implies (c.locked = True and
+        c.position = a.coordinates)
+}
 
 
 //Safe areas are located at different locations
@@ -127,20 +193,71 @@ all disjoint a1, a2 : SafeArea | a1.coordinates != a2.coordinates
 }
 
 
+//Safe area are all located inside the same city
 fact safeAreaInsideCity {
-        all c: Car | c.coordintaes.insideCity = True
+        all a: SafeArea | a.coordinates.insideCity = True
+}
+
+
+//---FUNCTIONS---
+
+
+fun getActiveUserReservation[u: RegisteredUser] : set Reservation {
+        {r: Reservation | r.creator = u and r.active = True }
 }
 
 
 
 
-
-
-asserts allowReservationOfAvailableCars {
-        all u: User, all r: Reservation | (r.active = True and r in u.reservations) implies 
-(r.reservedCar.available = False and r.reservedCar.InMaintenance = False and
-r.reservedCar.reserved = True and r.reservedCar.reservation = r)
+fun getActiveCarReservation[c: Car] : set Reservation {
+        {r: Reservation | r.reservedCar = c and r.active = True }
 }
 
 
-Differenza tra fact e predicates -> fact proprietà che sono sempre vere nel modello, predicates proprietà che voglio verificare
+// ---ASSERTS---
+
+
+//Check if the car can only be in one status at a time
+assert carStatus {
+        no c: Car | (c.reserved = True and c.available = True) or 
+                                        (c.inMaintenance = True  and c.available = True ) or
+                                        (c.reserved = True and c.inMaintenance = True )
+}
+
+
+check carStatus
+
+
+//Check the availability status of a car
+assert NoReservationConsistency {
+        all c: Car | all r: Reservation | (#getActiveCarReservation[c] = 0 and r.reservedCar = c)
+         implies r.active = False 
+}
+
+
+check NoReservationConsistency
+
+
+
+
+//Check if a Reservation entity is correctly related between User and Car
+assert ReservationOfAvailableCars {
+all u: RegisteredUser | all r: Reservation | (r.active = True and r in u.reservations) implies 
+( r.reservedCar.reserved = True and r in r.reservedCar.reservation)
+}
+
+
+
+
+check ReservationOfAvailableCars 
+
+
+
+
+pred show() {
+}
+
+
+
+
+run show for 2
