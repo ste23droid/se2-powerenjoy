@@ -257,7 +257,7 @@ near the burger restaurant. The car has now the 70% of the battery left. Aldo pr
 
 
 Scenario 4: car left  with no more than 50% of the battery empty
-Bill, that is already registered to PowerEnJoy, needs to cover a short distance by car. He logs to the PowerEnJoy application on his smartphone and selects the “Find available cars” button; he then reserves the available car that is closest to him. Within one hour from the reservation, Bill goes on the chosen location and through the application on his smartphone informs the system that he is nearby by clicking on the dedicated button “Unlock reserved car”. The car unlocks itself after a while and he enters. He immediately inserts his PIN code in order to turn on the engine and the system starts charging him for a given amount of money.
+Bill, that is already registered to PowerEnJoy, needs to cover a short distance by car. He logs to the PowerEnJoy application on his smartphone and selects the “Find available cars” button; he then reserves the available car that is closest to him. Within one hour from the reservation, Bill goes on the chosen location and through the application on his smartphone informs the system that he is nearby by clicking on the dedicated button “Unlock reserved car” and inserting his personal PIN code. The car unlocks itself within 30 seconds and he enters. He immediately turns on the engine and the system starts charging him for a given amount of money.
 After covering a short distance, Bill finds a safe area for parking and exits properly from the car. After a while, the system automatically locks the car. After a short time, the user receives a notification from the PowerEnJoy application, where he is informed that he received a 20% discount on his last ride, because he left his car with less than 50% of the battery empty.
 
 
@@ -383,37 +383,38 @@ Goal: [G2]
 Actors: User, Car
 Entry condition: “UserReservesCar” use case
 Flow of events: 
-* The User selects the “Unlock your car” button on the menu activity of the PowerEnJoy mobile web application
-* The system verifies that at most 1 hour has passed from the User’s reservation (first unlocking) or that the User previously decided to make a stop (by pressing the “Make a stop” button on the car screen and exiting the car properly)
-* The system verification is successful 
-* The system takes the User’s GPS location from the User’s mobile phone
-* The system requests the reserved car’s GPS location to Car 
-* The Car provides its current GPS location
-* The system verifies that the User’s GPS location is at most at 10 m from the reserved car’s GPS location
+The User selects the “Unlock your car” button on the menu activity of the PowerEnJoy mobile application
+The system verifies that a reservation actually exists and, if this is the first unlocking, that at most 1 hour has passed from the User’s reservation 
+The system verification is successful 
+The User inserts his personal PIN code on the form that appears on the mobile application and confirms it by pressing “Ok”
+The system verifies the correct correspondence between the PIN code inserted and the user that reserved the car
+The system takes the User’s GPS location from the User’s mobile phone
+The system requests the reserved car’s GPS location to the Car 
+The Car provides its current GPS location
+The system verifies that the User’s GPS location is at most 10 m distant to the reserved car’s GPS location
 Exit conditions:  
-The verification by the system is successful and the car unlocks automatically within 30 seconds
+The distance verification is successful and the car unlocks automatically within 30 seconds
 Exceptions: 
-* The User has done no reservation; an error message is displayed on screen of the mobile phone of the User
-* More than 1 hour has passed from the reservation to the first unlocking request; the “MissedReservation” use case is invocked
-* The control of the distance between the car and the User fails; the failure is communicated via notification on the PowerEnJoy app and the User can try again
+The User has done no reservation; an error message is displayed on screen of the mobile phone of the User
+More than 1 hour has passed from the reservation to the first unlocking request; the “MissedReservation” use case is invoked
+The PIN code inserted by the User is incorrect; the system shows an error message on the mobile application and asks the User to try again
+The control of the distance between the car and the User fails; the failure is communicated via notification on the PowerEnJoy app and the User can try again
 
 
-Use case: EngineUnlocking
+Use case: EngineIgnition
 Goal: [G2]
 Actors: User, Car
 Entry condition: “CarUnlocking” use case
-Flow of events: 
-1. The User enters his reserved and unlocked car
-The User types his personal PIN code on the car screen
-1. The User presses “Ok” to confirm his PIN code
-2. The system verifies that at most 20 minutes have passed from the last unlocking of the car
-3. The verification is successful
-4. The system verifies the correct correspondence between the PIN code inserted and the user that reserved the car
+Flow of events:
+The User enters his reserved and unlocked car
+The User turns the car’s key
+The system verifies that at most 20 minutes have passed from the last unlocking of the car
+The verification is successful
+The system verifies if the event of the engine ignition is the first one during this reservation
 Exit conditions:
-The verification is successful and the engine ignites; the system starts charging the user for the established amount of money.
+The engine ignites; if  the event of the engine ignition is the first one during this reservation, the system starts charging the user for the established amount of money.
 Exceptions: 
-* The PIN code inserted by the User is incorrect; the system shows an error message on the car screen and asks the User to try again
-* More than 20 minutes have passed from the last unlocking of the car; the car is set to unavailable and the last non terminated reservation is ended automatically
+More than 20 minutes have passed from the last unlocking of the car; the car is set to unavailable and the last non terminated reservation is ended automatically
 
 
 Use case: SetCarToAvailable
@@ -421,11 +422,11 @@ Goal: [G2]
 Actors: Car
 Entry condition: “LockTheCarAutomatically” use case
 Flow of events:
-* The system, using the vehicle software interface, queries the battery sensor of the Car about the remaining charge in the battery array of the Car
-* The Car provides the remaining battery percentage to the system
-* The system verifies that the Car’s battery is at most 80% empty
-* The system asks the Car’s damage sensor if the Car has some damages
-* The Car’s damage sensor tells the system that the Car has no damage
+The system, using the vehicle software interface, queries the battery sensor of the Car about the remaining charge in the battery array of the Car
+The Car provides the remaining battery percentage to the system
+The system verifies that the Car’s battery is at most 80% empty
+The system asks the Car’s damage sensor if the Car has some damages
+The Car’s damage sensor tells the system that the Car has no damage
 Exit conditions
 The Car is set as available by the system, so that another User can reserve it
 Exceptions: 
@@ -437,16 +438,17 @@ Goal: [G2]
 Actors: Operator, Car
 Entry condition: the Car status has been set as unavailable (some Car failure has occurred); the Operator is already logged to the system using the PowerEnJoy mobile web application
 Flow of events:
-* The Operator visualizes all the unavailable cars on the city map
-* The Operator clicks on an unavailable car and visualizes its problem (kind of failure that has occurred) and the car’s info
-* The Operator sets the unavailable car as under maintenance by clicking on the dedicated button
-* The system verifies that the Operator has no other cars under his maintenance at the moment
-* The verification is successful and the system confirms the Operator’s choice
-* The Operator goes on-site and fixes the Car (by charging it through a portable electric car charger or by fixing the failure and by moving the Car in a safe area if necessary)
+The Operator visualizes all the unavailable cars on the city map
+The Operator clicks on an unavailable car and visualizes its problem (kind of failure that has occurred) and the car’s info
+The Operator sets the unavailable car as under maintenance by clicking on the dedicated button
+The system verifies that the Operator has no other cars under his maintenance at the moment
+The verification is successful and the system confirms the Operator’s choice
+The Operator goes on-site and fixes the Car (by charging it through a portable electric car charger or by fixing the failure and by moving the Car in a safe area if necessary)
 Exit conditions: 
 When the Car is fixed, the Operator sets the Car back to available through the mobile application
 Exceptions: 
 The Operator had another car under his maintenance when making the maintenance request; the system shows an error message and leaves the selected Car as unavailable.
+
 
 
 Use case: ConcludeRental
@@ -476,10 +478,6 @@ Flow of events:
 * The system requests the Car lock.
 * The Car locks down within 30 seconds
 * The system stops charging the User.
-
-
-
-
 Exit conditions: 
 The system proceeds with the evaluation of the User’s bill, “PayLastRide” use case is invoked.
 Then the use case “SetCarToAvailable” is invoked
@@ -487,21 +485,20 @@ Exceptions:
 The Car’s door sensor tells the system that some car door, some windows or the trunk aren’t closed; the Car status is set to unavailable.
 
 
-Use case: PassengersDiscount -> use case non c’e’ ma e’ da fare?
+Use case: PassengersDiscount
 Goal: [G3]
 Actors: User, Car
-Entry condition: “EngineUnlocking” use case
+Entry condition: “EngineIgnition” use case; the engine is turned on
 Flow of events: 
-* During the ride, the system asks the Car’s passenger sensors about the number of passengers in the Car
-* The Car’s passenger sensors provide the number of passengers in the Car 
-* The User decides to terminate his ride by pressing on the button on the car’s screen -> ConcludeRental use case?
-* “LockTheCarAutomatically” use case
-* The system verifies that at least two other passengers were in the Car for at least 50% of the total time of the ride
-* The verification is successful
+During the ride, the system asks the Car’s passenger sensors about the number of passengers in the Car
+The Car’s passenger sensors provide the number of passengers in the Car 
+The User decides to terminate his ride by pressing on the button on the car’s screen (“ConcludeRental” use case)
+The system verifies that at least two other passengers were in the Car for at least 50% of the total time of the ride
+The verification is successful
 Exit conditions: 
-“PayLastRide” use case is invoked with a discount of 10% on the User’s bill
+A discount of 10% on the User’s bill is registered.
 Exceptions: 
-The system establishes that there weren’t at least two other passengers in the Car for at least 50% of the total time of the ride and the discount is not applied; “PayLastRide” use case is invoked without  the application of the passengers discount
+The system establishes that there weren’t at least two other passengers in the Car for at least 50% of the total time of the ride and the discount is not applied.
 
 
 Use case: MoneySavingOption
@@ -509,14 +506,16 @@ Goal: [G3]
 Actors: User, Car
 Entry condition: “EngineUnlocking” use case
 Flow of events: 
-* The User selects the “Money Saving Option” by pressing a button on the Car’s screen
-* The User inserts his destination address in the form that appears on the Car’s screen
-* The system shows a map on the Car’s screen with the location of the safe area or power safe area that is closest to the destination inserted, that allows the User to get a discount and that helps to reach a uniform distribution of the cars in the city area
-* During the ride, the system monitors the status of the shown safe area (number of parking slots that are available) and shows founds a different safe area (repeating point 3 of the flow) on the Car’s screen if there are no more parking slots left in the originally found safe area
+The User selects the “Money Saving Option” by pressing a button on the Car’s screen
+The User inserts his destination address in the form that appears on the Car’s screen
+The system shows a map on the Car’s screen with the location of the safe area or power safe area that is closest to the destination inserted, that allows the User to get a discount and that helps to reach a uniform distribution of the cars in the city area
+During the ride, the system monitors the status of the shown safe area (number of parking slots that are available) and finds and shows a different safe area (repeating the previous point of the flow) on the Car’s screen if there are no more parking slots left in the originally found safe area
 Exit conditions: 
 The User can park his car in the safe area or power safe area located by the system in order to get a discount at the end of the ride
 Exceptions: 
-The destination address inserted in not valid; the system shows a message on the Car screen saying to insert a valid address or cancel the money saving option request (difficile da fare)
+The destination address inserted in not valid; the system shows a message on the Car screen saying to insert a valid address.
+
+
 
 
 Use case: PayLastRide 
