@@ -2,8 +2,9 @@
 
 
 EXTERNAL INTERFACE REQUIREMENTS
-1. USER INTERFACES
-        // mockups
+USER INTERFACES
+The following mockups shall be intended only as a way to understand better some requirements of the S2B and not as design decisions.
+//mockups
 
 
 
@@ -29,7 +30,7 @@ utilities to let the user type only addresses inside the city area and to show a
 * -Name : CartaSi Virtual POS
 -Mnemonic: BillingService
 -Source: https://www.cartasi.it/download/SPECIFICHETECNICHE_INTEGRAZIONE_POS_VIRTUALE_10-5.pdf
--Purpose: this external service will be used to manage easily and safely the variety of payment informations that can be provided by the users. This service will be used to account and receive a response about the status of a payment accounted to a user. It will also be used to verify if the payment informations provided by a user are valid.
+-Purpose: this external service will be used to manage easily and safely the variety of payment informations that can be provided by the users. This service will be used to account and receive a response about the status of a payment accounted to a user. It will also be used to verify if the payment informations provided by a user are valid. 
 
 
 MEMORY
@@ -42,10 +43,11 @@ FUNCTIONAL REQUIREMENTS
 
 * [G1.1] Allow users to access the system
 1. The system shall allow a user to login if and only if his provided credentials are correct.
-2. The system shall send a unique PIN to a user at the end of his registration procedure.
-3. The system shall not allow a guest to complete the registration if the email provided has already been used by a user.
-4. The system shall not allow a guest to complete the registration if he is not at least 18 years old.
-5. The system shall not allow a guest to complete the registration if he has provided an invalid payment method.
+2. The system shall guarantee that every user is associated to a unique PIN.
+3. The system shall send a unique PIN to a user at the end of his registration procedure.
+4. The system shall not allow a guest to complete the registration if the email provided has already been used by a user.
+5. The system shall not allow a guest to complete the registration if he is not at least 18 years old.
+6. The system shall not allow a guest to complete the registration if he has provided an invalid payment method.
 
 
 * [G1.2] Allow users to find available cars
@@ -60,29 +62,21 @@ FUNCTIONAL REQUIREMENTS
 3. The system shall guarantee that a car cannot be reserved at the same time by more than one user.
 
 
-* [G2] Allow users to use the reserved cars in the city
+* [G2] Allow users to use the reserved cars in the city area
    * The system shall be able to check the status of every car of the company.
    * The system shall be able to set the status of every car of the company.
+   * The system shall be able to query the sensors of a car to get informations.
 
 
 * [G2.1] Manage the user reservation
-1. The system shall guarantee that a reserved car can be unlocked only by the user who made its last reservation.
-
-
-1. The system shall guarantee that a reserved car can be unlocked only if the unlock is requested within 10 meters from the current GPS position of that car. see RATIONALE 1
-
-
-1. The system shall start charging a user for his car reservation when the engine of the reserved car ignites for the first time during that reservation. see RATIONALE 2
-
-
-1. The system shall charge a user for his car reservation with a predefined amount of money per minute.
-
-
-1. The system shall display to the user the current charges of his car reservation on the screen inside the car he reserved.
-
-
-1. The system shall detect when a car leaves or enters a safe area.
-see RATIONALE 4
+1. The system shall guarantee that a reserved car can be unlocked only by the user who made its last reservation. add RATIONALE 
+2. The system shall guarantee that a reserved car can be unlocked only if the unlock is requested within 10 meters from the current GPS position of that car. see RATIONALE 1
+3. The system shall start charging money to a user for his car reservation when the engine of the reserved car ignites for the first time during that reservation. see RATIONALE 2
+4. The system shall charge money to a user for his car reservation with a predefined amount per minute.
+5. The system shall display to the user the current charges of his car reservation on the screen inside the car he reserved.
+6. The system shall detect when a car leaves or enters a safe area.see RATIONALE 4
+7. The system shall allow a user to communicate his intention to make a car stop or to terminate his reservation through the screen on the reserved car.
+8. The system shall stop charging money to a user when his reservation is terminated.
 
 
 1. The system shall set a reserved car as available when the user parks that car in a safe area, presses the button “Terminate Reservation” and exits properly from that car. 
@@ -99,66 +93,47 @@ V3: The system shall set a reserved car as available when the user exits properl
 
 
 Proposta (Sam) :
-                 7. The system shall allow the user to communicate his intention to make a stop or to terminate his reservation.
+                
                 8. The system shall terminate the user reservation when the user exits properly from that car, after having parked that car in a safe area and communicating his intention to end his reservation.
                 9. The system shall lock the car once the user exits properly from that car.
-                10. The system shall stop charging money to the user when is reservation is terminated.
                 11. The system shall set the car as available once the reservation on his last ride is terminated.
-
-
-
-
-
-
-
-
-
-
 
 
 * [G2.2] Handle unexpected car situations and user behaviour
    * The system shall be able to detect a failure in a car.
 1. The system shall set a car as unavailable if a failure in that car occurs.
 2. The system shall terminate the last eventual reservation of a car if that car is set as unavailable. see RATIONALE 5
-3. The system shall stop charging the user when his reservation is terminated.
-4. 5. The system shall not allow a user to make a car stop inside a safe area or outside the city area. see RATIONALE 7
+3. The system shall not allow a user to make a car stop inside a safe area or outside the city area. see RATIONALE 7
+4. The system shall detect when a car leaves the city area add RATIONALE
+5. The system shall notify a user on the screen of the car he reserved when he is leaving the city area with that car. add RATIONALE
 6. The system shall guarantee that an operator can set as under maintenance at most one unavailable car at a time.
-7. The system shall guarantee that, when a car is set as unavailable, an operator can see that car on his mobile application.
-8. The system shall allow the operator to set an unavailable car as under maintenance.
-
-
-1. The system shall set a reserved car as unavailable if its engine is not turned on within 20 minutes from the last unlocking of that car.
+7. The system shall guarantee that an operator can find the unavailable cars
+8. The system shall allow an operator to set an unavailable car as under maintenance.
+9. The system shall set a reserved car as unavailable if its engine is not turned on within 20 minutes from the last unlocking of that car.see RATIONALE 
+10. The system shall set a reserved car as unavailable if the ride terminates with more than 80% of its battery empty.
                         see RATIONALE 3
 
 
-1. The system shall set a reserved car as unavailable if the ride terminates with more than 80% of its battery empty.
-                        see RATIONALE 3
-
-
-
-
-
-
-* G3:  Guarantee a uniform distribution of the cars in the city
+* G3:  Guarantee a uniform distribution of the cars in the city area
 1. The system shall incentivize a user who shares the car he reserved with other passengers by applying a discount of 10% on the last ride if he has picked up at least two other passengers during the last ride and those passengers have stayed on the car for at least 50% of the total time of the ride.
-                (mega lungo, un poema xd)
                 see RATIONALE 8
         
-1. The system shall be able to query the sensors in a car in order to get informations about the presence and number of passengers in that car.
+1. The system shall be able to get informations about the presence and number of passengers in a car.
 
 
-1. The system shall implement a money saving option in which the user inserts his destination on the screen of the car and the system shows on that screen the safe area or power safe area where to leave that car in order to get a discount.
+1. The system shall implement a money saving option through which the user inserts his destination on the screen of the reserved car and the system shows on that screen the safe area or power safe area where to leave that car in order to get a discount.
 
 
 * G4 : Incentivize users to use properly the reserved cars
-   * The system shall notify the user when the battery of the reserved car he is using is less than or equal to 15%
+   * The system shall notify the user on the screen of the reserved car when the battery of that car is less than or equal to 15% of its capacity
                 see RATIONALE 9
-* G4.1: Reward the users that ease the experience of other future users
-1. The system shall apply a discount of 20% on the last ride to users leaving after the ride more than 50% of the battery in the reserved car.
-2. The system shall apply a discount of 30% on the last ride to users who leave the reserved car in a power station and plug it.
-* G4.2: Penalize the users that ruin the experience of other future users
-1. The system shall charge 30% more on the last ride to users who leave the car more than 3 km from the nearest power grid station or with more than 80% of the battery empty.
-* G4.3: Penalize the users that miss their reservation
+
+
+* G4.1: Reward the users that ease the experience of other users
+1. The system shall apply a discount of 20% on the last ride to a user leaving after the ride more than 50% of the battery in the reserved car.
+2. The system shall apply a discount of 30% on the last ride to a user who leave s the reserved car in a power safe area and plugs it.
+* G4.2: Penalize the users that ruin the experience of other users
+1. The system shall charge 30% more on the last ride to a user who leaves the car more than 3 km from the nearest power safe area or with more than 80% of the battery empty.
 1. The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, a fee of 1 EUR is accounted to that user.
 1. The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, that reservation expires.
 2.  The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, that car is set as available.
@@ -216,6 +191,10 @@ notification is received. The company can save money since maybe the car
 will be left by the user to a power grid station to recharge and we may avoid
 damages on the car battery on long terms, since Li-ion batteries suffer when
 completely discarged.
+
+
+
+
 
 
 SCENARIOS
