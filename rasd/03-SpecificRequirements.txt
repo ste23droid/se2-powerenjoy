@@ -3,7 +3,7 @@
 
 EXTERNAL INTERFACE REQUIREMENTS
 USER INTERFACES
-The following mockups shall be intended only as a way to understand better some requirements of the S2B and not as design decisions.
+The following mockups shall be intended only as a way to understand better some requirements of the S2B, not as design decisions.
 //mockups
 
 
@@ -37,6 +37,14 @@ MEMORY
 For the web mobile application, the user will require at least the necessary space on secondary memory for downloading and installing the PowerEnjoy app’s package. The estimation of the usage of the primary memory will not be part of this document.
 
 
+
+
+
+
+
+
+
+
 FUNCTIONAL REQUIREMENTS
 * [G1] Allow users to find available cars and reserve them
 
@@ -51,8 +59,8 @@ FUNCTIONAL REQUIREMENTS
 
 
 * [G1.2] Allow users to find available cars
-1. The system shall allow a user to find available cars starting from his GPS location only if his GPS location is inside the city area.
-2. The system shall allow a user to find available cars starting from a specified address inside the city area only if his GPS location is inside the city area.
+1. The system shall allow a user to find available cars starting from his GPS location.
+2. The system shall allow a user to find available cars starting from a specified address.
 3. The system shall be able to locate every car of the company.
 
 
@@ -69,54 +77,39 @@ FUNCTIONAL REQUIREMENTS
 
 
 * [G2.1] Manage the user reservation
-1. The system shall guarantee that a reserved car can be unlocked only by the user who made its last reservation. add RATIONALE 
+1. The system shall guarantee that a reserved car can be unlocked only by the user who made its last reservation, after he has inserted correctly his PIN.
 2. The system shall guarantee that a reserved car can be unlocked only if the unlock is requested within 10 meters from the current GPS position of that car. see RATIONALE 1
 3. The system shall start charging money to a user for his car reservation when the engine of the reserved car ignites for the first time during that reservation. see RATIONALE 2
-4. The system shall charge money to a user for his car reservation with a predefined amount per minute.
+4. The system shall charge money to a user for his car reservation with a predefined amount of money per minute.
 5. The system shall display to the user the current charges of his car reservation on the screen inside the car he reserved.
 6. The system shall detect when a car leaves or enters a safe area.see RATIONALE 4
-7. The system shall allow a user to communicate his intention to make a car stop or to terminate his reservation through the screen on the reserved car.
-8. The system shall stop charging money to a user when his reservation is terminated.
-
-
-1. The system shall set a reserved car as available when the user parks that car in a safe area, presses the button “Terminate Reservation” and exits properly from that car. 
-V2: The system shall set a reserved car as available when the user exits properly from that car, after having parked that car in a safe area and having managed to terminate the reservation with the pressure of the button “Terminate reservation” on the screen of that car.
-
-
-V3: The system shall set a reserved car as available when the user exits properly from that car, after having parked that car in a safe area and having terminated the reservation
-
-
-1. The system shall lock a car once the user exits properly from that car after having communicated his will to end the reservation or to make a stop.
-
-
-1. The system shall stop charging money to the user when he exits properly from the car he has reserved, after having parked that car in a safe area and having managed to terminate the reservation with the pressure of the button “Terminate reservation” on the screen of that car.
-
-
-Proposta (Sam) :
-                
-                8. The system shall terminate the user reservation when the user exits properly from that car, after having parked that car in a safe area and communicating his intention to end his reservation.
-                9. The system shall lock the car once the user exits properly from that car.
-                11. The system shall set the car as available once the reservation on his last ride is terminated.
+7. The system shall allow a user to communicate his intention to make a stop or to terminate his reservation through the screen on the reserved car.
+8. The system shall allow a user to terminate his reservation only in a safe area.
+9. The system shall evaluate if a reservation can terminate in the safe area chosen by the user, considering the available parking slots in that safe area.
+10. The system shall terminate the user reservation when the user exits properly from the reserved car, after having parked that car in an approved safe area. see RATIONALE 10
+11. The system shall stop charging money to a user when his reservation is terminated.
+12. The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, that reservation terminates.
+13. The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, that car is set as available.
+14. The system shall lock the car once the user exits properly from that car and his reservation is terminated in a safe area.
+15. The system shall set the car as available once the reservation on his last ride is terminated and the car is locked.
+16. The system shall lock the car once the user exits properly from that car after parking for a stop.
 
 
 * [G2.2] Handle unexpected car situations and user behaviour
-   * The system shall be able to detect a failure in a car.
-1. The system shall set a car as unavailable if a failure in that car occurs.
-2. The system shall terminate the last eventual reservation of a car if that car is set as unavailable. see RATIONALE 5
-3. The system shall not allow a user to make a car stop inside a safe area or outside the city area. see RATIONALE 7
-4. The system shall detect when a car leaves the city area add RATIONALE
-5. The system shall notify a user on the screen of the car he reserved when he is leaving the city area with that car. add RATIONALE
-6. The system shall guarantee that an operator can set as under maintenance at most one unavailable car at a time.
+1. The system shall be able to detect a failure in a car.
+2. The system shall set a reserved or available car as unavailable if a failure in that car occurs.
+3. The system shall terminate the last eventual reservation of a car if that car is set as unavailable. see RATIONALE 5
+4. The system shall not allow a user to make a car stop inside a safe area or outside the city area. see RATIONALE 6
+5. The system shall detect when a car leaves the city area.
+6. The system shall notify a user on the screen of the car he reserved when he is leaving the city area with that car. see RATIONALE 7
 7. The system shall guarantee that an operator can find the unavailable cars
-8. The system shall allow an operator to set an unavailable car as under maintenance.
-9. The system shall set a reserved car as unavailable if its engine is not turned on within 20 minutes from the last unlocking of that car.see RATIONALE 
-10. The system shall set a reserved car as unavailable if the ride terminates with more than 80% of its battery empty.
-                        see RATIONALE 3
+8. The system shall allow an operator to set as under maintenance at most one unavailable car at a time.
+9. The system shall set a reserved car as unavailable if its engine is not turned on within 20 minutes from the last unlocking of that car. see RATIONALE 3
+10. The system shall set a reserved car as unavailable if the reservation terminates in a safe area with more than 80% of its battery empty. add RATIONALE
 
 
 * G3:  Guarantee a uniform distribution of the cars in the city area
-1. The system shall incentivize a user who shares the car he reserved with other passengers by applying a discount of 10% on the last ride if he has picked up at least two other passengers during the last ride and those passengers have stayed on the car for at least 50% of the total time of the ride.
-                see RATIONALE 8
+1. The system shall apply a discount of 10% on the user’s last ride if he has picked up at least two other passengers during the last ride and those passengers have stayed on the car for at least 50% of the total time of that ride. see RATIONALE 8
         
 1. The system shall be able to get informations about the presence and number of passengers in a car.
 
@@ -125,8 +118,11 @@ Proposta (Sam) :
 
 
 * G4 : Incentivize users to use properly the reserved cars
-   * The system shall notify the user on the screen of the reserved car when the battery of that car is less than or equal to 15% of its capacity
-                see RATIONALE 9
+   * The system shall notify the user on the screen of the reserved car when the battery of that car is less than or equal to 15% (20%?) of its capacity (si puo’ togliere)
+        see RATIONALE 9
+   * The system shall apply a discount on the last ride to a user only if his reservation is terminated correctly (check Glossary)
+                
+* The system shall apply a penalty on the last ride to a user only if his reservation is terminated correctly (check Glossary)
 
 
 * G4.1: Reward the users that ease the experience of other users
@@ -135,56 +131,58 @@ Proposta (Sam) :
 * G4.2: Penalize the users that ruin the experience of other users
 1. The system shall charge 30% more on the last ride to a user who leaves the car more than 3 km from the nearest power safe area or with more than 80% of the battery empty.
 1. The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, a fee of 1 EUR is accounted to that user.
-1. The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, that reservation expires.
-2.  The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, that car is set as available.
 
 
 REQUIREMENTS RATIONALES:
-* [RA1] We think that 10 meters is a good distance, otherwise a user can 
+* [RR1] We think that 10 meters is a good distance, otherwise a user can 
 potentially unlock the car he reserved far away from the car position and someone else may enter in that car in the meanwhile.
 
 
-* [RA2] We specified “for the first time” since it can happen that the engine turns off 
+* [RR2] We specified “for the first time” since it can happen that the engine turns off 
 during the car ride and the user may have to turn it on manually again. We 
 want to start charging the user since the first intentional ignition of the engine during his 
-reservation
+reservation.
 
 
-* [RA3] This requirement is needed to solve the following problems:
-the user may decide to not enter in the car, or the user may decide to enter in the car 
-without inserting his/her personal PIN (and so the engine can’t ignite).
-In the latter case, the user can potentially occupy the reserved car for days without 
-paying anything.
-We think that 20 minutes is a reasonable time. In fact we don’t want to damage users 
-which may take more time to turn on the engine, for example if they’ve made a stop 
-in order to charge something in the car trunk.
+* [RR3] After the unlock, the user may decide to not enter in the car or to enter in the car without turning on the engine.
+Without this requirement, in the above cases the user can potentially keep the car reserved 
+for days without paying anything.
+We think that 20 minutes is a reasonable time, in fact we don’t want to damage users 
+which may take more time to turn on the engine after the unlock. 
 
 
-* [RA4] This requirement is necessary in order to keep updated the number of available parking slots in a safe area and to avoid the termination of a ride in a safe area which it’s already fully occupied by cars of the company
+* [RR4] This requirement is necessary in order to keep updated the number of available parking slots in a safe area and to avoid the termination of a reservation in a safe area which it’s already fully occupied by other cars.
         
-* [RA5] Eventual reservation because a car can have failures also when it is still 
-available inside a safe area, or if it has been reserved but
-not picked up yet
+* [RR5] “Eventual” reservation because a car can have failures also when it is still 
+available inside a safe area or when it has been reserved but not picked up yet.
 
 
-* [RA7]
--We think that it’s reasonable not to allow a car stop inside a safe area.
-Otherwise a user can occupy with his reserved car a free parking slot in a safe area and this 
-action may not let another user to use that parking slot and to terminate his reservation.
--We think that it’s reasonable not to allow a car stop outside the city area
 
 
-* [RA8] 
+* [RR6]
+-We think that it’s reasonable not to allow a car stop inside a safe area,
+otherwise a user can occupy with his reserved car a free parking slot in a safe area and this 
+action may prevent another user to use that parking slot to terminate his reservation.
+-We don’t want to allow a car stop outside the city area since we don’t want to provide service 
+outside the city area.
+
+
+* [RR7] 
+        We don’t want to support the service outside the city area, so we think that the user should be 
+notified when he leaves the city area.
+
+
+* [RR8] 
 -This requirement is listed under this goal since we think that the company 
 wants to avoid this situation: if multiple people who know each other want to 
 go to together to the same place using the cars of the company, it is better if 
 they share the same car as much as possible instead of going in the same 
 place with multiple cars. Otherwise our company will find multiple cars arriving in very near safe areas and this situation will be harmful since it may go against the goal G3. 
--With the 50% time constraint, we want to avoid that the user fools the system by picking up 
-two passengers and making them exit the car immediately after.
+-With the 50% time constraint, we want to avoid that the user fools the system to get a 
+discount by picking up two passengers and making them exit the car immediately.
 
 
-* [RA9] With this requirement we want to help the user and the company. The user 
+* [RR9] With this requirement we want to help the user and the company. The user 
 will be less likely to find himself riding a car with no battery, since 
 probably he will find a safe area where to leave the car soon after that
 notification is received. The company can save money since maybe the car 
@@ -193,8 +191,8 @@ damages on the car battery on long terms, since Li-ion batteries suffer when
 completely discarged.
 
 
-
-
+* [RR10] The incorrect exit of the user from the reserved car is included in the
+management of a car failure (check G2.2).
 
 
 SCENARIOS
@@ -587,6 +585,7 @@ NON FUNCTIONAL REQUIREMENTS
         its initial estimation since our customer has already bought the cars; and partially dynamic: 
 the number of devices accessing our web application will probably grow with 
 the diffusion of the car sharing service in the city and also if a web browser version for our web application will be built in the future. We will have to develop a scalable system which can prioritize the interaction and communication with the main good for our customer, the cars, when the system will be subject to high loads. 
+#dire quanti utenti useranno il servizio
 
 
 * DESIGN CONSTRAINTS
