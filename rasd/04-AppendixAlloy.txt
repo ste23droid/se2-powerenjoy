@@ -1,0 +1,17 @@
+﻿APPENDIX
+
+
+ALLOY
+
+
+SOFTWARE AND TOOLS USED
+* Git : for the version controlling of files shared between the team
+* GoogleDocs: to write this document
+* Astah Professional (http://astah.net/editions/professional ): to create all the UML diagrams
+* Alloy Analyzer (http://alloy.mit.edu/alloy/ ): to construct a model of our S2B and to prove its consistency
+* Lyx (http://www.lyx.org/ ): to format this document
+* JustInMind (https://www.justinmind.com/): to create the mockups
+* Android Device Art Generator (https://developer.android.com/distribute/tools/promote/device-art.html): to insert the mockups in an Android phone frame
+
+
+HOURS OF WORK
