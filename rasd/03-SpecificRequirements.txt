@@ -1,4 +1,4 @@
-﻿SPECIFIC REQUIREMENTS
+SPECIFIC REQUIREMENTS
 
 
 EXTERNAL INTERFACE REQUIREMENTS
@@ -96,8 +96,8 @@ FUNCTIONAL REQUIREMENTS
 12. The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, that reservation terminates.
 13. The system shall guarantee that if a user doesn’t unlock for the first time the car he reserved within 1 hour from his reservation, that car is set as available.
 14. The system shall lock the car once the user exits properly from that car and his reservation is terminated in a safe area.
-15. The system shall set the car as available once the reservation on his last ride is terminated and the car is locked.
-16. The system shall lock the car once the user exits properly from that car after parking for a stop.
+15. The system shall lock the car once the user exits properly from that car after parking for a stop.
+16. The system shall set the car as available once the reservation on his last ride is terminated and the car is locked.
 17. The system shall notify the user about the bill of the last ride, considering also the discounts and penalties received.
 
 
@@ -111,6 +111,7 @@ FUNCTIONAL REQUIREMENTS
 7. The system shall allow an operator to set as under maintenance at most one unavailable car at a time.
 8. The system shall set a reserved car as unavailable if its engine is not turned on within 20 minutes from the last unlocking of that car. see [RR8]
 9. The system shall set a reserved car as unavailable if the reservation terminates in a safe area with more than 80% of its battery empty. add RATIONALE
+10. The system should not allow anymore the access to a user to which a payment was not successfully accounted.
 
 
 * G3:  Guarantee a uniform distribution of the cars in the city area
@@ -123,9 +124,9 @@ FUNCTIONAL REQUIREMENTS
 
 
 * G4 : Incentivize users to use properly the reserved cars
-1. The system shall apply a discount on the last ride to a user only if his reservation is terminated correctly (check Glossary)
+1. The system shall apply a discount on the last ride to a user only if his reservation is terminated correctly (check Glossary).
        2.   The system shall apply a penalty on the last ride to a user only if his reservation is       
-terminated correctly (check Glossary)
+terminated correctly (check Glossary).
         
 * G4.1: Reward the users that ease the experience of other users
 1. The system shall apply a discount of 20% on the last ride to a user leaving after the ride more than 50% of the battery in the reserved car.
@@ -221,7 +222,7 @@ Scenario 6: MISSED RESERVATION
 John is a regular employee in a business company and after a long day of work he
 is finally close to going back home. While checking the last reports, his friend Paul reminds
 him about the national strike of the public transport occurring that day: John, who has 
-already tried the PowerEnjoy services a couple of times, decides to login using the PowerEnjoy application, he presses the “Find available cars” button and when the map activity is completely loaded, he locates an available car near his office address and reserves it by pressing the button “Reserve”. Fifteen minutes later, John's colleague Mary offers him a ride back home: John, who has always had a crush on Mary, cannot refuse and accepts enthusiastically. On the way back home with Mary, John suddenly remembers of his missed reservation: he checks his smarthphone and he sees that the PowerEnjoy app has notified him about a fee of 1 EUR for the missed reservation.
+already tried the PowerEnjoy services a couple of times, decides to login using the PowerEnjoy application, he presses the “Find available cars” button and when the map activity is completely loaded, he locates an available car near his office address and reserves it by pressing the button “Reserve”. Fifteen minutes later, John's colleague Mary offers him a ride back home: John, who has always had a crush on Mary, cannot refuse and accepts enthusiastically. On the way back home with Mary, John suddenly remembers of his missed reservation: he checks his smartphone and he sees that the PowerEnjoy app has notified him about a fee of 1 EUR for the missed reservation.
 A trivial cost for being able to talk with Mary on the way home.
 
 
@@ -289,18 +290,17 @@ Goal: [G1]
 Actors: User, Car(s), MapsService
 Entry condition: “UserLogsIn”
 Flow of events: 
-* The User presses the button “Find Available Cars” in the menu activity. When the button is pressed, the GPS position of the User is sent to the system.
-* The system controls if the GPS user location is inside the city area
-* The system validates the GPS location of the User.
-* The system researches the GPS position of every available Car in the city and queries every available Car for its data (battery level and location in particular). The system sends these data to the User.
-* The system requests a map view to the MapsService and redirects the User to a map activity where the map is displayed.
-* The GPS coordinates of every available car are shown on a map on the screen of the User.
+* The User, using his mobile device, presses the button “Find Available Cars” in the menu activity of the PowerEnjoy application. When the button is pressed, the GPS position of the User is sent to the system.
+* The system queries every available Car for its data (battery level in particular).
+* The system requests a map view of the city area to the MapsService.
+* The system adds the available Cars data to the map view.
+* The system redirects the User to a map activity where the map view is displayed.
+* Every available Car is shown on a map view on the screen of the User.
+* The User may insert a specified address to highlight on his device screen a portion of the map view. The address can be inserted through a top bar inside the map activity.
+* The system may ask the MapsService about the validity of the address inserted by the User.
+* The system may update the map activity based on the address inserted by the User.
 Exit conditions:
-The User can now touch the image of a car inside the map view and if this happens the use case “UserReservesCar” is invoked.
-
-
-Exceptions:
-The GPS location of the User is outside the city area: the system notifies the User to go inside the city area to find available cars. The User is not redirected to the map activity.
+The User can now touch the image of a Car inside the map view and if this happens the use case “UserReservesCar” is invoked.
 
 
 Use case UC1.3: UserReservesCar 
@@ -308,19 +308,19 @@ Goal: [G1]
 Actors: User, Car
 Entry condition: “UserFindsAvailableCars”
 Flow of events:
-* The User is inside the map activity and presses on a car icon inside the map activity
-* A popup dialog is shown to the User showing the address of the city in which the car is, the car battery level and its license plate. All the informations are based on the informations the User has received when the map activity was started. The dialog shows also a button “Reserve”
-* The User presses the button “Reserve”. All the informations are sent to the system.
-* The system checks if the User has already done a reservation of a car which is not terminated yet
-* The system checks if the chosen car is reserved or not
-* The system queries the chosen Car to see if it is really available at the specified position
-* The system saves the reservation of the User for the chosen car starting from the reservation request time
+* The User is inside the map activity and presses on a Car icon.
+* A popup dialog is shown to the User showing the address of the city in which the Car is, the Car’s battery level and its license plate. All the informations are based on what the User has received when the map activity was started. The dialog shows also a button “Reserve”.
+* The User presses the button “Reserve”. This information is sent to the system.
+* The system checks if the User has already done a reservation of a Car which is not terminated yet.
+* The system checks if the chosen Car is reserved or not.
+* The system queries the chosen Car to see if it is really available at its specified position.
+* The system saves the reservation of the User for the chosen Car starting from the reservation request time.
 Exit conditions:
-The system notifies the User about the success of the reservation procedure indicating also the time when we reservation will expire if the car will not be picked-up.
+The system notifies the User about the success of the reservation procedure indicating also the time when the reservation will expire if the reserved Car is not be picked-up.
 Exceptions:
-* The User has already done a reservation of a car which is not terminated yet: the system notifies the User that he can reserve another car only when the other reservation will be terminated (either with normal usage of the reserved car or for the expiring of the reservation after a missed pick-up after 1 hour from the reservation time)
-* The User cannot complete the reservation since during the reservation procedure, another User has managed to reserve the chosen car before our User: the system notifies the User of being too late and notifies him to find another available car
-* The User waits too much time and when he presses on the car, the system notifies the User that the chosen car is no more there. The system redirects the User to the menu activity so he can invoke again the “UserFindsAvailableCars” use case.
+* The User has already done a reservation of a car which is not terminated yet: the system notifies the User that he can reserve another car only when the other reservation is terminated.
+* The User cannot complete the reservation since during the reservation procedure, another User has managed to reserve the chosen car: the system notifies the User of being too late and to find another available car.
+* The User waits too much time and when he presses on the car icon, the system notifies the User that the chosen car is no more there. The system redirects the User to the menu activity so he can invoke again the “UserFindsAvailableCars” use case.
 
 
 Use case UC2.1.1: CarUnlocking 
@@ -407,7 +407,7 @@ Flow of events:
 * The system confirms the end of the rental on the Car on-board screen.
 * The system registers that there is one less available parking slot in that safe area.
 Exit conditions: 
-After the proper exit of the User, the system proceedes to lock the Car, the use case “LockTheCarAutomatically” is invoked.
+After the proper exit of the User, the system proceeds to lock the Car, the use case “LockTheCarAutomatically” is invoked.
 Exceptions: 
 The system can’t find a correspondence between the coordinates of the Car and the coordinates of any safe area or detects that there are no parking slots available in that safe area. The system notifies the User through the Car on-board screen that his rental cannot end until he reaches another safe area.
 
@@ -473,7 +473,7 @@ After the login (“UserLogsIn” use case) the User has localized (“UserFinds
 Flow of events: 
 * The system evaluates the total minutes of the User’s last ride, starting from the first ignition of the engine.
 * The system, based on the previous evaluated minutes, calculates the User’s bill value.
-* The system evaluates all possible discounts and penalties applicable to the user’s bill: the system starts from the discount related to the remaining battery of the car (“GetBatteryDiscount” use case), proceedes to the discount related to the plugging of the car into a power grid (“PlugCarAndGetDiscount” use case), then evaluates the penalty related to parking away from a power safe area (“ParkFarFromGrid” use case) and, if the previous penalty was not applied, it evaluates the penalty related to the low status of the remaining battery (“LeaveLowBattery” use case). 
+* The system evaluates all possible discounts and penalties applicable to the user’s bill: the system starts from the discount related to the remaining battery of the car (“GetBatteryDiscount” use case), proceeds to the discount related to the plugging of the car into a power grid (“PlugCarAndGetDiscount” use case), then evaluates the penalty related to parking away from a power safe area (“ParkFarFromGrid” use case) and, if the previous penalty was not applied, it evaluates the penalty related to the low status of the remaining battery (“LeaveLowBattery” use case). 
 * If in “PassengersDiscount” use case the system established that the passengers discount has to be applied, a further discount of 10% on the User’s bill is applied
 * The system interacts with the BillingService in order to account the payment to the User.
 Exit conditions:        
@@ -582,10 +582,18 @@ details in the DD.
 
 * SOFTWARE SYSTEM ATTRIBUTES
    1. RELIABILITY
+                In order to obtain a constant and full control over the company’s car, brief operations
+of maintenance of the system should not compromise the functionalities related to the
+management and the control of the cars. Brief unavailability on the functionalities
+related to the users, though, such as the registration process, could be acceptable 
+but should be limited in order to respect the high availability desired.
         
    1. AVAILABILITY
+        The system should always be available, so that the customers of PowerEnjoy can
+access to the services offered by the system at any time. 
         
    1. SECURITY
+To ensure that only the authorized users can locate and reserves the company’s cars and in order to protect the personal information contained in the user’s profiles, each registered user will be protected by a personal e-mail and password. In addition, in order to add a an extra layer of security when the users actually approach the company’s cars, the system will comunicate a unique and personal PIN to each user to allow the unlock of the reserved car, so that unauthorized users could not use the company’s cars even with a correct couple of email and password.
 
 
    1. MAINTAINABILITY
@@ -595,7 +603,7 @@ as much as possible, to help the maintainers of the system and potential new dev
 
    1. PORTABILITY
         The S2B should run on many different platforms: Android, iOS and in future maybe on 
-a web browser
+a web browser.
 
 
 TRACEABILITY MATRIX
