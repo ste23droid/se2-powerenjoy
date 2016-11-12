@@ -2,9 +2,9 @@
 
 
 Abstract
-The Requirements Analysis and Specification Document (RASD) follows the redaction of the Feasibility Study document. This document aims to provide a model for the system which is aligned with the needs of the customers, to highlight the goals and limitations of the S2B, to provide a complete description of the system in terms of functional and non-functional requirements and to describe some typical scenarios that will then lead to the specification of typical use cases. 
+The Requirements Analysis and Specification Document (RASD) follows the redaction of the Feasibility Study document. This document aims to provide a model for the system to be which is aligned with the needs of the customers, to highlight the goals and limitations of the S2B, to describe some typical scenarios that will then lead to the specification of abstract use cases, which in turn will help to provide a complete description of the system to be in terms of functional and non-functional requirements. 
 This document leads stakeholders from some initial goals or objectives of the S2B to structured and more formal requirements.
-The intended audience of this document are all the stakeholders which directly or indirectly have an interest on the system: the customers which are paying for the commission of this software, the final users that will use this software, the developers and designers that have to implement the system and the requirements analysts that have to implement the requirements. This document can also be used as a contractual basis between the customers and the developers.
+The intended audience of this document are all the stakeholders which directly or indirectly have an interest on the system to be: the customers which are paying for the commission of this software, the final users that will use this software, the developers and designers that have to implement the system and the requirements analysts that have to elicit the requirements. This document can also be used as a contractual basis between the customers and the developers.
 
 
 Purpose
@@ -12,101 +12,116 @@ The aim of the project is to develop PowerEnjoy, a digital management system for
 
 
 As every regular car-sharing service, the system guarantees some basic functionalities: 
-users can locate and reserve an electric car, after having registered and logged into the system. The S2B will discourage users to make reservations that won’t be respected, since in this case the car are not used and this causes a business damage to our customers. The users can communicate to the system that they are near a reserved car to allow its unlock. During their journey on the car, the users will pay a given amount of money per minute, while informed of the current charges; the users are stop being charged when the car is parked in one of the predefined safe areas and the car will automatically be locked after the exit of the users.
+a user can locate and reserve an electric car, after having registered and logged into the system. The S2B will discourage a user to make a reservation that won’t be respected, since in this case the reserved car will not be used and this may cause a business damage to our customers on long terms. A user can communicate to the system with a mobile web application that he is near a reserved car to allow its unlock. During his ride on the reserved car, the user will pay a given amount of money per minute, while informed of the current charges on the screen on board of that car; the user is stop being charged when the car is parked in one of the predefined safe areas and the car will automatically be locked (if possible) after the exit of the user from the reserved car.
 
 
-In addition to standard car-sharing services, the system aims to incentivise users which use properly the cars and to optimize the distribution of the cars in the city. This incentives are done by providing discounts on the last ride made by the user. The users will obtain a discount when they share their car with other passengers, when they leave no more than half of the battery empty and when they plug the car into a power grid to enable battery recharge. These discounts aim to reduce the maintenance costs of our customers, to guarantee that future users will be able to use a car with enough battery autonomy and to encourage users to use the service again. On the contrary, unworthy behaviours from the users that may prejudice the future users’ experience will cause an extra charge.
+In addition to standard car-sharing services, the system aims to incentivize users which use properly the cars and to optimize the distribution of the cars in the city. This incentives are done by providing discounts on the last ride made by the user. A user will obtain a discount when he shares the car he reserved with other passengers, when he leaves specified battery capacity in the car at the end of a reservation and when he plugs the car into a power plug inside a power safe area in order to recharge it. These discounts aim to reduce the maintenance costs and time for our customers, to guarantee that future users will be able to use a car with enough battery capacity and to encourage users to use the car sharing service again. On the contrary, unworthy behaviours from the users that may prejudice the future users’ experience will cause an extra charge to pay in addition to the original bill of the last reservation.
 
 
-Finally, in order to guarantee a uniform distribution of cars in the city, the users can access a money saving option by accepting as destination a safe area dictated by the system.
-
-
+Finally, in order to guarantee a uniform distribution of cars in the city and let the user save money, the users can access a money saving option by accepting as destination a safe area or power safe area dictated by the system.
 
 
 Goals
-The overall, high level objectives which provide the motivations for the system in the world are the followings:
+The overall, high level objectives which provide the motivations for our system in the world are the followings:
 
 
-* G1: The system shall allow users to find available cars and reserve them.
-        This is the main goal to be fulfilled by the S2B. All the operations to 
-            achieve this goal will be done by final users through a mobile application
-* G2: The system shall guarantee the usage of the cars
+* G1: Allow users to find available cars and reserve them
+        This is one of the main goals to be fulfilled by the S2B. All the operations to 
+            achieve this goal will be done by final users through a mobile web application
+* G2: Allow users to use the reserved cars in the city area
         This goals aims to guarantee to users the usage of reserved cars and the 
-access to the reserved cars through a mobile application
-* G3: The system shall guarantee a uniform distribution of the cars in the city.
-        This goals aims to exploit the usage of the cars by the users as much as possible
-and to incentivize new users to sign up to PowerEnjoy
-* G4: The system shall encourage users to use properly the reserved cars 
+access to the reserved cars through a mobile web application
+* G3: Guarantee a uniform distribution of the cars in the city area
+        This goal aims to exploit the usage of the cars by the users as much as possible
+and may also indirectly incentivize new users to register to the PowerEnjoy service
+* G4: Incentivize users to use properly the reserved cars 
         This goal aims to incentivize users to use properly the fleet of cars provided by the 
-company to reduce the maintenance time of the cars.
+company in order to reduce the maintenance time and maintenance costs of the 
+cars.
 
 
-All the goals contribute together to guarantee the main goal for PowerEnjoy, which is that the cars are used as much as possible by the users.
+All the goals contribute together to guarantee the main goal for PowerEnjoy: the cars provided by the company should be used as much as possible by the users.
 
 
 Scope
-In order to make a first analysis of the application domain, we have followed the concepts and ideas provided in the paper by M. Jackson & P. Zave on “The World and the Machine”.
-The application domain can be divided in three main parts: the World, the Shared Phenomena and the Machine. In the World there are all the 
+In order to make a first analysis of the application domain and to define the boundaries of our S2B, we have followed the concepts and ideas provided in the paper by M. Jackson & P. Zave on “The World and the Machine”.
+The application domain can be divided in three main parts: the World, the Shared Phenomena and the Machine. In the World there are the goals of our S2B, the domain assumptions and all the objects and people of the reality. The Machine is our S2B. In the Machine there are all the tasks and programs of our S2B. These programs can be built from scratch or can rely partially on interactions with external services. The Shared Phenomena define the boundaries of our S2B, the interactions between our S2B and the World. In the Shared Phenomena there are all the requirements of our S2B that we need to capture. Every requirement is the result of an interaction that starts from the World and has an effect on the Machine or viceversa. The following is the result of this analysis on our S2B:
 
 
 Actual System
-Our customers don’t have by now a software for the management of the car-sharing service which they would like to provide, so we assume that the S2B will not incorporate any previous legacy software and will be developed from scratch. However to system will interact with external software to support part of its functionalities. More details about external interfaces will be explained in the Section 3 of this document.
+Our customers don’t have by now a software system for the management of the car-sharing service which they would like to provide, so we assume that the S2B will not incorporate any previous legacy software and will be developed from scratch. However our system will interact with external services to support part of its functionalities. More details about external interfaces will be explained in the Section 2 and Section 3 of this document.
 
 
 Actors
-The main physical actors involved in the interactions with the S2B are the following:
+The main physical actors involved in the interactions with our S2B are the following:
 * Guest: all the guest users can only see the introductory login page and 
         decide to register to the system by following the registration procedure
-* User: this users, after a successfull login, can access to all the main functionalities of the S2B, among which: research of available cars inside the city, reservation of an available car, unlocking of a reserved car.
+* User: these users, after a successful login, can access to all the main functionalities of the S2B, among which there are: research of available cars inside the city area, reservation of an available car, unlocking of a reserved car, usage of the reserved car.
+* Operator: every operator can login into the system, find on a map of the city area the unavailable cars, choose a car to maintain and set that car as available again after having managed to fix it.
 
 
 Definitions, acronyms, abbreviations
 
 
 Definitions
-* Actor: class of people or system that interact with the S2B
-* Guest: physical person whose email is not known by the S2B
-* User: physical person whose credentials are known by the S2B
+* Actor: class of people or systems that interact with the S2B
+* Guest: physical person who is not registered to the PowerEnjoy system, his credentials are not known by the S2B. A Guest can become a user after a successful registration procedure.
+* User: physical person who is registered to the PowerEnjoy system, his credentials are known by the S2B
+* Operator: worker of the PowerEnjoy company encharged to do the maintenance of the electric cars when needed
 * Credentials: email and password
 * Car: an electric car of the PowerEnjoy company
-* Safe Area : private area owned by the company. Each safe area is made of multiple parking slots
+* Safe Area : private area owned by the company. Each safe area is made of a number of parking slots
 * Power safe area: it’s a special kind of safe area where each parking slot has a dedicated power plug that can be used to recharge a car
-* City area: the city area is the set of all the GPS positions within the boundaries of the city
+* City area: the city area is the set of all the GPS coordinates within the boundaries of the city border
 * Environment: the world in which reside the goals and domain assumptions of this software to be
-* PIN: unique password received by the user from the S2B at the end of the registration procedure. This password will be then used to access to the system. This password should not be confused with the password used by the user to perform the login.
-* Car failure: mechanical problem in the car. Examples of car failures are: battery damaged, engine broken, flat tires, and failures caused by accidents
-* Service battery: battery inside the car which provides the energy needed for the functioning of all the electrical equipment in the car. This battery can work even when the main battery of the car is empty
+* PIN: unique password received by the user from the S2B at the end of the registration procedure. This password will be then used by the user to unlock a car he has reserved. This password should not be confused with the password used by the user to perform the login.
+* Car failure: mechanical problem occurring in the car or problem preventing a normal usage of the car to a future user. Examples of car failures are: battery damaged, battery empty, engine broken, flat tires, prevented car locking because of open doors and failures caused by incidents involving the specified car
 * Battery (Battery Array):  is the energy tank of the car
+* Service battery: battery inside the car which provides the energy needed for the functioning of all the electrical equipments in that car. This battery can work even when the battery array of the car is empty. The service battery provides energy to guarantee the lock/unlock of the car, the ignition of the engine, the work of the ECU and so on.
+* Exit properly from a car: the user goes out from a reserved car and by doing this action he has taken care that all the doors, trunk and windows in that car are closed properly
+* Pick up a car: the user unlocks his reserved car
+* Park a car: the car of the user is not moving and it is inside a parking slot
+* Car stop: a car stop occurs when a user wants to park temporarily his reserved car but without terminating the reservation of that car
+* Car ride: time during which a car is reserved by a user
+* Car screen: display with touchscreen technology mounted on board of a car
+* Car status: the actual condition of a car of the company. The status of a car can be: Available, Reserved, Unavailable, Maintenance
+* Reservation terminated correctly: the reservation is terminated correctly by the system when the user has parked the reserved car in a safe area and exited properly from the car, thus not preventing its lock.
+* Penalty: charge a user with more money on his last reservation bill
 
 
 Acronyms
 * RASD = Requirements Analysis and Specification Document
+* DD = Design Document
 * S2B = Software to be
 * API = Application Programming Interface
 * ECU = Engine Control Unit
 * SDK = Software Development Kit
 * GPS = Global Positioning System
 * 3G =  3rd generation wireless mobile telecommunications technology
+* CAN = Controller Area Network
 
 
 Abbreviations
 * G[i] = ith goal
+* G[i.y] = yth subgoal of the ith goal
 * R[i] = ith requirement
+* RR[i] = ith requirement rationale
 * D[i] = ith domain assumption
-* M[i] = ith mockup
+* T[i] = ith text assumption
 
 
 Reference Documents
-* Specification Document of PowerEnjoy
-* IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements Specifications: this document has been used for defining the general structure of the whole RASD (called SRS in the IEEE document)
-* IEEE ISO/IEC/29148 - IEEE Standard On Requirement Engineering: this document has been used for all the general concepts about requirement engineering
-* Paper by Jackson and Zave on the World and the Machine: this document has been used to understand better where to put the boundaries of the S2B
-* Maintencance manual for electric cars involved in a famous car sharing service: http://www.sharengo.eu/cs/wp-content/uploads/2014/05/Manuale-duso-e-manutenzione-Icar0.pdf
+* Specification Document of PowerEnjoy.
+* IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements Specifications: this document has been used for defining the general structure of the whole RASD (called SRS in the IEEE document).
+* IEEE ISO/IEC/29148 - IEEE Standard On Requirement Engineering: this document has been used for some general concepts about requirement engineering.
+* Jackson and Zave - “Deriving Specifications From Requirements”: this document has been used to understand better where to put the boundaries of the S2B.
+* Papers on the GreenMove project: to understand better the interface with the cars.
+* Maintencance manual for electric cars involved in a famous car sharing service: http://www.sharengo.eu/cs/wp-content/uploads/2014/05/Manuale-duso-e-manutenzione-Icar0.pdf : this document has been used to try to understand better the functioning of the electric cars for PowerEnjoy.
 
 
 Overview
-This document has been structured by following the IEEE Std 830-1998 with some minor modifications. The whole document is divided in four sections.
-* Section 1: Introduction, this section presents the main goals and relevant actors of the S2B. This section is audienced to all the stakeholder which have a legitimate interest in the system
-* Section 2: Overall Description, this section provides more informations about the boundaries of the S2B and the interactions between the S2B and external interfaces. It will also highlight the domain and text assumptions for S2B. This part is audienced to all the stakeholders.
-* Section 3: Specific Requirements, this section is the body of the whole RASD. It provides more informations about all the aspects in Section 2 and is mainly audienced to the developers. This section provides some mockups for the interfaces within the boundaries of the S2B, some informations about the external services used and also some scenarios of the use of the software system with related use cases and UML diagrams. In this section all the goals of the S2B will be investigated deeply and for every goal a list of functional and non-functional requirements will be presented.
-* Section 4: Appendix, this sections provides the models of the system created using Alloy. Alloy will be used to verify some critical aspects of the S2B.
+This document has been structured by following the IEEE Std 830-1998 with some minor modifications mainly devoted to highlight goals, scenarios and use cases. The whole document is divided in four sections.
+* Section 1: Introduction, this section presents the main goals and relevant physical actors of the S2B. This section is audienced to all the stakeholders which have a legitimate interest in our system.
+* Section 2: Overall Description, this section provides more informations about the boundaries of the S2B and the interactions between the S2B and external interfaces. It will also highlight the domain assumptions for the S2B. This part is audienced to all the stakeholders, in particular to our customers and users.
+* Section 3: Specific Requirements, this section provides more informations about all the aspects in Section 2 and is mainly audienced to the developers of the S2B. It provides some mockups for the interfaces which are within the boundaries of the S2B, some informations about the external services used and also some scenarios of the usage of the software system with related use cases and UML diagrams. In this section all the goals of the S2B will be investigated deeply and for every goal a list of functional requirements will be presented. The section will conclude with a list of non-functional requirements for the S2B
+* Section 4: Appendix, in this section Alloy will be used to model some critical parts of the system.
