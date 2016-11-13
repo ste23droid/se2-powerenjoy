@@ -1,0 +1,9151 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\hypersetup{urlcolor=blue, linkcolor=blue}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref section
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 4
+\tocdepth 4
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+P
+\noun on
+ower
+\noun default
+E
+\noun on
+n
+\noun default
+J
+\noun on
+oy
+\noun default
+
+\begin_inset Newline newline
+\end_inset
+
+R
+\series default
+equirements 
+\series bold
+A
+\series default
+nalysis and 
+\series bold
+S
+\series default
+pecification 
+\series bold
+D
+\series default
+ocument
+\end_layout
+
+\begin_layout Author
+\noindent
+Stefano Brandoli (mat.
+ 875633)
+\begin_inset Newline newline
+\end_inset
+
+Silvia Calcaterra (mat.
+ 874887)
+\begin_inset Newline newline
+\end_inset
+
+Samuele Conti (mat.
+ 875708)
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename 20151029123608!Logo_Politecnico_Milano.png
+	lyxscale 30
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\noun on
+Version 1.0
+\noun default
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+The Requirements Analysis and Specification Document (RASD) follows the
+ redaction of the Feasibility Study document.
+ This document aims to provide a model for the S2B which is aligned with
+ the needs of the customers, to highlight the goals and limitations of the
+ S2B, to describe some typical scenarios that will then lead to the specificatio
+n of abstract use cases, which in turn will help to provide a complete descripti
+on of the S2B in terms of functional and non-functional requirements.
+ 
+\end_layout
+
+\begin_layout Abstract
+This document leads stakeholders from some initial goals or objectives of
+ the S2B to structured and more formal requirements.
+\end_layout
+
+\begin_layout Abstract
+The intended audience of this document are all the stakeholders which directly
+ or indirectly have an interest on the S2B: the customers which are paying
+ for the commission of this software, the final users that will use this
+ software, the developers and designers that have to implement the S2B and
+ the requirements analists that have to elicit the requirements.
+ This document can also be used as a contractual basis between the customers
+ and the developers.
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\color black
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+hypersetup{linkcolor=black}
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+hypersetup{linkcolor=blue}
+\end_layout
+
+\end_inset
+
+
+\color inherit
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Subsection
+Purpose
+\end_layout
+
+\begin_layout Standard
+The aim of the project is to develop 
+\emph on
+PowerEnJoy
+\emph default
+, a digital management system for a car-sharing service that exclusively
+ employs electric cars.
+\end_layout
+
+\begin_layout Standard
+As every regular car-sharing service, the system shall guarantee some basic
+ functionalities: a user can locate and reserve an electric car, after having
+ registered and logged into the system.
+ The S2B will discourage a user to make a reservation that won’t be respected,
+ since in this case the reserved car will not be used and this may cause
+ a business damage to our customers on long terms.
+ A user can communicate to the system with a mobile web application that
+ he is near a reserved car to allow its unlock.
+ During his ride on the reserved car, the user will pay a given amount of
+ money per minute, while informed of the current charges on the screen on
+ board of that car; the user is stop being charged when the car is parked
+ in one of the predefined safe areas and the car will automatically be locked
+ (if possible) after the exit of the user from the reserved car.
+\end_layout
+
+\begin_layout Standard
+In addition to standard car-sharing services, the system aims to incentivize
+ users which use properly the cars and to optimize the distribution of the
+ cars in the city.
+ This incentives are done by providing discounts on the last ride made by
+ the user.
+ A user will obtain a discount when he shares the car he reserved with other
+ passengers, when he leaves specified battery capacity in the car at the
+ end of a reservation and when he plugs the car into a power plug inside
+ a power safe area in order to recharge it.
+ These discounts aim to reduce the maintenance costs and time for our customers,
+ to guarantee that future users will be able to use a car with enough battery
+ capacity and to encourage users to use the car sharing service again.
+ On the contrary, unworthy behaviours from the users that may prejudice
+ the future users’ experience will cause an extra charge to pay in addition
+ to the original bill of the last reservation.
+\end_layout
+
+\begin_layout Standard
+Finally, in order to guarantee a uniform distribution of cars in the city
+ and let the user save money, the users can access a money saving option
+ by accepting as destination a safe area or power safe area dictated by
+ the system.
+\end_layout
+
+\begin_layout Subsection
+Goals
+\end_layout
+
+\begin_layout Standard
+The overall, high level objectives which provide the motivations for our
+ system in the world are the followings:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+G1: Allow users to find available cars and reserve them
+\series default
+.
+\begin_inset Newline newline
+\end_inset
+
+This is one of the main goals to be fulfilled by the S2B.
+ All the operations to achieve this goal will be done by final users through
+ a mobile web application.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+G2: Allow users to use the reserved cars inside the city area
+\series default
+.
+\begin_inset Newline newline
+\end_inset
+
+This goal aims to guarantee to users the usage of reserved cars and the
+ access to the reserved cars through a mobile web application.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+G3: Guarantee a uniform distribution of the cars in the city area
+\series default
+.
+\begin_inset Newline newline
+\end_inset
+
+This goal aims to exploit the usage of the cars by the users as much as
+ possible and may also indirectly incentivize new users to register to the
+ PowerEnjoy service.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+G4: Incentivize users to use properly the reserved cars.
+ 
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+This goal aims to incentivize users to use properly the fleet of cars provided
+ by the company in order to reduce the maintenance time and maintenance
+ costs of the cars.
+\end_layout
+
+\begin_layout Standard
+All the goals contribute together to guarantee the main goal for PowerEnjoy:
+\series bold
+ the cars provided by the company should be used as much as possible by
+ the users
+\series default
+.
+\end_layout
+
+\begin_layout Subsection
+Scope
+\end_layout
+
+\begin_layout Standard
+In order to make a first analysis of the application domain and to define
+ the boundaries of our S2B, we have followed the concepts and ideas provided
+ in the paper by M.
+ Jackson & P.
+ Zave on “The World and the Machine”.
+\end_layout
+
+\begin_layout Standard
+The application domain can be divided in three main parts: the World, the
+ Shared Phenomena and the Machine.
+ In the World there are the goals of our S2B, the domain assumptions and
+ all the objects and people of the reality.
+ The Machine is our S2B.
+ In the Machine there are all the tasks and programs of our S2B.
+ These programs can be built from scratch or can rely partially on interactions
+ with external services.
+ The Shared Phenomena define the boundaries of our S2B, the interactions
+ between our S2B and the World.
+ In the Shared Phenomena there are all the requirements of our S2B that
+ we need to capture.
+ Every requirement is the result of an interaction that starts from the
+ World and has an effect on the Machine or viceversa.
+ The following is the result of this analysis on our S2B:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/Phenomena_prospective_completed.png
+	lyxscale 30
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Actual System
+\end_layout
+
+\begin_layout Standard
+Our customers don’t have by now a software system for the management of
+ the car-sharing service which they would like to provide, so we assume
+ that the S2B will not incorporate any previous legacy software and will
+ be developed from scratch.
+ However our system will interact with external services to support part
+ of its functionalities.
+ More details about external interfaces will be explained in the Section
+ 2 and Section 3 of this document.
+\end_layout
+
+\begin_layout Subsection
+Actors
+\end_layout
+
+\begin_layout Standard
+The main physical actors involved in the interactions with our S2B are the
+ following:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Guest:
+\series default
+ all the guest users can only see the introductory login page and decide
+ to register to the system by following the registration procedure.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+User: 
+\series default
+these users, after a successful login, can access to all the main functionalitie
+s of the S2B, among which there are: research of available cars inside the
+ city area, reservation of an available car, unlocking of a reserved car,
+ usage of the reserved car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Operator:
+\series default
+ every operator can login into the system, find on a map of the city area
+ the unavailable cars, choose a car to maintain and set that car as available
+ again after having managed to fix it.
+\end_layout
+
+\begin_layout Subsection
+Definitions, Acronyms, Abbreviations
+\end_layout
+
+\begin_layout Subsubsection
+Definitions
+\begin_inset CommandInset label
+LatexCommand label
+name "Definitions"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Actor:
+\series default
+ class of people or systems that interact with the S2B.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Credentials: 
+\series default
+email and password.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Guest:
+\series default
+ physical person who is not registered to the PowerEnjoy system, his credentials
+ are not known by the S2B.
+ A Guest can become a user after a successful registration procedure.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+User:
+\series default
+ physical person who is registered to the PowerEnjoy system, his credentials
+ are known by the S2B.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Operator:
+\series default
+ worker of the PowerEnjoy company encharged to do the maintenance of the
+ electric cars when needed.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Car:
+\series default
+ an electric car of the PowerEnjoy company.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Safe Area:
+\series default
+ private area owned by the company.
+ Each safe area is made of a number of parking slots.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Power safe area: 
+\series default
+it’s a special kind of safe area where each parking slot has a dedicated
+ power plug that can be used to recharge a car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+City area:
+\series default
+ the city area is the set of all the GPS coordinates within the boundaries
+ of the city border.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Environment:
+\series default
+ the world in which reside the goals and domain assumptions of this software
+ to be.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+PIN: 
+\series default
+unique password received by the user from the S2B at the end of the registration
+ procedure.
+ This password will be then used by the user to unlock a car he has reserved.
+ This password should not be confused with the password used by the user
+ to perform the login.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Car failure:
+\series default
+ mechanical problem occurring in the car or problem preventing a normal
+ usage of the car to a future user.
+ Examples of car failures are: battery damaged, battery empty, engine broken,
+ flat tires, prevented car locking because of open doors and failures caused
+ by incidents involving the specified car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Battery (Battery Array):
+\series default
+ is the energy tank of the car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Service battery:
+\series default
+ battery inside the car which provides the energy needed for the functioning
+ of all the electrical equipments in that car.
+ This battery can work even when the battery array of the car is empty.
+ The service battery provides energy to guarantee the lock/unlock of the
+ car, the ignition of the engine, the work of the ECU and so on.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Exit properly from a car:
+\series default
+ the user goes out from a reserved car and by doing this action he has taken
+ care that all the doors, trunk and windows in that car are closed properly.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Pick up a car: 
+\series default
+the user unlocks his reserved car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Park a car:
+\series default
+ the car of the user is not moving and it is inside a parking slot.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Car stop:
+\series default
+ a car stop occurs when a user wants to park temporarily his reserved car
+ but without terminating the reservation of that car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Car ride:
+\series default
+ time during which a car is reserved by a user.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Car screen: 
+\series default
+display with touchscreen technology mounted on board of a car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Car status:
+\series default
+ the actual condition of a car of the company.
+ The status of a car can be: 
+\emph on
+Available
+\emph default
+, 
+\emph on
+Reserved
+\emph default
+, 
+\emph on
+Unavailable
+\emph default
+, 
+\emph on
+Maintenance
+\emph default
+.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Reservation terminated correctly:
+\series default
+ the reservation is terminated correctly by the system when the user has
+ parked the reserved car in a safe area and exited properly from the car,
+ thus not preventing its lock.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Penalty:
+\series default
+ charge a user with more money on his last reservation bill.
+\end_layout
+
+\begin_layout Subsubsection
+Acronyms
+\end_layout
+
+\begin_layout Itemize
+RASD = Requirements Analysis and Specification Document.
+\end_layout
+
+\begin_layout Itemize
+DD = Design Document.
+\end_layout
+
+\begin_layout Itemize
+S2B = Software to be.
+\end_layout
+
+\begin_layout Itemize
+API = Application Programming Interface.
+\end_layout
+
+\begin_layout Itemize
+ECU = Engine Control Unit.
+\end_layout
+
+\begin_layout Itemize
+SDK = Software Development Kit.
+\end_layout
+
+\begin_layout Itemize
+GPS = Global Positioning System.
+\end_layout
+
+\begin_layout Itemize
+3G = 3rd generation wireless mobile telecommunications technology.
+\end_layout
+
+\begin_layout Itemize
+CAN = Controller Area Network.
+\end_layout
+
+\begin_layout Itemize
+POS = Point Of Sale.
+\end_layout
+
+\begin_layout Subsubsection
+Abbreviations
+\end_layout
+
+\begin_layout Itemize
+[Gi] = i-th goal.
+\end_layout
+
+\begin_layout Itemize
+[Gi.y] = y-th subgoal of the i-th goal.
+\end_layout
+
+\begin_layout Itemize
+[Ri.y] = y-th requirement of the i-th goal.
+\end_layout
+
+\begin_layout Itemize
+[Ri.y.z] = z-th requirement of the y-th subgoal of the i-th goal.
+\end_layout
+
+\begin_layout Itemize
+[RRi] = i-th requirement rationale.
+\end_layout
+
+\begin_layout Itemize
+[Di] = i-th domain assumption.
+\end_layout
+
+\begin_layout Itemize
+[Ti] = i-th text assumption.
+\end_layout
+
+\begin_layout Itemize
+[UCi] = i-th use case.
+\end_layout
+
+\begin_layout Subsection
+Reference Documents
+\end_layout
+
+\begin_layout Itemize
+Specification Document of PowerEnjoy.
+\end_layout
+
+\begin_layout Itemize
+IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements
+ Specifications: this document has been used for defining the general structure
+ of the whole RASD (called SRS in the IEEE document).
+\end_layout
+
+\begin_layout Itemize
+IEEE ISO/IEC/29148 - IEEE Standard On Requirement Engineering: this document
+ has been used for some general concepts about requirement engineering.
+\end_layout
+
+\begin_layout Itemize
+Jackson and Zave - “Deriving Specifications From Requirements”: this document
+ has been used to understand better where to put the boundaries of the S2B.
+\end_layout
+
+\begin_layout Itemize
+Papers on the GreenMove project: to understand better the interface with
+ the cars.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "Documents"
+
+\end_inset
+
+
+\begin_inset Quotes eld
+\end_inset
+
+Maintenance Manual For Electric Cars
+\begin_inset Quotes erd
+\end_inset
+
+ involved in a famous car sharing service: 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.sharengo.eu/cs/wp-content/uploads/2014/05/Manuale-duso-e-manutenzione-I
+car0.pdf
+\end_layout
+
+\end_inset
+
+ : this document has been used to try to understand better the functioning
+ of the electric cars for PowerEnjoy.
+\end_layout
+
+\begin_layout Subsection
+Overview
+\end_layout
+
+\begin_layout Standard
+This document has been structured by following the IEEE Std 830-1998 with
+ some minor modifications mainly devoted to highlight goals, scenarios and
+ use cases.
+ The whole document is divided in four sections.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Section 1: Introduction
+\series default
+, this section presents the main goals and relevant physical actors of the
+ S2B.
+ This section is audienced to all the stakeholders which have a legitimate
+ interest in our system.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Section 2: Overall Description
+\series default
+, this section provides more informations about the boundaries of the S2B
+ and the interactions between the S2B and external interfaces.
+ It will also highlight the text and domain assumptions for the S2B.
+ This part is audienced to all the stakeholders, in particular to our customers
+ and users.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Section 3: Specific Requirements
+\series default
+, this section provides more informations about all the aspects in Section
+ 2 and is mainly audienced to the developers of the S2B.
+ It provides some mockups for the interfaces which are within the boundaries
+ of the S2B, some informations about the external services used and also
+ some scenarios of the usage of the software system with related use cases
+ and UML diagrams.
+ In this section all the goals of the S2B will be investigated deeply and
+ for every goal a list of functional requirements will be presented.
+ The section will conclude with a list of non-functional requirements for
+ the S2B
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Section 4: Appendix
+\series default
+, in this section Alloy will be used to model some critical parts of the
+ system.
+\end_layout
+
+\begin_layout Section
+Overall Description
+\end_layout
+
+\begin_layout Subsection
+Product Perspective
+\end_layout
+
+\begin_layout Standard
+The proposed solution for the system of PowerEnjoy won’t have to rely or
+ to be interfaced with a previous car-sharing system of the same company.
+ The system core functionalities will be developed from scratch, however
+ part of the offered functionalities will rely on external services for
+ these main reasons:
+\end_layout
+
+\begin_layout Enumerate
+Some functionalities cannot be developed properly without interfacing with
+ specific databases or informative systems.
+\end_layout
+
+\begin_layout Enumerate
+Reduce development costs by relying on well known APIs already present in
+ the market.
+\end_layout
+
+\begin_layout Enumerate
+Guarantee the portability of the system on multiple platforms.
+\end_layout
+
+\begin_layout Standard
+The system will be developed having in mind as core devices: mobile devices
+ (Android, iOS) and a device interacting with the car's hardware through
+ a software interface and with the user throught a touchscreen on board
+ of the car.
+ However efforts will be done during the development to try to rely the
+ least as possible to native Android SDK APIs for Android or to Swift SDK
+ APIs for iOS, so that an eventual future development of a web browser version
+ for our web application for PowerEnjoy won’t need much changes in its internal
+ logics.
+\end_layout
+
+\begin_layout Subsubsection
+User Interfaces
+\end_layout
+
+\begin_layout Standard
+The interface of the system on mobile devices will be developed to support
+ screen devices ranging from 3 inches diagonal and up, to support both devices
+ with small screen sizes and phablets.
+ The interface should also support a correct visualization even when the
+ smartphone screen is rotated (orientation change).
+\end_layout
+
+\begin_layout Standard
+After the user is logged in, the user won’t be redirected immediately on
+ a map activity to find and reserve available cars, on the contrary he will
+ be redirected on a menu activity.
+ This decision will help in the future if our customer will ask us to add
+ new functionalities like: support the user to change his personal informations,
+ support the user to pay PowerEnjoy when there are some debts with the company
+ (since one or more payments on the credit card of the user have failed).
+\end_layout
+
+\begin_layout Standard
+The interface of the system on the car’s on board screen will be developed
+ to be simple and immediate.
+\end_layout
+
+\begin_layout Subsubsection
+Hardware Interfaces
+\end_layout
+
+\begin_layout Standard
+The interaction with the hardware of every car is done through a pre-installed
+ hardware board that was put inside every car by the company from which
+ our customer has bought the cars.
+ Our S2B will only use the software interface provided by this hardware
+ board to interact with the car.
+\end_layout
+
+\begin_layout Subsubsection
+Software Interfaces
+\end_layout
+
+\begin_layout Standard
+The system will use the following external services to provide part of its
+ functionalities:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Car Interfacing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Name: 
+\series default
+VehicleInterface
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Mnemonic:
+\series default
+ Car
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Purpose:
+\series default
+ the VehicleInterface will be used to get informations from a car (like
+ its battery level, the number of passengers and its GPS position) and to
+ lock/unlock that car when needed.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Maps Service Interfacing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Name: 
+\series default
+Google Maps
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Mnemonic:
+\series default
+ MapsService
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Purpose: 
+\series default
+Google Maps will be used to let a user find available cars on a map of the
+ city area.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Billing Service Interfacing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Name: 
+\series default
+Virtual POS
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Mnemonic:
+\series default
+ BillingService
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Purpose:
+\series default
+ the Virtual POS will be used to handle users’ payments.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Product Functions
+\end_layout
+
+\begin_layout Standard
+The main functionalities that will be provided by the S2B, considering also
+ the functionalities provided in part through external interfacings, are
+ the following:
+\end_layout
+
+\begin_layout Itemize
+Guest registration.
+\end_layout
+
+\begin_layout Itemize
+User login.
+\end_layout
+
+\begin_layout Itemize
+Visualization of available cars on a map of the city.
+\end_layout
+
+\begin_layout Itemize
+Find available cars inside the city area.
+\end_layout
+
+\begin_layout Itemize
+Reserve available cars inside the city area.
+\end_layout
+
+\begin_layout Itemize
+Unlock a reserved car through a smartphone mobile web application.
+\end_layout
+
+\begin_layout Itemize
+Computation of the best safe area or power safe area as a destination to
+ save money for the user.
+\end_layout
+
+\begin_layout Itemize
+Cost and discount computation for every car reservation.
+\end_layout
+
+\begin_layout Itemize
+Car reservation payment handling.
+\end_layout
+
+\begin_layout Subsection
+User Characteristics
+\end_layout
+
+\begin_layout Standard
+The usage of the S2B will not require users with a particular educational
+ level, experience or technical expertise.
+ Every user who knows how to use applications on a smartphone device, how
+ to enable an internet connection, how to enable GPS and who is familiar
+ in providing payment informations on e-commerce websites, has enough expertise
+ to interact with the S2B easily.
+ In order to guarantee more usability of the software, a design based on
+ the design guidelines for Android and iOS applications will be adopted
+ where possible.
+\end_layout
+
+\begin_layout Subsection
+Constraints
+\end_layout
+
+\begin_layout Subsubsection
+Regulatory Policies
+\end_layout
+
+\begin_layout Standard
+The S2B will need permissions to acquire the GPS position of a user.
+\end_layout
+
+\begin_layout Subsubsection
+Hardware Limitations
+\end_layout
+
+\begin_layout Standard
+The hardware limitations for the mobile web application are the followings:
+\end_layout
+
+\begin_layout Itemize
+3G technology.
+\end_layout
+
+\begin_layout Itemize
+GPS technology.
+\end_layout
+
+\begin_layout Itemize
+Memory to download the application package.
+\end_layout
+
+\begin_layout Itemize
+Memory to install the application package.
+\end_layout
+
+\begin_layout Subsubsection
+Parallel Operations
+\end_layout
+
+\begin_layout Standard
+The S2B shall support parallel requests by multiple users for all the functional
+ities that can be provided to final users like: login, research of available
+ cars, car reservation and so on.
+\end_layout
+
+\begin_layout Subsection
+Assumptions and Dependencies
+\end_layout
+
+\begin_layout Standard
+We assume that these properties hold in the analyzed world:
+\end_layout
+
+\begin_layout Subsubsection
+Text Assumptions
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[T1] 
+\series default
+There is not a previous system, the system will be developed from scratch.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[T2]
+\series default
+ The main device used by users and operators to access the functionalities
+ of the S2B is a mobile device, however part of the interaction between
+ the user and the S2B happens also through the screen on board of every
+ car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+\begin_inset CommandInset label
+LatexCommand label
+name "[T3]"
+
+\end_inset
+
+[T3]
+\series default
+ The PowerEnjoy company has already bought all the electric cars that will
+ be used by our future users.
+ We have to develop the software of the car which interacts through a software
+ interface with the car hardware, and with the user through a screen on
+ board.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[T4] 
+\series default
+The user cannot cancel a reservation of a car.
+ We assume that our customers wants to encourage the usage of the electric
+ cars in the short time.
+ In fact a user can only reserve an available car at most 1 hour before
+ the pick-up time, so we think that there is an high probability that a
+ user performing a reservation of a car will actually be very interested
+ in exploiting that reservation.
+ Furthermore our customers are asking us to apply a fee (1 EUR) to the user
+ if a reserved car is not picked-up, which we think is a small fee considering
+ the money lost by the missed usage of that car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[T5]
+\series default
+ We assume that the battery cited in the text is considered as the electric
+ car tank.
+ In fact in the real world every electric car has two main batteries: the
+ battery array which serves as a tank and a service battery which provides
+ the energy necessary for the functioning of all the electrical equipments
+ in the car.
+ See the 
+\begin_inset Quotes eld
+\end_inset
+
+Maintenance Manual For Electric Cars
+\begin_inset Quotes erd
+\end_inset
+
+ in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Documents"
+
+\end_inset
+
+ for more informations.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[T6]
+\series default
+ We assume from the text that every car of the company has at least 3 seats.
+\end_layout
+
+\begin_layout Subsubsection
+Domain Assumptions
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D1]
+\series default
+ Every car has a GPS module that is always on.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D2]
+\series default
+ Every car has a 3G module that is always on.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D3]
+\series default
+ The S2B on board of a car is always on even when the screen on board of
+ that car is turned off to save service battery energy.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "[D4]"
+
+\end_inset
+
+
+\series bold
+[D4]
+\series default
+ Inside every car there is a low-level hardware board which is connected
+ to the CAN-bus of the car.
+ This board provides a software interface that can be used by our S2B to
+ get informations from that car and to control the actuators of that car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D5]
+\series default
+ All the sensors in the cars work correctly.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D6]
+\series default
+ Every car is always localizable using GPS.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D7] 
+\series default
+The GPS data are always correct.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D8]
+\series default
+ A car occurring in a car failure will always be able to communicate to
+ the system.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D9]
+\series default
+ A user occurring in a car failure during the usage of his reserved car
+ will stop using that car as soon as possible.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D10]
+\series default
+ The devices used by guests, users and operators, when interacting with
+ the S2B, are always connected with GPS technology and Internet connection
+ (3G connectivity technology or WiFi).
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D11]
+\series default
+ The set of safe areas is initialized in the S2B at startup-time.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D12]
+\series default
+ Every safe-area has a predefined number of parking slots.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D13]
+\series default
+ The safe areas are far enough from each other such that each safe-area
+ can be identified by a unique GPS coordinate and a radius of variable dimension.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D14]
+\series default
+ Every parking slot in a power safe area has a dedicated and working power
+ plug.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D15]
+\series default
+ When a car is plugged to a power plug inside a power safe area, the battery
+ array recharges and the service battery recharges as well.
+ See the 
+\begin_inset Quotes eld
+\end_inset
+
+Maintenance Manual For Electric Cars
+\begin_inset Quotes erd
+\end_inset
+
+ in the 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Documents"
+
+\end_inset
+
+ for more informations.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D16] 
+\series default
+The number of available cars of the company is less than or equal to the
+ sum of all the parking slots in all the safe areas, considering both normal
+ safe areas and power safe areas.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D17]
+\series default
+ The safe areas are distributed uniformly inside the city area: we make
+ this assumption, otherwise the cars cannot be distributed uniformly in
+ the city.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D18]
+\series default
+ A vehicle not owned by PowerEnjoy cannot be left in a parking slot inside
+ a safe area.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D19]
+\series default
+ Every operator is already assigned to a predefined email and password by
+ the system, they don’t need to register to the system.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D20]
+\series default
+ Every operator checks periodically if there are unavailable cars.
+ We assume this since they’re paid to do the maintenance.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D21]
+\series default
+ An operator that has set a car as under maintenance will actually manage
+ to fix it and then set it back to available.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D22]
+\series default
+ Every car is identified by a unique license plate.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D23]
+\series default
+ The personal informations provided by the user during the registration
+ procedure correspond to the truth.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D24]
+\series default
+ A user won’t drive a car of the company without a valid driving license.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D25]
+\series default
+ The unique PIN received back by a user at the end of his registration procedure
+ will always be known by that user.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[D26]
+\series default
+ A user cannot let another user use the car he has reserved by providing
+ him his credentials and personal PIN.
+\end_layout
+
+\begin_layout Section
+Specific Requirements
+\end_layout
+
+\begin_layout Subsection
+External Interfaces Requirements 
+\end_layout
+
+\begin_layout Subsubsection
+User Interfaces 
+\end_layout
+
+\begin_layout Standard
+The following mockups shall be intended only as a way to understand better
+ some requirements of the S2B, not as design decisions.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+User's Mobile Application Interfaces
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Mockups/login_framed.png
+	lyxscale 10
+	width 40col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Mockups/mainUserMenu_framed.png
+	lyxscale 10
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Mockups/findCars_framed.png
+	lyxscale 10
+	width 40col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Mockups/UserPaymentNotification_framed.png
+	lyxscale 10
+	width 40col%
+
+\end_inset
+
+
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Operator's Mobile Application Interfaces
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Mockups/mainOperatorMenu_framed.png
+	lyxscale 10
+	width 40col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Mockups/operatorFindUnavailableCars_framed.png
+	lyxscale 10
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Car's Screen Interface
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Mockups/carMap_framed.png
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Hardware Interfaces
+\end_layout
+
+\begin_layout Standard
+Every electrical component in a car is directly connected to the CAN bus.
+ The company providing the cars to PowerEnjoy has put inside every car a
+ low-level board which is alimented by the service battery and that is connected
+ directly to the CAN-bus (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[D4]"
+
+\end_inset
+
+).
+ This board is able to read and write CAN protocol messages on the CAN bus
+ and provides a software interface (software layer) to interact with itself.
+ In order to retrieve data from the car’s sensors and in order to operate
+ on the car’s actuators, the S2B will interact with the methods provided
+ by that software interface instead of interacting with the car hardware
+ directly.
+\end_layout
+
+\begin_layout Subsubsection
+Software Interfaces 
+\end_layout
+
+\begin_layout Standard
+The system will use the following external services to provide part of its
+ functionalities:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Car Interfacing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Name
+\series default
+: VehicleInterface 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Mnemonic:
+\series default
+ Car 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Source:
+\series default
+ Papers on the Green Move project.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Purpose: 
+\series default
+this external service will be used to retrieve useful data from the car’s
+ sensors, such as possible mechanical failures, the battery’s state of charge,
+ if the battery is currently recharging, the car’s location, the opening
+ and the closing of the doors and the trunk, the locking and the unlocking
+ of the car, the speed of the car, the ignition of the engine and the number
+ of passengers in the car.
+ This interface will also be used to carry out some important actions directly
+ on the car, such as the lock and the unlock of the doors.
+ Further details about this software interface, however, are beyond the
+ purposes of this document.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Maps Service Interfacing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Name:
+\series default
+ Google Maps 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Mnemonic:
+\series default
+ MapsService
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Source:
+\series default
+ 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://developers.google.com/maps/
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Purpose:
+\series default
+ this external service will be used to get a detailed map view of the city
+ area, to highlight the cars’ and safe areas’ GPS positions on the map view,
+ to use utilities to let the user type only addresses inside the city area
+ and to show a path from the car actual GPS position to the GPS position
+ of the destination safe area.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Billing Service Interfacing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Name:
+\series default
+ Virtual POS 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Mnemonic:
+\series default
+ BillingService 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Source:
+\series default
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://developer.paypal.com/docs/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.cartasi.it/download/SPECIFICHETECNICHE_INTEGRAZIONE_POS_VIRTUALE_10-5.p
+df
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Purpose:
+\series default
+ this external service is a Virtual POS that will be used to manage easily
+ and safely the variety of payment informations that can be provided by
+ the users.
+ This service will be used to account and receive a response about the status
+ of a payment accounted to a user.
+ It will also be used to verify if the payment informations provided by
+ a user are valid.
+ The choice between the two services will be made explicit in the next revisions
+ of this document or in the design phase.
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+Memory
+\end_layout
+
+\begin_layout Standard
+For the web mobile application, the user will require at least the necessary
+ space on secondary memory for downloading and installing the PowerEnjoy
+ app’s package.
+ The estimation of the usage of the primary memory will not be part of this
+ document.
+\end_layout
+
+\begin_layout Subsection
+Functional Requirements
+\end_layout
+
+\begin_layout Subsubsection
+
+\series bold
+\begin_inset CommandInset label
+LatexCommand label
+name "[G1]"
+
+\end_inset
+
+[G1] Allow users to find available cars and reserve them.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[G1.1]
+\series default
+ 
+\series bold
+Allow users to access the system.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+[R1.1.1]
+\series default
+ The system shall allow a user to login if and only if his provided credentials
+ are correct.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R1.1.2] 
+\series default
+The system shall guarantee that every user is associated to a unique PIN.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R1.1.3] 
+\series default
+The system shall send a unique PIN to a user at the end of his registration
+ procedure.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R1.1.4]
+\series default
+ The system shall not allow a guest to complete the registration if the
+ email provided has already been used by another user.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R1.1.5]
+\series default
+ The system shall not allow a guest to complete the registration if he is
+ not at least 18 years old.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R1.1.6]
+\series default
+ The system shall not allow a guest to complete the registration if he has
+ provided an invalid payment method.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+[G1.2] Allow users to find available cars.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+[R1.2.1]
+\series default
+ The system shall allow a user to find available cars starting from his
+ GPS location.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R1.2.2]
+\series default
+ The system shall allow a user to find available cars starting from a specified
+ address.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R1.2.3]
+\series default
+ The system shall be able to locate every car of the company.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+[G1.3] Allow users to reserve available cars.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+[R1.3.1] 
+\series default
+The system shall allow a user to reserve a car if and only if that car is
+ available.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R1.3.2] 
+\series default
+The system shall not allow a user to make a car reservation if he has a
+ car reservation not terminated yet.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R1.3.3]
+\series default
+ The system shall guarantee that a car cannot be reserved at the same time
+ by more than one user.
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "[G2]"
+
+\end_inset
+
+[G2] Allow users to use the reserved cars inside the city area.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1]
+\series default
+ The system shall be able to check and set the status of every car of the
+ company.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.2] 
+\series default
+The system shall be able to query the sensors of a car to get informations.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[G2.1] Manage the user's reservation.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+[R2.1.1]
+\series default
+ The system shall guarantee that a reserved car can be unlocked only by
+ the user who made its last reservation, after he has inserted correctly
+ his PIN.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.2]
+\series default
+ The system shall guarantee that a reserved car can be unlocked only if
+ the unlock is requested within 10 meters from the current GPS position
+ of that car.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[RR1]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.3] 
+\series default
+The system shall start charging money to a user for his car reservation
+ when the engine of the reserved car ignites for the first time during that
+ reservation.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[RR2]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.4]
+\series default
+ The system shall charge money to a user for his car reservation with a
+ predefined amount of money per minute.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.5] 
+\series default
+The system shall display to the user the current charges of his car reservation
+ on the screen inside the car he reserved.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.6] 
+\series default
+The system shall detect when a car leaves or enters a safe area.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[RR3]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.7]
+\series default
+ The system shall allow a user to communicate his intention to make a stop
+ or to terminate his reservation through the screen on the reserved car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.8] 
+\series default
+The system shall allow a user to terminate his reservation only in a safe
+ area.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.9]
+\series default
+ The system shall evaluate if a reservation can terminate in the safe area
+ chosen by the user, considering the number of available parking slots in
+ that safe area.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.10]
+\series default
+ The system shall terminate the user reservation when the user exits properly
+ from the reserved car, after having parked that car in an approved safe
+ area.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[RR4]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.11]
+\series default
+ The system shall stop charging money to a user when his reservation is
+ terminated.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.12]
+\series default
+ The system shall guarantee that if a user doesn’t unlock for the first
+ time the car he reserved within 1 hour from his reservation, that reservation
+ terminates.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.13] 
+\series default
+The system shall guarantee that if a user doesn’t unlock for the first time
+ the car he reserved within 1 hour from his reservation, that car is set
+ as available.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.14]
+\series default
+ The system shall lock the car once the user exits properly from that car
+ and his reservation is terminated in a safe area.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.15]
+\series default
+ The system shall lock the car once the user exits properly from that car
+ after parking for a stop.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.16]
+\series default
+ The system shall set the car as available once the reservation on its last
+ ride is terminated and the car is locked.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.1.17]
+\series default
+ The system shall notify the user about the bill of his last ride, considering
+ also the discounts and penalties received.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+\begin_inset CommandInset label
+LatexCommand label
+name "[G2.2]"
+
+\end_inset
+
+[G2.2] Handle unexpected car situations and user behaviour.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+[R2.2.1]
+\series default
+ The system shall be able to detect a failure in a car.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.2.2]
+\series default
+ The system shall set a reserved or available car as unavailable if a failure
+ in that car occurs.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.2.3]
+\series default
+ The system shall terminate the last eventual reservation of a car if that
+ car is set as unavailable.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[RR5]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.2.4]
+\series default
+ The system shall not allow a user to make a car stop inside a safe area
+ or outside the city area.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[RR6]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.2.5]
+\series default
+ The system shall notify a user on the screen of the car he reserved when
+ he is leaving the city area with that car.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[RR7]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.2.6]
+\series default
+ The system shall guarantee that an operator can find the unavailable cars.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.2.7]
+\series default
+ The system shall allow an operator to set as under maintenance at most
+ one unavailable car at a time.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.2.8] 
+\series default
+The system shall set a reserved car as unavailable if its engine is not
+ turned on within 20 minutes from the last unlocking of that car.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[RR8]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.2.9]
+\series default
+ The system shall set a reserved car as unavailable if the reservation terminate
+s in a safe area with more than 80% of its battery empty.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[RR10]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R2.2.10]
+\series default
+ The system should not allow anymore the access to a user to which a payment
+ was not successfully accounted.
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+
+\series bold
+\begin_inset CommandInset label
+LatexCommand label
+name "[G3]"
+
+\end_inset
+
+[G3] Guarantee a uniform distribution of the cars inside the city area.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R3.1]
+\series default
+ The system shall apply a discount of 10% on the user’s last ride if he
+ has picked up at least 2 other passengers during the last ride and those
+ passengers have stayed on the car for at least 50% of the total time of
+ that ride.
+ See 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[RR9]"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R3.2]
+\series default
+ The system shall be able to get informations about the presence and number
+ of passengers in a car.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R3.3]
+\series default
+ The system shall implement a money saving option through which the user
+ inserts his destination on the screen of the reserved car and the system
+ shows on that screen the power safe area where to leave that car in order
+ to get a discount.
+\end_layout
+
+\begin_layout Subsubsection
+
+\series bold
+\begin_inset CommandInset label
+LatexCommand label
+name "[G4]"
+
+\end_inset
+
+[G4] Incentivize users to use properly the reserved cars.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R4.1]
+\series default
+ The system shall apply a discount or a penalty on the last ride to a user
+ only if his reservation is terminated correctly (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "Definitions"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[G4.1] Reward the users that ease the experience of other users.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+[R4.1.1]
+\series default
+ The system shall apply a discount of 20% on the last ride to a user leaving
+ after the ride more than 50% of the battery in the reserved car.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R4.1.2]
+\series default
+ The system shall apply a discount of 30% on the last ride to a user who
+ leaves the reserved car in a power safe area and plugs it.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+[
+\series bold
+G4.2] Penalize the users that ruin the experience of other users.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+[R4.2.1]
+\series default
+ The system shall charge 30% more on the last ride to a user who leaves
+ the car more than 3 km from the nearest power safe area or with more than
+ 80% of the battery empty.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+[R4.2.2]
+\series default
+ The system shall guarantee that if a user doesn’t unlock for the first
+ time the car he reserved within 1 hour from his reservation, a fee of 1
+ EUR is accounted to that user.
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Requirements Rationales
+\end_layout
+
+\begin_layout Subsubsection
+[RR1]
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "[RR1]"
+
+\end_inset
+
+We think that 10 meters is a good distance, otherwise a user can potentially
+ unlock the car he reserved far away from the car position and someone else
+ may enter in that car in the meanwhile.
+\end_layout
+
+\begin_layout Subsubsection
+[RR2]
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "[RR2]"
+
+\end_inset
+
+We specified “for the first time” since it can happen that the engine of
+ the car turns off during the car ride and the user may have to turn it
+ on manually again.
+ We want to start charging the user since the first intentional ignition
+ of the engine during his reservation.
+\end_layout
+
+\begin_layout Subsubsection
+[RR3]
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "[RR3]"
+
+\end_inset
+
+This requirement is necessary in order to keep updated the number of available
+ parking slots in a safe area and to avoid the termination of a reservation
+ in a safe area which it’s already fully occupied by other cars.
+\end_layout
+
+\begin_layout Subsubsection
+[RR4]
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "[RR4]"
+
+\end_inset
+
+The incorrect exit of the user from the reserved car is included in the
+ management of a car failure (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G2.2]"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsubsection
+[RR5]
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "[RR5]"
+
+\end_inset
+
+“Eventual” reservation because a car can have failures also when it is still
+ available inside a safe area or when it has been reserved but not picked
+ up yet from the safe area.
+\end_layout
+
+\begin_layout Subsubsection
+[RR6]
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "[RR6]"
+
+\end_inset
+
+We think that it’s reasonable not to allow a car stop inside a safe area,
+ otherwise a user can occupy with his reserved car a free parking slot in
+ a safe area and this action may prevent another user to use that parking
+ slot to terminate his reservation.
+ 
+\end_layout
+
+\begin_layout Itemize
+We don’t want to allow a car stop outside the city area since we don’t want
+ to provide service outside the city area.
+\end_layout
+
+\begin_layout Subsubsection
+[RR7]
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "[RR7]"
+
+\end_inset
+
+We don’t want to support the service outside the city area, so we think
+ that the user should be notified when he leaves the city area.
+\end_layout
+
+\begin_layout Subsubsection
+[RR8]
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "[RR8]"
+
+\end_inset
+
+After the unlock, the user may decide to not enter in the car or to enter
+ in the car without turning on (igniting) the engine.
+ Without this requirement, in the above cases the user can potentially keep
+ the car in the reserved status for days without paying anything.
+ We think that 20 minutes is a reasonable time, in fact we don’t want to
+ damage users which may take more time to turn on the engine after the unlock.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+[RR9]
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "[RR9]"
+
+\end_inset
+
+This requirement is listed under this goal since we think that, if multiple
+ people who know each other want to go to together to the same place using
+ the cars of the company, it is better if they share the same car as much
+ as possible instead of going in the same place with multiple cars.
+ Otherwise our company will find multiple cars arriving in very near safe
+ areas and this situation may be harmful since it may go against the goal
+ 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G3]"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+With the 50% time constraint, we want to avoid that the user fools down
+ the system to get a discount by picking up two passengers and making them
+ exit the car immediately.
+\end_layout
+
+\begin_layout Subsubsection
+[RR10]
+\end_layout
+
+\begin_layout Itemize
+\begin_inset CommandInset label
+LatexCommand label
+name "[RR10]"
+
+\end_inset
+
+We think that this is reasonable since a user won't trust an available car
+ with a battery level <20%, and if the user doesn't trust the car, he simply
+ won't choose it, which goes against the goal 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G2]"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Scenarios
+\end_layout
+
+\begin_layout Standard
+The following scenarios are a description of imagined sequences of events
+ that include the interaction of the S2B with its environment and users,
+ as well as the interaction among its components.
+ Scenarios are useful to derive abstract use cases, which can then help
+ to identify requirements that may have not been formally specified by any
+ of the stakeholders.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Scenario 1
+\end_layout
+
+\begin_layout Standard
+Alonso doesn’t like the public transportation, he thinks that those vehicles
+ are too slow to move inside the city area.
+ A friend told him that a new car-sharing service called PowerEnjoy is available
+ in the city, so Alonso decides to go on the app store and download the
+ PowerEnjoy mobile app.
+ Alonso opens the PowerEnjoy app.
+ Alonso is in the main activity of the app.
+ He presses the button “Register” and the registration procedure starts.
+ Alonso fills correctly the registration form with his personal data, he
+ provides a valid credit card as payment information, he accepts the “License
+ agreement contract for PowerEnjoy” and presses the button “Complete” to
+ end the registration procedure.
+ After some seconds, the registration procedure completes correctly and
+ Alonso receives an email with his unique PIN.
+ The PIN can be used by Alonso to unlock the cars he will reserve with PowerEnjo
+y.
+\end_layout
+
+\begin_layout Subsubsection
+Scenario 2
+\end_layout
+
+\begin_layout Standard
+Alicia lives inside the city area, near the city boundaries.
+ She has just known from a close friend that her favourite dress shop “Dressando
+” in the center of the city is offering special discounts for that day only.
+ Alicia decides that it’s the time to try the PowerEnjoy car sharing service,
+ to exploit the Dressando special discount.
+ Alicia has completed the registration procedure to PowerEnjoy two days
+ ago.
+ Alicia opens the PowerEnjoy app on her smartphone.
+ She is in the main activity.
+ She inserts correctly her email and password and presses the button “Login”.
+ After the successful login Alicia is redirected to a menu activity.
+ Alicia presses the button “Find available cars”, she is redirected to a
+ map activity showing the available PowerEnjoy cars in the city area.
+ Alicia sees her position on the map and locates an available car near her
+ position.
+ She selects that car on the map.
+ A dialog pops up showing the license plate of that car, its battery level,
+ its location and a button “Reserve”.
+ She presses the button “Reserve”.
+ She goes out and when she is 1 meter near the reserved car, she presses
+ the button “Unlock reserved car”.
+ She inserts her personal PIN and presses “Confirm”.
+ After some seconds, the reserved car is unlocked and Alicia enters in that
+ car.
+\end_layout
+
+\begin_layout Subsubsection
+Scenario 3
+\end_layout
+
+\begin_layout Standard
+Aldo, Giovanni and Giacomo are friends.
+ They are all vegetarians.
+ They have booked at the vegetarian restaurant “Gnam Veggie”, which is inside
+ the city area, for that evening.
+ Aldo uses PowerEnjoy regularly.
+ Aldo knows that if he picks up with him during a ride at least 2 other
+ passengers for at least 50% of the time of the ride, he will receive a
+ discount of 10% on the last ride.
+ Aldo proposes to Giovanni and Giacomo to reserve a PowerEnjoy car to go
+ to the restaurant, and they agree.
+ Aldo manages to reserve a car near his house inside the city area.
+ He went out, he goes very near (<10m) to that car and manages to unlock
+ it, after having inserted correctly his PIN.
+ Giovanni and Giacomo are both at Giovanni’s house, which is inside the
+ city area.
+ Aldo goes to Giovanni’s house, he parks the car, turns off the engine,
+ presses on the screen of the car the option “Make a stop” and exits correctly
+ the car.
+ After more or less 30 seconds, the car is locked.
+ Aldo goes to advice Giovanni and Giacomo and then they return to the reserved
+ car.
+ Aldo unlocks the car again and they enter.
+ Aldo ignites the engine and starts driving to “Gnam Veggie”.
+ Aldo finds a safe area near the restaurant, he parks the car, turns off
+ the engine, presses the button “Terminate reservation”.
+ The three friends exit correctly from the car.
+ After some time the car gets locked.
+ Aldo receives after a while a notification specifying the bill of the ride
+ performed and the discount applied: 10% for having shared the car with
+ 2 other passengers for at least 50% of the time of the ride.
+\end_layout
+
+\begin_layout Subsubsection
+Scenario 4 
+\end_layout
+
+\begin_layout Standard
+Will, that is already registered to PowerEnJoy, needs to cover a short distance
+ by car.
+ He logs to the PowerEnJoy application on his smartphone and selects the
+ “Find available cars” button; he then reserves the available car that is
+ closest to him.
+ Within one hour from the reservation, Will goes on the chosen location
+ and through the application on his smartphone informs the system that he
+ is nearby by clicking on the “Unlock reserved car” button and inserting
+ his personal PIN code.
+ The car unlocks itself within 30 seconds and he enters.
+ He immediately turns on the engine and the system starts charging him for
+ a given amount of money.
+ After covering a short distance, Will finds a safe area for parking and
+ exits properly from the car, leaving it with 20% battery empty.
+ After about 30 seconds, the system automatically locks the car.
+ After a short time, the user receives a notification from the PowerEnJoy
+ application with his charge for the last ride, where he is also informed
+ that he received a 20% discount on his last ride, because he left his car
+ with less than 50% of the battery empty.
+\end_layout
+
+\begin_layout Subsubsection
+Scenario 5
+\end_layout
+
+\begin_layout Standard
+Mike has to go to a concert in the city and decides to use PowerEnJoy to
+ reach his destination; he is registered to the system.
+ About an hour before the time he wants to leave, he logs to PowerEnJoy
+ and reserves a car that is close to where he lives.
+ When the time comes, he reaches the location, clicks on the “Unlock reserved
+ car” button, inserts his PIN code correctly and enters the car.
+ He doesn’t use the money saving option, as he doesn’t like to travel by
+ feet, so he always parks the car as close to his destination as possible.
+ Mike doesn’t like to travel with other passengers, so he doesn’t pick up
+ anyone onto the car during his ride.
+ The concert holds far away from where Mike lives, so when he reaches his
+ destination the car has more than 80% of the battery empty.
+ There are no special parking areas with power grid stations nearby, so
+ he parks the electric car in the safe area that is closest to the concert
+ and presses the button “Terminate reservation”.
+ He exits properly from the car and receives a notification with his charge
+ for the last ride, where he is also informed that he has been charged 30%
+ more than the specified price because he left the car with more than 80%
+ of the battery empty, and he did not get any discount because he did not
+ act in a virtuous way (by plugging the car to a power grid, sharing it
+ with at least two other passengers or using the money saving option).
+\end_layout
+
+\begin_layout Subsubsection
+Scenario 6
+\end_layout
+
+\begin_layout Standard
+John is a regular employee in a business company and after a long day of
+ work he is finally close to going back home.
+ While checking the last reports, his friend Paul reminds him about the
+ national strike of the public transport occurring that day: John, who has
+ already tried the PowerEnjoy services a couple of times, decides to login
+ using the PowerEnjoy application, he presses the “Find available cars”
+ button and when the map activity is completely loaded, he locates an available
+ car near his office address and reserves it by pressing the button “Reserve”.
+ Fifteen minutes later, John's colleague Mary offers him a ride back home:
+ John, who has always had a crush on Mary, cannot refuse and accepts enthusiasti
+cally.
+ On the way back home with Mary, John suddenly remembers of his missed reservati
+on: he checks his smarthphone and he sees that the PowerEnjoy app has notified
+ him about a fee of 1 EUR for the missed reservation.
+ A trivial cost for being able to talk with Mary on the way home.
+\end_layout
+
+\begin_layout Subsubsection
+Scenario 7
+\end_layout
+
+\begin_layout Standard
+Lorenzo is a student of Politecnico of Milan but, unfortunately, he has
+ having quite a struggle in succeeding in the exams.
+ Since his parents are becoming tired of economically supporting him, Lorenzo
+ is trying to sparing some of his monthly budget.
+ After finding out about the Money Saving Option offered by PowerEnjoy,
+ Lorenzo, already a registered user, decides to give it a try.
+ Lorenzo starts up the PowerEnjoy app on his smartphone; from the menu of
+ the main screen of the app he selects the button for the login and inserts
+ his credentials; once logged in, he uses the function for finding an available
+ car from his current position and he reserves it.
+ Ten minutes later, Lorenzo is close to the car: using the PowerEnjoy app,
+ Lorenzo unlocks the car by selecting the corresponding “Unlock reserved
+ car “ option on the menu and inserting his personal PIN; once in the vehicle,
+ Lorenzo checks the “Saving money option” showed on the screen: he then
+ enters his destination, the home of his physics tutor, and the closest
+ safe area to the inserted destination is shown to him; Lorenzo accepts
+ it by pressing the corresponding button on the screen.
+ After his journey, Lorenzo parks in the defined safe area; he then press
+ the option “Terminate reservation” on the car’s screen and exits properly
+ from the car.
+ A few minutes later Lorenzo is notified via app about the charged price
+ and the applied discount.
+ Lorenzo can now travel through the city without the worry of spending too
+ much money, thus focusing more on his studies.
+\end_layout
+
+\begin_layout Subsubsection
+Scenario 8
+\end_layout
+
+\begin_layout Standard
+Thomas loves going to the cinema.
+ Tonight, Thomas wants to watch an interesting action movie that he heard
+ about from a friend: as a registered user of PowerEnjoy, he logs into the
+ system inserting his credentials, he locates a car near his home address
+ and he reserves it.
+ After thirty minutes from his reservation, Thomas arrives at 5 meters from
+ the reserved car: he requests the car unlock by inserting his personal
+ PIN in the app and after about 30 seconds the system unlocks the car.
+ After his journey, Thomas parks the car in one of the power safe areas
+ in the city area.
+ Thomas remembers that he has not chosen the “Money Saving Option” and notices
+ that the car has 40% of battery left: after selecting the “Terminate reservatio
+n” option on the screen of the car and exiting properly from the car, he
+ decides to plug the car into one power plug of the power grid of that power
+ safe area.
+ While entering the cinema, Thomas gets a notification from the PowerEnjoy
+ app: he obtained a 30% discount on the last ride.
+ Happy for his reward, now Thomas can now enjoy better the movie.
+\end_layout
+
+\begin_layout Subsection
+UML Models
+\end_layout
+
+\begin_layout Subsubsection
+Use Case 
+\end_layout
+
+\begin_layout Standard
+The following are relevant use cases for our S2B.
+ Depending on the interest we have found in highlighting the interactions
+ in a use case, a sequence diagram and/or a use case diagram may be provided.
+\end_layout
+
+\begin_layout Subsubsection*
+
+\series bold
+Use case [UC1] GuestRegistration
+\end_layout
+
+\begin_layout Standard
+
+\size small
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features islongtable="true" longtabularalignment="center">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G1]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Guest, BillingService
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry Condition
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+none 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The Guest opens the main activity of the PowerEnjoy mobile web application.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Guest touches the “Register” button to start the registration procedure.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system replies by sending the registration form to the Guest.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Guest fills the form with all his credentials, personal data, payment
+ informations.
+ He reads the “License agreement contract for PowerEnjoy” and highlights
+ the option to accept the license agreement.
+ Then he touches the “Confirm” button.
+ All the data are sent to the system.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system checks the form completeness.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system has verified the form completeness and verifies the Guest credentials
+ and personal data.
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system has verified the correctness of user credentials and asks payment
+ validation to the BillingService.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The BillingService answers to the system that the payment informations are
+ valid.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system confirms the registration by sending a confirmation message to
+ the Guest.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system sends an email with the unique PIN generated for the new User.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The Guest is now a User.
+ The User is redirected by the system again on the main activity.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system adds an entry in the user’s database for the new User.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The Guest has provided an email already used by another User : the system
+ notifies the Guest to use another email.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Guest is not at least 18 years old: the system notifies the Guest about
+ this constraint on the use of the service.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Guest has not filled all the data requested in the form: the system
+ notifies to the Guest what is missing.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Guest has provided invalid payment informations: the system notifies
+ the Guest to insert different payment informations.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/GuestRegistration_SD_FINAL.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/GuestRegistration_UC_FINAL.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case
+\series bold
+ [UC2] 
+\series default
+UserLogsIn
+\end_layout
+
+\begin_layout Standard
+
+\size small
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G1]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+User 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry condition
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+User is registered to PowerEnjoy
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The User opens the main activity of the PowerEnjoy mobile web application.
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The User inserts his email and password and touches the button “Login”.
+ When the button “Login” is pressed, the informations inserted are sent
+ to the system.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system verifies the correctness of the email and password provided by
+ the User.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system has verified that the credentials of the User are correct and
+ sends a confirmation message to the User.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The User is logged into the PowerEnJoy system and he is redirected by the
+ system to the menu activity.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The email and/or password of the User are wrong, the system sends a message
+ to the User about the error.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/UserLogsIn_SD_FINAL.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/UserLoginUC_FINAL.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC3] 
+\series default
+UserFindsAvailableCars
+\end_layout
+
+\begin_layout Standard
+
+\size small
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G1]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+User, Car(s), MapsService 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry condition
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+“UserLogsIn”
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The User, using his mobile device, presses the button “Find Available Cars”
+ in the menu activity of the PowerEnjoy application.
+ When the button is pressed, the GPS position of the User is sent to the
+ system.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system queries every available Car for its data (battery level in particular
+).
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system requests a map view of the city area to the MapsService.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system adds the available Cars data to the map view.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system redirects the User to a map activity where the map view is displayed.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+Every available Car is shown on a map view on the screen of the User.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The User may insert a specified address to highlight on his device screen
+ a portion of the map view.
+ The address can be inserted through a top bar inside the map activity.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system may ask the MapsService about the validity of the address inserted
+ by the User.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system may update the map activity based on the address inserted by
+ the User.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The User can now touch the image of a Car inside the map view and if this
+ happens the use case “UserReservesCar” is invoked.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/UserFindsAvailableCars_SD_FINAL.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/UserFindsAvailableCars_UC_FINAL.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case
+\series bold
+ [UC4]
+\series default
+ UserReservesCar
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G1]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+User, Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+“UserFindsAvailableCars”
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The User is inside the map activity and presses on a Car icon.
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+A popup dialog is shown to the User showing the address of the city in which
+ the Car is, the Car’s battery level and its license plate.
+ All the informations are based on what the User has received when the map
+ activity was started.
+ The dialog shows also a button “Reserve”.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The User presses the button “Reserve”.
+ This information is sent to the system.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system checks if the User has already done a reservation of a Car which
+ is not terminated yet.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system checks if the chosen Car is reserved or not.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system queries the chosen Car to see if it is really available at its
+ specified position.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system saves the reservation of the User for the chosen Car starting
+ from the reservation request time.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system notifies the User about the success of the reservation procedure
+ indicating also the time when the reservation will expire if the reserved
+ Car is not be picked-up.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The User has already done a reservation of a car which is not terminated
+ yet: the system notifies the User that he can reserve another car only
+ when the other reservation is terminated.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The User cannot complete the reservation since during the reservation procedure,
+ another User has managed to reserve the chosen car: the system notifies
+ the User of being too late and to find another available car.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The User waits too much time and when he presses on the car icon, the system
+ notifies the User that the chosen car is no more there.
+ The system redirects the User to the menu activity so he can invoke again
+ the “UserFindsAvailableCars” use case.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/UserReservesCar_SD_FINAL.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/UserReservesCar_UC_FINAL.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case [
+\series bold
+UC5] 
+\series default
+CarUnlocking\SpecialChar ligaturebreak
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G2]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+User, Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+“UserReservesCar” use case
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The User selects the “Unlock reserved car” button on the menu activity of
+ the PowerEnJoy mobile application
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system verifies that a reservation actually exists and, if this is the
+ first unlocking, that at most 1 hour has passed from the User’s reservation
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system verification is successful 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The User inserts his personal PIN code on the form that appears on the mobile
+ application and confirms it by pressing “Ok”
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system verifies the correct correspondence between the PIN code inserted
+ and the user that reserved the car
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system takes the User’s GPS location from the User’s mobile phone 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system requests the reserved car’s GPS location to the Car 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Car provides its current GPS location
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system verifies that the User’s GPS location is at most 10 m distant
+ to the reserved car’s GPS location 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The distance verification is successful and the car unlocks automatically
+ within 30 seconds.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The User has done no reservation; an error message is displayed on screen
+ of the mobile phone of the User 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+More than 1 hour has passed from the reservation to the first unlocking
+ request; the “MissedReservation” use case is invoked
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The PIN code inserted by the User is incorrect; the system shows an error
+ message on the mobile application and asks the User to try again 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The control of the distance between the car and the User fails; the failure
+ is communicated via notification on the PowerEnJoy app and the User can
+ try again 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/CarUnlocking_SD.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/CarUnlocking_uc.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC6] 
+\series default
+EngineIgnition
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G2]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+“CarUnlocking” use case
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The User enters his reserved and unlocked car 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The User turns the car’s key 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system verifies that at most 20 minutes have passed from the last unlocking
+ of the car 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The verification is successful 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system verifies if the event of the engine ignition is the first one
+ during this reservation 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The engine ignites; if the event of the engine ignition is the first one
+ during this reservation, the system starts charging the user for the establishe
+d amount of money.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+More than 20 minutes have passed from the last unlocking of the car; the
+ car is set to unavailable and the last non terminated reservation is ended
+ automatically.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/EngineIgnition_sd.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/EnginIgnition_uc.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC7]
+\series default
+ SetCarToAvailable
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G2]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+“LockTheCarAutomatically” use case
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The system, using the vehicle software interface, queries the battery sensor
+ of the Car about the remaining charge in the battery array of the Car.
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Car provides the remaining battery percentage to the system.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system verifies that the Car’s battery is at most 80% empty.
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system asks the Car’s damage sensor if the Car has some damages.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Car’s damage sensor tells the system that the Car has no damage.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The Car is set as available by the system, so that another User can reserve
+ it.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The Car’s battery is more than 80% empty or some other Car failure has occurred;
+ the system sets the Car to unavailable.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/SetCarToAvailable_sd.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/SetCarToAvailable_uc.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC8]
+\series default
+ OperatorFixesCar
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G2]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Operator, Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The Car status has been set as unavailable (some Car failure has occurred
+ or the battery is more than 80% empty); the Operator is already logged
+ to the system using the PowerEnJoy mobile web application 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The Operator visualizes all the unavailable cars on the city map.
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Operator clicks on an unavailable car and visualizes its problem (kind
+ of failure that has occurred) and the car’s info.
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Operator sets the unavailable car as under maintenance by clicking on
+ the dedicated button.
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system verifies that the Operator has no other cars under his maintenance
+ at the moment.
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The verification is successful and the system confirms the Operator’s choice.
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Operator goes on-site and fixes the Car (by charging it through a portable
+ electric car charger or by fixing the failure and by moving the Car in
+ a safe area if necessary) 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+When the Car is fixed, the Operator sets the Car back to available through
+ the mobile application
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The Operator had another car under his maintenance when making the maintenance
+ request; the system shows an error message and leaves the selected Car
+ as unavailable.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/OperatorFixesCar_sd.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/OperatorFixesCar_uc.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC9] 
+\series default
+ConcludeRental
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G2]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+User, Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The User has logged into the system, localized and reserved a car.
+ He has then picked up the car within 1 hour from his reservation, and finally
+ has concluded his journey by parking the car in a safe area or in a power
+ safe area.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The User presses on the car on-board screen the option “Terminate reservation”.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system, using the vehicle software interface, asks the Car’s GPS the
+ current location of the Car.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Car’s GPS provides the required information to the system.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system confirms that the received coordinates corresponds to one of
+ the known safe areas (with a reasonable approximation of 10 meters) and
+ that there is at least one available parking slot in that safe area.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system confirms the end of the rental on the Car on-board screen.
+ The system registers that there is one less available parking slot in that
+ safe area.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+After the proper exit of the User, the system proceeds to lock the Car,
+ the use case “LockTheCarAutomatically” is invoked.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system can’t find a correspondence between the coordinates of the Car
+ and the coordinates of any safe area or detects that there are no parking
+ slots available in that safe area.
+ The system notifies the User through the Car on-board screen that his rental
+ cannot end until he reaches another safe area.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC10]
+\series default
+ LockTheCarAutomatically
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G2]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+User, Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The User has decided to conclude his rental (use case “ConcludeRental”)
+ or to “Make a Stop”.
+ The User has exited the Car.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The system, using the vehicle software interface, asks the Car’s sensors
+ if the car doors, the windows and the trunk are closed.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Car’s sensor tells the system that the doors, the windows and the trunk
+ are closed.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system requests the Car lock.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Car locks down within 30 seconds from the request.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system stops charging the User.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system proceeds with the evaluation of the User’s bill, “PayLastRide”use
+ case is invoked.
+ Then the “SetCarToAvailable” use case is invoked.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The Car’s door sensor tells the system that some car door, some windows
+ or the trunk aren’t closed; the Car status is set to unavailable and since
+ that the user’s reservation is ended by the system the system stop charging
+ the user.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/ConcludeRentalAndLock_sd.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/ConcludeRentalAndLock_uc.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC11]
+\series default
+ PassengersDiscount
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G3]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+User, Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+“EngineIgnition” use case
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+During the ride, the system asks the Car’s passenger sensors about the number
+ of passengers in the Car
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Car’s passenger sensors provide the number of passengers in the Car
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The User decides to terminate his ride by pressing the dedicated button
+ on the car’s screen (“ConcludeRental” use case)
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system verifies that at least two other passengers were in the Car for
+ at least 50% of the total time of the ride
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The verification is successful 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+A discount of 10% on the User’s bill is registered.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system establishes that there weren’t at least two other passengers
+ in the Car for at least 50% of the total time of the ride and the discount
+ is not applied.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/PassengersDiscount_sd.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC12] 
+\series default
+MoneySavingOption
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G3]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+User,Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+“EngineIgnition” use case
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The User selects the “Money Saving Option” by activating a switch button
+ on the Car’s screen 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The User inserts his destination address in the form that appears on the
+ Car’s screen
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system shows a map on the Car’s screen with the location of the safe
+ area or power safe area that is closest to the destination inserted, that
+ allows the User to get a discount and that helps to reach a uniform distributio
+n of the cars in the city area
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+During the ride, the system monitors the status of the shown safe area (number
+ of parking slots that are available) and finds and shows a different safe
+ area (repeating the previous point of the flow) on the Car’s screen if
+ there are no more parking slots left in the originally found safe area
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The User can park his car in the safe area or power safe area located by
+ the system in order to get a discount at the end of the ride
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The destination address inserted in not valid; the system shows a message
+ on the Car screen saying to insert a valid address.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC13]
+\series default
+ PayLastRide
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G4]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+BillingService
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+After the login (“UserLogsIn” use case) the User has localized (“UserFindsAvaila
+bleCars” use case) and reserved a car (“UserReservesCar” use cases).
+ The User has unlocked the car (“CarUnlocking” use case) by inserting his
+ personal PIN.
+ The User has driven the reserved car and parked it in a safe area, requesting
+ the end of the rental (“ConcludeRental” use case).
+ The User has exited the car.
+ The system has handled the car’s lock (“LockTheCarAutomatically” use case).
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The system evaluates the total minutes of the User’s last ride, starting
+ from the first ignition of the engine.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system, based on the previous evaluated minutes, calculates the User’s
+ bill value.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system evaluates all possible discounts and penalties applicable to
+ the user’s bill: the system starts from the discount related to the remaining
+ battery of the car (“GetBatteryDiscount” use case), proceeds to the discount
+ related to the plugging of the car into a power grid (“PlugCarAndGetDiscount”
+ use case), then evaluates the penalty related to parking away from a power
+ safe area (“ParkFarFromGrid” use case) and, if the previous penalty was
+ not applied, it evaluates the penalty related to the low status of the
+ remaining battery (“LeaveLowBattery” use case).
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+If in “PassengersDiscount” use case the system established that the passengers
+ discount has to be applied, a further discount of 10% on the User’s bill
+ is applied 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system interacts with the BillingService in order to account the payment
+ to the User.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system notifies the User about the bill of the last ride, including
+ eventual discounts and penalties applied.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The systems is notified that the payment was not successful.
+ The system blocks the User.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/PayLastRide_SD.png
+	lyxscale 10
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/PayLastRide.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC14]
+\series default
+ GetBatteryDiscount
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G4]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system has evaluated the bill of the User’s last ride (“PayLastRide”
+ use case).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The system, using the vehicle software interface, asks the Car’s battery
+ array sensor about the remaining charge.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Car’s battery array sensor provides the remaining battery array percentage
+ to the system.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The remaining battery in the battery array has more than 50% of the capacity
+ and the system registers a 20% discount on the original calculated bill.
+ The system evaluates a second possible discount (“PlugCarAndGetDiscount”
+ use case).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The remaining battery in the battery array is less than 50% of the full
+ capacity and so no discount is applied to the User.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC15] 
+\series default
+PlugCarAndGetDiscount
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G4]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+User, Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system has evaluated the remaining battery percentage in the battery
+ array in order to apply the related discount (“GetBatteryDiscount” use
+ case).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The User plugs the Car using a power plug in a power safe area within 60
+ seconds after the lock of the Car.
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system, using the vehicle software interface, asks the Car’s sensor
+ if the Car is recharging.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Car’s sensor tells the system that the Car is recharging.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system calculates a 30% discount on the original calculated bill and
+ adds any eventual previous calculated discounts (“GetBatteryDiscount” use
+ case).
+ The system proceeds to evaluate a possible penalty for the User (“ParkFarFromGr
+id” use case).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The User does not plug the Car into a power grid within 60 seconds after
+ the lock of the car, the battery is not recharging and the system doesn’t
+ apply any discount.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+UseCase 
+\series bold
+[UC16] 
+\series default
+ParkFarFromGrid
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G4]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system has evaluated if the Car was recharging in order to apply the
+ related discount ( “PlugCarAndGetDiscount” use case).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The system asks through the vehicle software interface the Car’s position,
+ as detected by the Car’s GPS.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Car’s GPS provides the GPS coordinate.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system evaluates that the Car is more than 3 KM from the nearest power
+ safe area.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system charges 30% more on the last ride, still considering eventual
+ previous discount (“GetBatteryDiscount” use case, “PlugCarAndGetDiscount”
+ use case) to be applied on the original bill.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system evaluates that the Car is less than 3 KM from the nearest power
+ safe area and no penalty is applied.
+ The system checks for the battery status (“LeaveLowBattery” use case).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use case 
+\series bold
+[UC17]
+\series default
+ LeaveLowBattery
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G4]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Car
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The system has evaluated that the Car was far no more than 3 KM from the
+ nearest power safe area from the car position (“ParkFarFromGrid” use case).
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The system, using the vehicle software interface, asks the remaining charge
+ in the Car detected by the Car’s battery array sensor.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The Car’s battery array sensor provides the remaining battery percentage
+ to the system through the software interface.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The remaining battery in the battery array is less than 20% of the full
+ capacity and the system registers a 30% charge on the last ride, that will
+ be subtracted to any eventual previous discount (“GetBatteryDiscount” use
+ case, “PlugCarAndGetDiscount” use case) on the original calculated bill.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The remaining battery in the battery array is more than 20% of the full
+ capacity and no extra charge on the last ride is applied to the User
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename D:/Documents/Ingegneria informatica/Quarto anno/Software Engineering 2/Project/Diagrams/GetDiscountsAndPenalties_sd.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Use Case 
+\series bold
+[UC18]
+\series default
+ MissedReservation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="85col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Goal
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[G4]"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Actors
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+User, Payment service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Entry conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The user has logged into the system (“UserLogsIn” use case), located and
+ reserved a car (“UserFindsAvailableCars” use case, “UserReservesCar” use
+ case).
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Flow of events
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Itemize
+
+\size small
+The user does not pick up the reserved car within 1 hour from his reservation.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system interacts with an external payment service and charge the user
+ a fee of 1 EUR.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\size small
+The system notifies the user about the missed reservation and the consequent
+ fee.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exit conditions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The car that the user reserved, still fully functional, is now tagged as
+ available, and other users can reserve it.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+Exceptions
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+The users picks up the car in time and no fee is applied.
+ The user does not have the requested money and the system, notified by
+ the payment service, blocks his profile.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Statechart
+\end_layout
+
+\begin_layout Standard
+The following is a statechart showing how we designed the evolution of the
+ status of a car of the company.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename Car status_FINALV2.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Class Diagram
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename Class DiagramV2.png
+	lyxscale 10
+	width 90col%
+	rotateAngle 90
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Non Functional Requirements
+\end_layout
+
+\begin_layout Subsubsection
+Performance Requirements
+\end_layout
+
+\begin_layout Standard
+The system should support the requests and the interaction with a number
+ of terminals which is partially static: the number of cars in the fleet
+ of the company will not vary from its initial estimation since our customer
+ has already bought the cars (see 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "[T3]"
+
+\end_inset
+
+); and partially dynamic: the number of devices accessing our web application
+ will probably grow with the diffusion of the car sharing service in the
+ city area and also if a web browser version for our web application will
+ be built in the future.
+ We will have to develop a scalable system which can prioritize the interaction
+ and communication with the main good for our customer, the cars, when the
+ system will be subject to high loads.
+ The number of terminals to be supported should be at least greater than
+ the number of cars plus the number of operators, however the upper bound
+ will be established based on the decisions in the DD.
+\end_layout
+
+\begin_layout Subsubsection
+Design Constraints
+\end_layout
+
+\begin_layout Standard
+The main design constraints and related non functional requirements will
+ probably come from the interaction of our system with the cars.
+ These design constraints will be treated in more detail in the DD.
+\end_layout
+
+\begin_layout Subsubsection
+Software System Attributes
+\end_layout
+
+\begin_layout Paragraph
+Reliability
+\end_layout
+
+\begin_layout Standard
+In order to obtain a constant and full control over the company’s cars,
+ brief operations of maintenance of the system should not compromise the
+ functionalities related to the management and the control of the cars.
+ Brief unavailability on the functionalities related to the users, though,
+ such as the registration process or login, could be acceptable, but should
+ be limited in order to respect the high availability desired.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Availability
+\end_layout
+
+\begin_layout Standard
+The system should aim to be almost always available, so that the customers
+ of PowerEnjoy can access to the services offered by the system at any time.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Security
+\end_layout
+
+\begin_layout Standard
+The system shall ensure that only registered users can locate and reserve
+ the company’s cars, after having logged with their email and password.
+ In addition, in order to guarantee that only the user who has reserved
+ a car can actually unlock it, every user is associated since the end of
+ the registration procedure with a unique personal PIN.
+ This PIN has to be inserted correctly to unlock a reserved car.
+ This adds an extra layer of security since a malicious person, stealing
+ the email and password of a user, cannot unlock a car reserved by that
+ user without knowing his PIN as well.
+\end_layout
+
+\begin_layout Paragraph
+Maintainability
+\end_layout
+
+\begin_layout Standard
+In order to obtain a maintainable system, the future application code will
+ be documented as much as possible, to help the maintainers of the system
+ and potential new developers that may become an active part in the development.
+\end_layout
+
+\begin_layout Paragraph
+Portability
+\end_layout
+
+\begin_layout Standard
+The S2B should run on many different platforms: Android, iOS and in future
+ maybe on a web browser.
+ As already stated in the Section 2 and Section 3 of this document, we will
+ try to develop a web application that will not be specific to only one
+ particular platform.
+ To do this we will try to limit the usage of platform dependend APIs.
+\end_layout
+
+\begin_layout Subsection
+Traceability Matrix
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="11" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top" width="30col%">
+<column alignment="center" valignment="top" width="40col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Row ID
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Goal ID
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Requirement ID
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Use Case ID
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+r1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+G1.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R1.1.1-R1.1.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UC1, UC2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+r2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+G1.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R1.2.1-R1.2.3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UC3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+r3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+G1.3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R1.3.1-R1.3.3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UC4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+r4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+G2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R2.1-R2.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+no specific use case for these requirements
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+r5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+G2.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R2.1.1-R2.1.17
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UC5, UC6, UC7, UC9, UC10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+r6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+G2.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R2.2.1-R2.2.10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UC7, UC10, UC8
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+r7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+G3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R3.1-R3.3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UC11, UC12 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+r8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+G4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R4.1-R4.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UC13
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+r9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+G4.1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R4.1.1-R4.1.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UC14, UC15
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+r10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+G4.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+R4.2.1-R4.2.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UC16, UC17, UC18
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Appendix
+\end_layout
+
+\begin_layout Subsection
+Alloy
+\end_layout
+
+\begin_layout Standard
+Here's the complete code for our Alloy model.
+ The.als file can be found in our GitHub repository.
+ For clarity we separate the code in Signatures, Facts and Asserts and Predicate
+s.
+ We have also inserte dtwo possible worlds generated by the code with a
+ brief description.
+\end_layout
+
+\begin_layout Subsubsection
+Abstract Entity and Signature
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+open util/boolean
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Name, Surname, Addr{}
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Email, Password, PIN{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+sig PaymentMethod{}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+abstract sig User { 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	name: some Name,
+\end_layout
+
+\begin_layout Plain Layout
+
+	surname: some Surname,
+\end_layout
+
+\begin_layout Plain Layout
+
+	address: one Addr,
+\end_layout
+
+\begin_layout Plain Layout
+
+	email: one Email,
+\end_layout
+
+\begin_layout Plain Layout
+
+	password: one Password
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig RegisteredUser extends User{
+\end_layout
+
+\begin_layout Plain Layout
+
+	pin: one PIN, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	suspended: one Bool,
+\end_layout
+
+\begin_layout Plain Layout
+
+	paymentMethod: one PaymentMethod,
+\end_layout
+
+\begin_layout Plain Layout
+
+	reservations: set Reservation 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Operator extends User { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	carUnderMaintenance : lone Car 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//A reservation is considered active from its creation
+\end_layout
+
+\begin_layout Plain Layout
+
+//until its termination
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Reservation {
+\end_layout
+
+\begin_layout Plain Layout
+
+	creator : one RegisteredUser,
+\end_layout
+
+\begin_layout Plain Layout
+
+	reservedCar: one Car,
+\end_layout
+
+\begin_layout Plain Layout
+
+	requestUnlock: some UnlockRequest, //user can make different 
+\end_layout
+
+\begin_layout Plain Layout
+
+	//car's unlock requests during his reservation
+\end_layout
+
+\begin_layout Plain Layout
+
+	active: one Bool
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig UnlockRequest {
+\end_layout
+
+\begin_layout Plain Layout
+
+	correctUserPosition: one Bool,
+\end_layout
+
+\begin_layout Plain Layout
+
+	unlockOutcome: one Bool //the request can have a positive
+\end_layout
+
+\begin_layout Plain Layout
+
+	//or negative outcome
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig GPS{}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Car {
+\end_layout
+
+\begin_layout Plain Layout
+
+	position: one GPS,
+\end_layout
+
+\begin_layout Plain Layout
+
+	available: one Bool,
+\end_layout
+
+\begin_layout Plain Layout
+
+	inMaintenance: one Bool,
+\end_layout
+
+\begin_layout Plain Layout
+
+	reserved: one Bool,
+\end_layout
+
+\begin_layout Plain Layout
+
+	reservation : set Reservation,
+\end_layout
+
+\begin_layout Plain Layout
+
+	locked: one Bool,
+\end_layout
+
+\begin_layout Plain Layout
+
+	inCharge: one Bool
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig SafeArea {
+\end_layout
+
+\begin_layout Plain Layout
+
+	coordinates: one GPS,
+\end_layout
+
+\begin_layout Plain Layout
+
+	numberOfSpots: one Int,
+\end_layout
+
+\begin_layout Plain Layout
+
+	availableSpots: one Int,
+\end_layout
+
+\begin_layout Plain Layout
+
+	powerGrid: one Bool 
+\end_layout
+
+\begin_layout Plain Layout
+
+}{ 
+\end_layout
+
+\begin_layout Plain Layout
+
+	numberOfSpots > 0
+\end_layout
+
+\begin_layout Plain Layout
+
+	availableSpots >= 0
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Facts
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "tabsize=5"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//Two different users can’t have the same email
+\end_layout
+
+\begin_layout Plain Layout
+
+fact NoSameEmailForDifferentUsers {
+\end_layout
+
+\begin_layout Plain Layout
+
+	no disjoint u1, u2 : User | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	u1.email = u2.email
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//Two different registered users can’t have the same PIN 
+\end_layout
+
+\begin_layout Plain Layout
+
+fact NoSamePINForDifferentUsers {
+\end_layout
+
+\begin_layout Plain Layout
+
+	no disjoint u1, u2 : RegisteredUser | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	u1.pin = u2.pin
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//If a car is under maintenance, one and at most one operator 
+\end_layout
+
+\begin_layout Plain Layout
+
+//is taking care of it
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carUnderMaintenanceByOperator {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | one o: Operator | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	(c.inMaintenance = True implies
+\end_layout
+
+\begin_layout Plain Layout
+
+	o.carUnderMaintenance = c)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carAndOperatorRelation {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | all o: Operator |
+\end_layout
+
+\begin_layout Plain Layout
+
+	o.carUnderMaintenance = c implies
+\end_layout
+
+\begin_layout Plain Layout
+
+	c.inMaintenance = True
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//If a car is available or in maintenance no active reservations
+\end_layout
+
+\begin_layout Plain Layout
+
+//are associated to it
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carAvailableOrInMaintenance{
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	(c.available = True or c.inMaintenance = True) 
+\end_layout
+
+\begin_layout Plain Layout
+
+	iff #getActiveCarReservation[c] = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//A Car can't be in maintenance and available
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carMaintenance {
+\end_layout
+
+\begin_layout Plain Layout
+
+	no c: Car | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	c.inMaintenance = True and c.available = True
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//If a car is reserved, one active reservation is associated to it
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carReserved {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	c.reserved = True iff #getActiveCarReservation[c] = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//If a Reservation instance is related to a User entity, then it is
+\end_layout
+
+\begin_layout Plain Layout
+
+//also related to the corresponding Car entity
+\end_layout
+
+\begin_layout Plain Layout
+
+fact ReservationUserAndCar {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Reservation | all u: RegisteredUser | all c: Car |
+\end_layout
+
+\begin_layout Plain Layout
+
+	(r in u.reservations and c = r.reservedCar) implies
+\end_layout
+
+\begin_layout Plain Layout
+
+	(r in c.reservation)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//A Car entity is associated with only the Reservation entities on 
+\end_layout
+
+\begin_layout Plain Layout
+
+//that car 
+\end_layout
+
+\begin_layout Plain Layout
+
+fact CarReservation {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | all r: Reservation | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	r in c.reservation implies
+\end_layout
+
+\begin_layout Plain Layout
+
+	r.reservedCar = c
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//A User entity is associated with only the Reservation entities
+\end_layout
+
+\begin_layout Plain Layout
+
+//created by that User 
+\end_layout
+
+\begin_layout Plain Layout
+
+fact UserReservation {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Reservation | all u: RegisteredUser | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	r in u.reservations implies r.creator = u 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//No contemporary reservations on the same car are allowed 
+\end_layout
+
+\begin_layout Plain Layout
+
+fact NoMultipleActiveReservationOnSameCar {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	#getActiveCarReservation[c] <= 1 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//No contemporary reservations of the same user are allowed 
+\end_layout
+
+\begin_layout Plain Layout
+
+fact NoMultipleActiveReservationForSameUser{
+\end_layout
+
+\begin_layout Plain Layout
+
+	all u: RegisteredUser |
+\end_layout
+
+\begin_layout Plain Layout
+
+	#getActiveUserReservation[u] <= 1 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//If a user is suspended, none of his reservation is active
+\end_layout
+
+\begin_layout Plain Layout
+
+fact userSuspended {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all u: RegisteredUser | all r: Reservation | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	(u.
+ suspended = True and r in u.reservations)
+\end_layout
+
+\begin_layout Plain Layout
+
+	implies r.active = False
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//The unlock request is successful only when the user is close
+\end_layout
+
+\begin_layout Plain Layout
+
+//enough to the car and vice versa 
+\end_layout
+
+\begin_layout Plain Layout
+
+fact unlockRequestOutcome {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all u: UnlockRequest | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	u.unlockOutcome = True iff
+\end_layout
+
+\begin_layout Plain Layout
+
+	u.correctUserPosition = True 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//Each Reservation has a unique set of UnlockRequest 
+\end_layout
+
+\begin_layout Plain Layout
+
+fact unlockRequestAndReservation {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all disjoint r1, r2 : Reservation | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	r1.requestUnlock & r2.requestUnlock = none 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//The available spots of a safe area are calculated as 
+\end_layout
+
+\begin_layout Plain Layout
+
+//the total number of spots minus the cars in that safe area 
+\end_layout
+
+\begin_layout Plain Layout
+
+fact totalAvailableSpots  {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all a: SafeArea | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	a.availableSpots <= a.numberOfSpots and
+\end_layout
+
+\begin_layout Plain Layout
+
+	a.availableSpots = minus[a.numberOfSpots,
+\end_layout
+
+\begin_layout Plain Layout
+
+	#getTotalCarInSafeArea[a]] 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//When a car is available, it is locked and situated in a 
+\end_layout
+
+\begin_layout Plain Layout
+
+//safe area 
+\end_layout
+
+\begin_layout Plain Layout
+
+fact availableCarPosition {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c : Car | one a: SafeArea | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	c.available = True implies 
+\end_layout
+
+\begin_layout Plain Layout
+
+	(c.locked = True and c.position = a.coordinates) 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//Safe areas are located at different locations 
+\end_layout
+
+\begin_layout Plain Layout
+
+fact safeAreasDifferentLocation {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all disjoint a1, a2 : SafeArea | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	a1.coordinates != a2.coordinates 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Functions
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//Return all the active reservations of a user 
+\end_layout
+
+\begin_layout Plain Layout
+
+fun getActiveUserReservation[u: RegisteredUser] : set Reservation {
+\end_layout
+
+\begin_layout Plain Layout
+
+	{r: Reservation | r.creator = u and r.active = True } 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//Return all the active reservation associated to a car 
+\end_layout
+
+\begin_layout Plain Layout
+
+fun getActiveCarReservation[c: Car] : set Reservation {
+\end_layout
+
+\begin_layout Plain Layout
+
+	{r: Reservation | r.reservedCar = c and r.active = True } 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//Return all the cars located in a safe area 
+\end_layout
+
+\begin_layout Plain Layout
+
+fun getTotalCarInSafeArea[a: SafeArea] : set Car {
+\end_layout
+
+\begin_layout Plain Layout
+
+	{c: Car | c.position = a.coordinates} 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Asserts and Predicates
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//Check if the car can only be in one status at a time
+\end_layout
+
+\begin_layout Plain Layout
+
+assert carStatusConsistency {
+\end_layout
+
+\begin_layout Plain Layout
+
+	no c: Car | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	(c.reserved = True and c.available = True) or
+\end_layout
+
+\begin_layout Plain Layout
+
+	(c.inMaintenance = True  and c.available = True ) or 
+\end_layout
+
+\begin_layout Plain Layout
+
+	(c.reserved = True and c.inMaintenance = True ) or 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	(c.reserved = False and c.inMaintenance = False 
+\end_layout
+
+\begin_layout Plain Layout
+
+	and c.available = False)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+check carStatusConsistency
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//Check the interaction between cars and reservations
+\end_layout
+
+\begin_layout Plain Layout
+
+assert ReservationConsistency {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | all r: Reservation | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	(#getActiveCarReservation[c] = 0 and r.reservedCar = c)
+\end_layout
+
+\begin_layout Plain Layout
+
+	implies r.active = False  
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+check ReservationConsistency
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//Check if a Reservation entity is correctly related between User and Car
+\end_layout
+
+\begin_layout Plain Layout
+
+assert ReservationOfAvailableCars {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all u: RegisteredUser | all r: Reservation | 
+\end_layout
+
+\begin_layout Plain Layout
+
+	(r.active = True and r in u.reservations) implies  
+\end_layout
+
+\begin_layout Plain Layout
+
+	(r.reservedCar.reserved = True and
+\end_layout
+
+\begin_layout Plain Layout
+
+	r in r.reservedCar.reservation) 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+check ReservationOfAvailableCars 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pred show() {
+\end_layout
+
+\begin_layout Plain Layout
+
+	#Name > 1
+\end_layout
+
+\begin_layout Plain Layout
+
+	#Addr > 1 //imposed for clarity porpouse, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	//but users with same name or surname are admitted 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+run show for 2
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Alloy Response
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename Alloy_results.png
+	lyxscale 5
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Alloy World
+\end_layout
+
+\begin_layout Standard
+Here are presented two possible generated world using the Alloy verification
+ software.
+ Both diagrams are the predicate show() for 2 cases.
+\end_layout
+
+\begin_layout Standard
+The first generated world represents the situation where a registered User
+ has done two different reservations, with of course only one of them active
+ at the moment.
+ The active reservation is related to a locked and reserved Car situated
+ in a Safe area: we notice that there is an unsuccessful unlock request
+ related to this reservation, so at the moment of the generation of the
+ world the user has tried to unlock his reserved car for the first time
+ with a negative outcome.
+ In the same safe area there is also another Car that is currently under
+ maintenance: we see that the Safe Area has a consistent number of available
+ spots (only 4, since two of them are occupied by the two Cars) and that
+ the Car under Maintenance is associated with only one operator.
+ By chanche, both the registered User and the Operator share the same password
+ and surname.
+\end_layout
+
+\begin_layout Standard
+The second generated world represents the registered user has done two different
+ reservation on two different cars: notice that none of them is active at
+ the moment of the generation of the world, thus creating a situation consistent
+ with our requirements.
+ We notice that Car0 is available: there isn't any reservation connected
+ to it which is active and the Car is locked in the SafeArea0.
+ Car1 is also available and locked, but it also recharging and it is situated
+ in the SafeArea1.
+ There is also an Operator in this world, but since there is no Car under
+ maintenance he is ha not a Car associated to it.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename Alloy_model1.png
+	lyxscale 5
+	width 60page%
+	height 100theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename Alloy_model2.png
+	lyxscale 5
+	width 60page%
+	height 100theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Software and tools used
+\end_layout
+
+\begin_layout Itemize
+Git (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/
+\end_layout
+
+\end_inset
+
+) : for the version controlling of files shared between the team.
+\end_layout
+
+\begin_layout Itemize
+GoogleDocs (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.google.it/intl/it/docs/about/
+\end_layout
+
+\end_inset
+
+): to write this document.
+\end_layout
+
+\begin_layout Itemize
+Astah Professional (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://astah.net/editions/professional
+\end_layout
+
+\end_inset
+
+): to create all the UML diagrams.
+\end_layout
+
+\begin_layout Itemize
+Alloy Analyzer (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://alloy.mit.edu/alloy/ 
+\end_layout
+
+\end_inset
+
+): to construct a model of part of our S2B and to prove its consistency.
+\end_layout
+
+\begin_layout Itemize
+Lyx (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.lyx.org/ 
+\end_layout
+
+\end_inset
+
+): to format this document.
+\end_layout
+
+\begin_layout Itemize
+JustInMind (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.justinmind.com/
+\end_layout
+
+\end_inset
+
+): to create the mockups.
+\end_layout
+
+\begin_layout Itemize
+Android Device Art Generator (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://developer.android.com/distribute/tools/promote/device-art.html
+\end_layout
+
+\end_inset
+
+): to insert the mockups in an Android phone frame.
+\end_layout
+
+\begin_layout Subsection
+Hours of work
+\end_layout
+
+\begin_layout Standard
+Total hours of work for the RASD creation:
+\end_layout
+
+\begin_layout Itemize
+Stefano Brandoli: ~30 hours
+\end_layout
+
+\begin_layout Itemize
+Silvia Calcaterra: ~30 hours
+\end_layout
+
+\begin_layout Itemize
+Samuele Conti: ~30 hours
+\end_layout
+
+\end_body
+\end_document
