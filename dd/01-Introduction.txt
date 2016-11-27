@@ -1,0 +1,34 @@
+﻿Purpose
+The Design Document (DD) follows the redaction of the RASD. 
+
+
+The main purposes of this document are: record the main design information and decisions to communicate them to some key stakeholders; identify the main architectural components of the system together with their functional description and interaction; highlight in deep the interfaces of the system and their impact on the architecture; describe the main algorithms to be implemented; provide a view of the user interfaces that goes beyond the mockups provided in the RASD.
+
+
+In order to show which are the main modules of the system and their interaction to create the its whole structure, specific UML diagrams will be provided.
+
+
+The intended audience of this document are: developers, designers, project managers, quality assurance people and testers. This document can be used as a basis for the developers to start the implementation phase.
+
+
+Scope
+The aim of the system is to manage the PowerEnjoy car-sharing service, which only employs electric cars. Architectural styles and design patterns will be used when reasonable to provide a structure of the system based on well known solutions, also to reduce the development costs during the implementation phase.
+
+
+Definitions, Acronyms, Abbreviations
+DD = Design Document.
+RASD = Requirements Analisys and Specification Document.
+
+
+Reference Documents
+-Specification Document of PowerEnjoy.
+-PowerEnjoy RASD.
+
+
+Document Structure
+This document has been structured in this way:
+-Section 1: Introduction: this first section provides the introductory information about the purposes of the DD, its structure, and about the the system to be developed.
+-Section 2: Architectural Design: 
+-Section 3: Algorithm Design: this section will be used to present the most important algorithms designed to fullfill the goals of the system. The description will be as much implementation independent as possible.
+-Section 4: User Interface Design: this section will provide a refinement of the mockups presented in the RASD, to be considered as user interfaces.
+-Section 5: Requirements Traceability: this section will show how the design decisions taken in this document match with the requirements in the RASD.
