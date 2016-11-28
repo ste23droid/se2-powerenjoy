@@ -1,0 +1,66 @@
+﻿Overview
+
+
+Component View
+
+
+Deployment View
+
+
+Runtime View
+
+
+Component Interfaces
+
+
+Selected Architectural Styles And Patterns
+
+
+Other Design Decisions
+
+
+
+
+APPLICATION SERVER
+
+
+The business logic of the application server is implemented by stateless Enterprise JavaBeans.
+
+
+*Lista di possibili beans - difficoltà nel delineare la distinzioni tra i metodi dei beans e i metodi delle classi, non credo siano la stessa cosa: credo che i beans usino i metodi delle classi, le entity, per realizzare i compiti richiesti.
+Protocollo RESTful - le risorse vengono identificate con uno URI, forse sarebbe meglio avere una idea un poì più precisa delle pagine web come indirizzi?*
+
+
+UserManager
+This beans handles the operations that are common for both customers and operators, such as the registration in the system and the login with the credentials.
+Possible methods:
+POST /guest ->  register: creates a new Entity RegisteredUser or Operator in the company database, by receiving from the user all the basic information (such as name, surname, address etc.) and the chosen email and password.
+Returns a confirmation message if the procedure ended well or an error message if the proposed credentials were not valid.
+PUT /guest -> login: check if the credentials of the user are correct and allows the login of the user. *modifica di un boolean per vedere se l’utente è loggato o no?*
+
+
+
+
+RegisteredUserManager
+This bean manages all the feature that are available to the customers registered to the system: customer is able to locate all the available cars, check their battery percentage and reserves one of them; he is also able to check his current reservation, request the unlock of the reserved car and edit his profile.
+Possible methods:
+GET /userId/carsLocation -> getAllAvailableCars: this method returns a list of the locations of all the available cars of the company. *L’applicazione poi le visualizzerà su una mappa di Maps?*
+GET /userId/carId -> getCarpercentage: this method returns an integer representing the charge percentage of the selected car’s battery.
+POST /userId/carId/reservationId -> makeReservation: if the user has not already an active reservation, this method creates a new Reservation entity and associates it to the customer as his active reservation. This method returns a confirmation message if the operation was done correctly or an error message if the operation was not possible.
+*Questo metodo chiamerà il costruttore dell’Entity Reservation, e setterà tutti i suoi attributi, come i vari Time e la Car associata. Allo stesso modo assocerà alla Car e allo User questa nuova Reservation.*
+GET /userId/activeReservation -> getCurrentReservation: this method shows the customer all the information related to his current reservation, such as the starting time.
+This method returns a Reservation object or an error message communicating that no active reservation exists.
+GET /userId/allReservations -> getAllReservations: this method returns a list of all the reservations created by the user.
+Returns a list (eventually empty) of Reservation.
+PUT /userId/activeReservation/unlock -> unlockCar: this method handles the unlock of the reserved car if the customer is in sufficiently close to the car and if it was inserted the customer’s PIN. This method returns a confirmation message or an error message.
+
+
+
+
+
+
+OperatorManager
+This bean provides all the features needed by the operators in order to accomplish their tasks: obtaining a list of all the unavailable cars, the possibility of setting one of the unavailable cars as under miantenance, the ability of setting the fixed car back to an available state.
+Possible methods
+GET /operatorId/CarsLocation - getAllUnavailableCars: this method collects and returns a list of all the unavailable cars of the company.
+PUT /operatorId/carId/status - setCarStatus: this method is used to set the car status as “under maintenance” when the operator decides to take care of the selected car or when the operator has fixed the car, so that its status is set as “available”.
