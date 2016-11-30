@@ -1,5 +1,14 @@
-﻿Overview
+Overview
 
+High level components and their interaction
+
+The system is constituted by the following high-level components:
+Database: this layer is responsible for the data storage and retrieval. It doesn’t implement any business logic and must guarantee the canonic ACID properties.
+Application server: one of the two layer of the middle tier of the system, the application server implements the business logic and its algorithms; it interacts with the database and provides a service-oriented interface.
+Web server: this layer completes with the application server the middle tier of the system; it implements the presentation layer and does not involve any business logic.
+Client’s mobile application: the application used by the customer, runned on the customer’s mobile device; being a web-app, it communicates with the web server.
+PowerEnjoy Car: the car owned by PowerEnjoy and involved in the car rental service; it communicates directly with the application server.   
+The system is structured in four logic layers but it is distributed in three different physical locations, therefore implementing a three-tier architecture: the client tier is composed by the client’s mobile application and the PowerEnjoy car, while the middle tier is constituted by the layers of the application server and the web server. This design choice is suitable for the PowerEnjoy system: this architecture separates logic and presentation, allowing more easily the extension of a layer and thus providing an adequate degree of scalability; in addition, the logic is mainly located on the server side, so that the client tier doesn’t have to use its resources to implement any business logic.
 
 Component View
 
@@ -19,20 +28,35 @@ Selected Architectural Styles And Patterns
 Other Design Decisions
 
 
+WEB SERVER
+The communication of the system with the cars and with the customers is implemented by different components in the web server: the system, in particular, will adopt two different protocols to communicate with the cars and with the mobile application of the customers.
+
+
+MOBILE APPLICATION
+RESTFul, HTTP, Java Faces
+
+
+POWERENJOY CAR
+The common HTTP protocol is not very suitable for handling the communication between the PowerEnjoy cars and the system: usually in the HTTP protocol the server is passive and it is able to send data to the client only in response to a client’s request. In the PowerEnjoy system, though, it is necessary to the application server to request different mechanichal actions without a previous contact from the cars.
+The HTTP protocol offers some possible solutions to this issue, such as HTTP push server or HTTP polling, by basically putting the client in a situation of periodically sending requests to server: this tecniques though are pretty expensive in terms of resources and it seems preferable to use another communication protocol, such as the WebSocket protocol.
+The WebSocket protocol allows us to create a full-duplex channel of communication between the web server of the system and every car of PowerEnjoy over the TCP protocol; the system can establish a unique and bidirectional stream of requests and information between each car and the web server of the system.
+In addition, JEE offers an API for creating a WebSocket component in the web server; it also allows the application server to communicate with the WebSocket endpoint using different features, such as  injection of managed beans.
+
+
 
 
 APPLICATION SERVER
 
 
-The business logic of the application server is implemented by stateless Enterprise JavaBeans.
+The business logic of the application server is implemented by stateless Enterprise JavaBeans. Some of this beans implements the RESTful principle and they offers methods to the customers’ mobile application, while other beans implements a more internal business logic.
 
 
 *Lista di possibili beans - difficoltà nel delineare la distinzioni tra i metodi dei beans e i metodi delle classi, non credo siano la stessa cosa: credo che i beans usino i metodi delle classi, le entity, per realizzare i compiti richiesti.
-Protocollo RESTful - le risorse vengono identificate con uno URI, forse sarebbe meglio avere una idea un poì più precisa delle pagine web come indirizzi?*
+Protocollo RESTful - le risorse vengono identificate con uno URI, forse sarebbe meglio avere una idea un poi più precisa delle pagine web come indirizzi?*
 
 
 UserManager
-This beans handles the operations that are common for both customers and operators, such as the registration in the system and the login with the credentials.
+This beans handles the operations that are common for both customers and operators, such as the registration in the system and the login with credentials.
 Possible methods:
 POST /guest ->  register: creates a new Entity RegisteredUser or Operator in the company database, by receiving from the user all the basic information (such as name, surname, address etc.) and the chosen email and password.
 Returns a confirmation message if the procedure ended well or an error message if the proposed credentials were not valid.
@@ -45,14 +69,29 @@ RegisteredUserManager
 This bean manages all the feature that are available to the customers registered to the system: customer is able to locate all the available cars, check their battery percentage and reserves one of them; he is also able to check his current reservation, request the unlock of the reserved car and edit his profile.
 Possible methods:
 GET /userId/carsLocation -> getAllAvailableCars: this method returns a list of the locations of all the available cars of the company. *L’applicazione poi le visualizzerà su una mappa di Maps?*
-GET /userId/carId -> getCarpercentage: this method returns an integer representing the charge percentage of the selected car’s battery.
+GET /userId/carId -> getCarpercentage: this method returns an integer representing the charge percentage of the selected car’s battery, by calling the related method in the CarManager enterprise bean.
 POST /userId/carId/reservationId -> makeReservation: if the user has not already an active reservation, this method creates a new Reservation entity and associates it to the customer as his active reservation. This method returns a confirmation message if the operation was done correctly or an error message if the operation was not possible.
 *Questo metodo chiamerà il costruttore dell’Entity Reservation, e setterà tutti i suoi attributi, come i vari Time e la Car associata. Allo stesso modo assocerà alla Car e allo User questa nuova Reservation.*
-GET /userId/activeReservation -> getCurrentReservation: this method shows the customer all the information related to his current reservation, such as the starting time.
+GET /userId/activeReservation -> getCurrentReservation: this method shows the customer all the information related to his current reservation, such as the starting time and the reserved car.
 This method returns a Reservation object or an error message communicating that no active reservation exists.
 GET /userId/allReservations -> getAllReservations: this method returns a list of all the reservations created by the user.
 Returns a list (eventually empty) of Reservation.
-PUT /userId/activeReservation/unlock -> unlockCar: this method handles the unlock of the reserved car if the customer is in sufficiently close to the car and if it was inserted the customer’s PIN. This method returns a confirmation message or an error message.
+PUT /userId/activeReservation/unlock -> unlockCar: this method handles the unlock of the reserved car if the customer is in sufficiently close to the car and if it was inserted the customer’s PIN. This method returns a confirmation message or an error message. By using injection this bean will call CarManager, another enterprise bean that communicates to the car using a WebSocket component.
+
+
+/*Ricordati di inserire nel documento una breve parte in cui parli di Injection e della possibilità di injection of managed beans (tra cui gli EJB e il WebSocket component) grazie al JNDI*/
+
+
+CarManager
+This enterprise bean handles all the requests that the system needs to send to the PowerEnjoy cars: by communicating with the WebSocket endpoint in the web server (typically through the managed bean injection feature offered by Java EE) this bean will be able to request any mechanical action of a specified car.
+Any modification of a car proprerty will be forwarded to the related entity in the database layer using the Java Persistence API.
+Notice that this bean is not directly accessible to the customer’s mobile application, and thus it is not implementing the RESTful protocol.
+requestUnlock(car Car): this method will send to the WebSocket endpoint in the Web server a request for the unlock of the car: the WebSocket component will forward this request directly to the car.
+setUnlockOutcome(car Car, boolean outcome): this method will be used by the WebSocket endpoint to communicate the boolean outcome of the unlock operation of a specified car.
+setStatus(car Car, status String): this method is used to modify the status of the car passed as parameter, if the status is one of the possible legal strings (“Available”, “Unavailable”, “Reserved”, “Maintenance”).
+setBatteryStatus(car Car, int percentage): this method is used by the WebSocket endpoint to communicate the battery percentage of the car passed as parameter.
+
+
 
 
 
@@ -60,7 +99,12 @@ PUT /userId/activeReservation/unlock -> unlockCar: this method handles the unloc
 
 
 OperatorManager
-This bean provides all the features needed by the operators in order to accomplish their tasks: obtaining a list of all the unavailable cars, the possibility of setting one of the unavailable cars as under miantenance, the ability of setting the fixed car back to an available state.
+This bean provides all the features needed by the operators in order to accomplish their tasks: obtaining a list of all the unavailable cars, the possibility of setting one of the unavailable cars as under maintenance, the ability of setting the fixed car back to an available state.
 Possible methods
 GET /operatorId/CarsLocation - getAllUnavailableCars: this method collects and returns a list of all the unavailable cars of the company.
 PUT /operatorId/carId/status - setCarStatus: this method is used to set the car status as “under maintenance” when the operator decides to take care of the selected car or when the operator has fixed the car, so that its status is set as “available”.
+
+
+
+
+/*Rivedi dove specificare synchronous o asynchronous response*”
