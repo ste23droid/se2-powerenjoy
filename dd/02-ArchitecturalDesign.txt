@@ -1,18 +1,34 @@
 ﻿Overview
-This section aims to present an overview of the architecture of the system, starting from the main software layers and their interconnections. The description will then focus on the main high-level components of the system. Then the high-level components will be deeply detailed in their sub-components. The end of this section will provide information about the main architectural styles used to design the system, the main design choices made and their rationales.
+This section aims to present an overview of the architecture of the system, starting from the main software layers (logical components) and their interconnections. The software layers can be considered the main high-level components of the system. Then the high-level components will be deeply detailed in their sub-components, also by presenting some static and dynamic behavioural views of the system. The end of this section will provide information about the main architectural styles used to design the system, the main design choices made and their rationales.
 
 
 High level components and their interaction
-The system will be constituted by the following high-level components (software layers):
-* Database: this layer is responsible for storing and retrieving the persistent data of the PowerEnjoy company. It doesn’t implement any business logic and must guarantee the canonic ACID properties. This layer interacts with the Application Server layer.
-* Application server:  the application server software layer implements the whole business logic and its algorithms; it interacts with the database layer and with the web server layer. It also provides a service-oriented interface (RESTful).
-* Web server: the web server software layer implements the presentation layer and does not involve any business logic, which is part of the application server.
-* Mobile application: the application used by the users and the operators, which runs on an Android or iOS device. It communicates with the application server to access the main logic functionalities of the PowerEnjoy system and with the web server to access some web components.
-* Car’s application: Android application running on a car owned by PowerEnjoy; it communicates directly with the application server since the app will be native and there will be no interaction with the presentation layer of the PowerEnjoy Web server.
+The system will be constituted by the following high-level components, which are the following abstraction layers:
+Database: this layer is responsible for storing and retrieving the persistent data of the PowerEnjoy company. It doesn’t implement any business logic and must guarantee the ACID properties during transactions. This layer is accessed through the Application Server layer.
+* Application server:  the application server software layer implements the whole business logic and its algorithms; it interacts with the database layer and with the web server layer. Part of the business functionalities are provides through a service-oriented interface (RESTful).
+* Web server: the web server software layer implements the presentation layer and does not involve any business logic, which is part of the application server. It is responsible for the management of the connections with the cars. 
+* Mobile application: the application used by the users and the operators, which runs on an Android or iOS device. It communicates with the application server to access the main services offered by the PowerEnjoy system and with the web server to access some web components.
+* Car’s application: Android application running on a car owned by PowerEnjoy; it communicates directly with the application server since the app will have its own UI and there will be no interaction with the presentation layer of the PowerEnjoy Web server.
 
 
-The system is structured in four logic layers and it can distributed on four different physical locations, therefore implementing a four-tier architecture. The client tier is composed by both the client’s mobile application and the car’s application. 
-This design choice is suitable for the PowerEnjoy system: this architecture separates well the business logic and the web presentation, allowing more easily the extension of a layer and thus providing an adequate degree of scalability. In fact, as stated in the RASD, the architecture should be developed having in mind also a future browser version of the S2B to access the PowerEnjoy services and in this case the web presentation layer will become more important. In addition, the logic is mainly located on the server side, so that the client tier doesn’t have to use its resources to implement any complex business logic.
+The system is structured in four logic layers and it can distributed on three different physical locations, therefore implementing a three-tier architecture. The client tier is composed by both the client’s mobile application and the car’s application. 
+
+
+This design choice is suitable for the PowerEnjoy system: this architecture separates well the business logic and the web presentation, allowing more easily the extension of a layer and thus providing an adequate degree of scalability. 
+
+
+In fact, as stated in the RASD, the architecture should be developed having in mind the access to PoweEnjoy services through a web browser and in this case the web presentation layer will become more preminent. 
+
+
+In addition, the logic is mainly located on the server side, so that the client tier doesn’t have to use its resources to implement any complex business logic.
+
+
+
+
+
+
+
+
 
 
 Component View
@@ -30,16 +46,25 @@ RESTFul, HTTP, Java Faces
 
 
 POWERENJOY CAR
-The common HTTP protocol is not very suitable for handling the communication between the PowerEnjoy cars and the system: usually in the HTTP protocol the server is passive and it is able to send data to the client only in response to a client’s request. In the PowerEnjoy system, though, it is necessary to the application server to request different mecanichal actions without a previous contact from the cars.
-The HTTP protocol offers some possible solutions to this issue, such as HTTP push server or HTTP polling, by basically putting the client in a situation of periodically sending requests to server: this tecniques though are pretty expensive in terms of resources and it seems preferable to use another communication protocol, such as the WebSocket protocol.
+The common HTTP protocol is not very suitable for handling the communication between the PowerEnjoy cars and the system: usually in the HTTP protocol the server is passive and it is able to send data to the client only in response to a client’s request.
+
+
+In the PowerEnjoy system, though, it is necessary to the application server to request different commands to be performed on the cars when needed.
+
+
+The HTTP protocol offers some possible solutions to this issue, such as HTTP push server or HTTP polling, by basically putting the client in a situation of periodically sending requests to server: this techniques though are pretty expensive in terms of resources and it seems preferable to use another communication protocol, such as the WebSocket protocol.
+
+
 The WebSocket protocol allows us to create a full-duplex channel of communication between the web server of the system and every car of PowerEnjoy over the TCP protocol; the system can establish a unique and bidirectional stream of requests and information between each car and the web server of the system.
+
+
 In addition, JEE offers an API for creating a WebSocket component in the web server; it also allows the application server to communicate with the WebSocket endpoint using different features, such as injection of managed beans.
 
 
-
-
 APPLICATION SERVER
-The business logic of the application server is implemented by stateless Enterprise JavaBeans. Some of this beans implements the RESTful principle and they offer methods to the users’ mobile application, while other beans implement a more internal business logic.
+The main sub-components of the application server are implemented using stateless Enterprise JavaBeans.
+These sub-components provide the majority of the business logic of the system and are designed to follow the design principle of high coesion and loose coupling, by offering functionalities strictly related and also reducing the dependencies between the modules.
+Some of these beans implements the RESTful principles and they offer services by following the CRUD operations.
 
 
 AccountManager
@@ -50,19 +75,14 @@ This EJB is responsible for all the operations related to users’ and operators
 -suspendUser(RegisteredUser): void
 -verifyPaymentInformation(paymentInformations[]): String (StripeToken)
 -registerOperator(operatorEmail): void (password generata qui dentro, email letta da file di configurazione) 
-        
-
-
-
-
 
 
 RegisteredUserManager: 
-This EJB manages all the functionalities that are available to the users registered to the system, among which: locate all the available cars, reserve an available car, request the unlock of the reserved car. 
+This EJB manages all the functionalities that are available to the users enrolled to the system, among which: locate all the available cars, reserve an available car, request the unlock of the reserved car. 
 -findAvailableCarsByGPS(latitude, longitude): List<Car>
 -findAvailableCarsByAddress(address): List<Car>
 -reserveCar(CarLicensePlate): String
--unlock(): String
+-unlock(): String //fa partire thread per verificare dopo 20 minuti che il motore sia acceso, in caso chiama handleCarFailure nel reservationManager
 -insertPIN(uniquePIN, latitude, longitude): String
 
 
@@ -78,16 +98,24 @@ This bean provides all the features needed by the operators in order to accompli
 
 ReservationManager
 This bean manages the features related to the reservation of a car performed by a user.
--terminateReservation(latitude, longitude, ): 
--makeStop():
+-evaluateReservationTermination(latitude, longitude): //chiamato da terminateReservation, metodo remoto
+-evaluateMissReservationValidity: //chiamato dall’unlock, verifica che non sia missed e in caso fa pagre la fee di 1 euro
+-chargeUser(): //chiamato da evaluateResTer stoppa il conteggio e chiama il conteggio dei discounts per sapere la cifra finale e poi interagisce con Stripe
+-setCarStatus(status): //modifica stato auto quando ce n’è bisogno
+-detectCarsSafeArea(): //chiamato da evaluateResTer per vedere numero di auto in safe area per sapere i posti liberi
+-terminateReservation(latitude, longitude): 
+-makeStop(latitude, longitude):
+-activateSaveMoney(latitude, longitude, address): //remoto, l’utente passa la propria posizione e indirizzo di destinazione
+-handleCarFailure(): //setta l’auto come unavailable, ferma la reservation e procede con la charge. Metodo chiamato dal CarManager quando riceve una comunicazione di guasto.
 
 
+FeeManager
+-evaluateDiscounts()
+-evaluatePenalties()
+-calculateBill(originalBill) //che arriva da charge user in reservationManager
+-evaluatePassengersDiscount(): boolean // chiama detectPassengers() in car manager continuamente finchè la ride non è finita, verifica numero passeggeri e tempo di permanenza
 
 
-
-
-getCurrentReservation: this method shows the user all the information related to his current reservation, such as the starting time and the reserved car. This method returns a Reservation object or an error message communicating that no active reservation exists.
-create
 
 
 
@@ -96,12 +124,15 @@ CarManager
 This enterprise bean handles all the requests that the system needs to send to the PowerEnjoy cars: by communicating with the WebSocket endpoint in the web server (typically through the managed bean injection feature offered by Java EE) this bean will be able to request any mechanical action of a specified car.
 Any modification of a car proprierty will be forwarded to the related entity in the database layer using the Java Persistence API.
 Notice that this bean is not directly accessible to the users’ mobile application, and thus it is not implementing the RESTful protocol.
-requestUnlock(car Car): this method will send to the WebSocket endpoint in the Web server a request for the unlock of the car: the WebSocket component will forward this request directly to the car and return a boolean outcome of the unlock operation.
-setStatus(car Car): this method is used to modify the status of the car passed as parameter, by communicating with the WebSocket endpoint and retrieving the status by the actual car.
-setBatteryCharge(car Car): this method is used to update the battery percentage of the car passed as parameter.
-getCarPosition:
-
-
+displayCurrentCharge():
+-getCarPosition():
+-requestCarLock():
+-requestCarUnlock():
+-detectPassengers():
+-handleCarFailureCommunication(failureType): //scrive nell’entity il tipo di danno e chiama il corrispettivo metodo in ReservationManager.
+ -notifyOnScreen(message) // comunica all’auto il message come parametro
+-getCarBatteryStatus(): //charging or not
+-getCarBatteryPercentage(): //un int
 
 
 
@@ -123,8 +154,106 @@ Runtime View
 Component Interfaces
 
 
+Application server to front-ends
+
+
+AccountManager
+Functions implemented by AccountManager:
+* register(email, password, personalData[], paymentInformations[]): String
+This function allows guests to register to PoweEnJoy. It creates a new user with the information provided as parameters and saves it as an entity in the database of the system. It returns a String representing the outcome of the registration process, that will be displayed on the user’s screen (registration successful or failed).
+* login(email, password): String (session identifier  token or Error info)
+                This function allows an user to log into the PowerEnJoy application using 
+his email and password.It returns a String representing the token that identifies the user during his interaction with the system if the credentials are correct, or an error message displayed on the user’s screen otherwise.
+
+
+-PINhandler(registeredUserMail): void 
+-suspendUser(RegisteredUser): void
+-verifyPaymentInformation(paymentInformations[]): String (StripeToken)
+-registerOperator(operatorEmail): void (password generata qui dentro, email letta da file di configurazione) 
+
+
+RegisteredUserManager
+Functions implemented by RegisteredUserManager:
+* findAvailableCarsByGPS(latitude, longitude): List<Car>
+This function allows a registered user to find available cars using the GPS  signal of his mobile device (characterized by the attributed latitude and longitude) and to see their info. It returns a list containing all available cars in the city area.
+* findAvailableCarsByAddress(address): List<Car>
+This function allows a registered user to find available cars using an address in the city and to see their info. It returns a list containing all available cars in the city area.
+* reserveCar(CarLicensePlate): String
+This function allows a registered user to reserve an available car, identified by its license plate. It also starts a thread that verifies the time passed from the reservation, in order to set the car back to available if the user doesn’t unlock it within one hour. I[a]t returns a String representing the outcome of the reservation, that is displayed on the user’s screen (reservation successful or failed).
+* unlock(): String //fa partire thread per verificare dopo 20 minuti che il motore sia acceso, in caso chiama handleCarFailure nel reservationManager
+This function allows a registered user to unlock a car he previously reserved. It also starts a thread that verifies the time passed from the unlocking, so that, if the engine is not ignited within 20 minutes, the method handleCarFailure inside reservationManager is called. It returns a String representing the outcome of the unlocking.
+* insertPIN(uniquePIN, latitude, longitude): String
+This function allows a registered user to insert his unique PIN code on his mobile device in order to unlock his previously reserved car. It receives the PIN code and the user’s GPS position (latitude and longitude, retrieved through the mobile device’s GPS signal) and checks that the PIN is correct and the user is at most 10m distant to the reserved car. If so, it returns a String containing the message that the PIN insertion was successful, otherwise it will return an error message. Either cases, the message is displayed on the user’s screen.
+
+
+OperatorManager
+Functions implemented by OperatorManager:
+* findUnavailableCars(): List<Car>
+This function allows an operator to find all unavailable cars and to see their info and the kind of problem they have. It returns a list containing all unavailable cars in the city area.
+* maintainCar(licensePlate): String
+This function allows an operator to set as under maintenance an unavailable car, identified by its license plate. It returns a String containing the outcome, that will be displayed on the operator’s screen (successful or unsuccessful, if the operator had another car currently under his maintenance).
+* setCarToAvailable(): String
+This function allows an operator to set as available a car he maintained. It returns a String containing the outcome, that will be displayed on the operator’s screen (successful or unsuccessful, if the operator did not have any car under his maintenance).
+
+
+ReservationManager
+Functions implemented by ReservationManager:
+* terminateReservation(latitude, longitude): String
+This function allows a registered user to terminate his resevation by pressing on the button on the car’s screen. It receives as parameter the GPS location of the car (characterized by latitude and longitude). It calls the method evaluateReservationTermination(latitude, longitude); only if this method returns a true value the reservation can actually terminate. It returns a String containing the outcome, that will be displayed on the car’s screen (reservation ended correctly or error message).
+* makeStop(latitude, longitude): String
+This function allows a registered user to make a stop during his ride by pressing on the button on the car’s screen. It receives as parameter the GPS location of the car (characterized by latitude and longitude). It calls the method evaluateMakeStop(latitude, longitude); only if this method returns a true value the reservation can actually terminate. It returns a String containing the outcome, that will be displayed on the car’s screen (success or error message).
+* activateSaveMoney(latitude, longitude, address): String (remote function)
+This function allows the registered user to activate the money saving option on the car’s screen. It receives as parameters the current GPS position of the car (characterized by latitude and longitude) and the destination of the user (specified as an address) and it shows on the map the power safe area where to park the car at the end of the ride in order to get a discount. The safe area selected guarantees a uniform distribution of cars in the city and depends on  the available parking slots and on the distance from the user’s destination. It returns a String identyfing the selected safe area, or an error message if no safe area was found respecting the above criteria.
+-evaluateReservationTermination(latitude, longitude): boolean //chiamato da terminateReservation, metodo remoto
+-evaluateMakeStop(latitude, longitude): boolean //chiamato da makeStop[b]
+-evaluateMissReservationValidity: //chiamato dall’unlock, verifica che non sia missed e in caso fa pagre la fee di 1 euro
+-chargeUser(): //chiamato da evaluateResTer stoppa il conteggio e chiama il conteggio dei discounts per sapere la cifra finale e poi interagisce con Stripe
+-setCarStatus(status): //modifica stato auto quando ce n’è bisogno
+-detectCarsSafeArea(): //chiamato da evaluateResTer per vedere numero di auto in safe area per sapere i posti liberi
+-handleCarFailure(): //setta l’auto come unavailable, ferma la reservation e procede con la charge. Metodo chiamato dal CarManager quando riceve una comunicazione di guasto.
+
+
+FeeManager
+-evaluateDiscounts()
+-evaluatePenalties()
+-calculateBill(originalBill) //che arriva da charge user in reservationManager
+-evaluatePassengersDiscount(): boolean // chiama detectPassengers() in car manager continuamente finchè la ride non è finita, verifica numero passeggeri e tempo di permanenza
+
+
+
+
+
+
+CarManager
+This enterprise bean handles all the requests that the system needs to send to the PowerEnjoy cars: by communicating with the WebSocket endpoint in the web server (typically through the managed bean injection feature offered by Java EE) this bean will be able to request any mechanical action of a specified car.
+Any modification of a car proprierty will be forwarded to the related entity in the database layer using the Java Persistence API.
+Notice that this bean is not directly accessible to the users’ mobile application, and thus it is not implementing the RESTful protocol.
+displayCurrentCharge():
+-getCarPosition():
+-requestCarLock():
+-requestCarUnlock():
+-detectPassengers():
+-handleCarFailureCommunication(failureType): //scrive nell’entity il tipo di danno e chiama il corrispettivo metodo in ReservationManager.
+ -notifyOnScreen(message) // comunica all’auto il message come parametro
+-getCarBatteryStatus(): //charging or not
+-getCarBatteryPercentage(): //un int
+
+
 Selected Architectural Styles And Patterns
 
 
 Other Design Decisions
-//in the database we won’t store any payment information detail -> Stripe api
+//StripeAPI
+   in the database we won’t store any payment information detail -> Stripe api
+//VehicleInterface
+//MapsService
+//
+
+
+Design Decisions Rationales
+
+
+
+
+[a]Ha senso?
+[b]fa la stessa cosa di evaluateReservationTermination?
