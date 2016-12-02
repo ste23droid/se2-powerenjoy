@@ -2,33 +2,58 @@
 The Design Document (DD) follows the redaction of the RASD. 
 
 
-The main purposes of this document are: record the main design information and decisions to communicate them to some key stakeholders; identify the main architectural components of the system together with their functional description and interaction; highlight in deep the interfaces of the system and their impact on the architecture; describe the main algorithms to be implemented; provide a view of the user interfaces that goes beyond the mockups provided in the RASD.
+The main purposes of this document are: record the main design information and decisions to communicate them to some key stakeholders; identify the main architectural components of the system together with their functional description and interactions; highlight in deep the interfaces of the system and their impact on the architecture; describe the main algorithms to be implemented; provide a view of the user interfaces that goes beyond the mockups provided in the RASD (which were used to provide a better understanding of the requirements).
 
 
-In order to show which are the main modules of the system and their interaction to create the its whole structure, specific UML diagrams will be provided.
+In order to present which are the main components of the system and their interactions to create the whole system’s architecture, specific UML diagrams will be provided for both static and dynamic behaviour.
 
 
-The intended audience of this document are: developers, designers, project managers, quality assurance people and testers. This document can be used as a basis for the developers to start the implementation phase.
+The intended audience of this document are: developers, designers, project managers, quality assurance people and testers. 
+
+
+This document tries to keep an high level of abstraction and providing a top down approach, so it can be used as a basis to design future refinements of the system architecture through “Detailed Design Documents” and as a basis for the developers to obtain a general idea on how to start the implementation phase.
 
 
 Scope
-The aim of the system is to manage the PowerEnjoy car-sharing service, which only employs electric cars. Architectural styles and design patterns will be used when reasonable to provide a structure of the system based on well known solutions, also to reduce the development costs during the implementation phase.
+The aim of the system is to manage the PowerEnjoy car-sharing service, which only employs electric cars. 
+
+
+As already stated in the RASD, the system will interact with some external interfaces to provide part of its functionalities:
+
+
+-Vehicleinterface: this interface will be used by the car’s Android application to interact with the sensors and hardware of the car. The cars’ provider has created a jar library which contains the above mentioned interface and all the code necessary for the functioning of it. This library can be included during the development of the car’s Android application.
+-BillingService: the interfacing with the billing service will be provied through Stripe APIs, which guarantee a good level of abstraction and semplicity to handle users’ payments information and payment themselves.
+-MapsService: GoogleMaps API will be used both by the users’ and cars’ mobile application to deal with geolocalization, map visualization and distance calculation between GPS positions.
+
+
+in particular regarding the interaction with the cars, the handling of user’s payment informations and payments and with the Google Maps APIs. During the design of the system, architectural styles and design patterns will be used, when reasonable, to provide a structure of the system based on well known solutions and also to reduce the development costs during the implementation phase.
 
 
 Definitions, Acronyms, Abbreviations
 DD = Design Document.
 RASD = Requirements Analisys and Specification Document.
+UI = User Interface.
+API = Application Programming Interface.
+ACID = Atomicity, Consistency, Isolation, Durability: the main properties that a transactional system should offer.
+HTTP = Hypertext Transfer Protocol.
+DBMS = Database Management System.
+RESTful = Representation State Transfer architectural style for web applications.
+JAX-RS = Java API for RESTful web services.
+JPA = Java Persistence API.
+EJB = Enterprise JavaBean.
+CRUD = Create, Read, Update, Delete.
 
 
 Reference Documents
 -Specification Document of PowerEnjoy.
 -PowerEnjoy RASD.
+-Danny Coward - Java EE 7: The Big Picture: this book has been used to get a general and precise overview of what the Java EE platform can offer to help the design of our system.
 
 
 Document Structure
-This document has been structured in this way:
--Section 1: Introduction: this first section provides the introductory information about the purposes of the DD, its structure, and about the the system to be developed.
+This document has been structured in the following sections:
+-Section 1: Introduction: this first section provides the introductory information about the purposes of the DD, its structure, and about the system.
 -Section 2: Architectural Design: 
--Section 3: Algorithm Design: this section will be used to present the most important algorithms designed to fullfill the goals of the system. The description will be as much implementation independent as possible.
--Section 4: User Interface Design: this section will provide a refinement of the mockups presented in the RASD, to be considered as user interfaces.
--Section 5: Requirements Traceability: this section will show how the design decisions taken in this document match with the requirements in the RASD.
+-Section 3: Algorithm Design: this section will be used to present the most important and critical algorithms designed to fulfill the goals of the S2B. The description will be as much implementation independent as possible.
+-Section 4: User Interface Design: this section will provide a refinement of the mockups presented in the RASD, to be considered now as user interfaces.
+-Section 5: Requirements Traceability: this section will show how the design decisions taken in this document and the components identified are related with the requirements provided in the RASD.
