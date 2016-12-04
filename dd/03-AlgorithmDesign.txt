@@ -1,0 +1,28 @@
+﻿ALGORITHM DESIGN
+
+
+MONEY SAVING OPTION
+The money saving option is a feature offered by the PowerEnjoy system to the clients: its porpouse is to guarantee a uniform distribution of the cars in the city, considering both the destination of the registered users and the availability of power plugs in the safe areas. As stated in the RASD document, only the safe areas known as “power safe area” are provided with power plugs (RASD, 1.6) and every slot in a power safe area has a dedicated and working power plug (RASD, 2.5.2, D14): the following algorithm, then, considers only the power safe areas as possible destinations for the registered users, evaluating both the distance from the original destination of the user and the occupied spots in the power safe areas. The algorithm focuses on offering the closest power safe area to the user’s original destination.
+
+
+The algorithm is based on two arrays defined as spots and distance, further on called s and d for short. The algorithm also used a list q. The dimension n of both the arrays is equal to the number of power safe areas saved in the system.
+
+
+Steps of the algorithm:
+-update s by checking how many spots are occupied in the power safe areas;
+-update d by getting the distance (in meters) of the power safes from the user’s destination, using the Google Maps API;
+-calculates the average a of the occupied spots by summing the values of the array s and dividing the sum by n;
+-executes the following cycle:
+        -if q has all n indeces, the algorithm stops and returns the index i of the minimum of the
+        array d (that’s when the algorithm starts from a situation of uniform distribution);
+        -finds the minimum in the array d without considering the cells whose index is saved in the list
+q;
+        -check if the cell at index i of the array b is less than a; if it is less, the iteration stops and the 
+        algorithm returns the index i, corresponding to the power safe area where the system will 
+        send the user. If it is equal or more the index i is saved in the list q and the iteration restarts.
+
+
+This algorithm provides a way to guarantee a uniform distribution of cars in the city, by considering the distance of the selected power safe area from the destination of the user, in order to avoid that the user is sent to a power safe area too distant from his destination.
+
+
+Both from space an time complexity view this algortihm offers a linear performance, in the order of O(n).
