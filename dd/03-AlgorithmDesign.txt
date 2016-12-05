@@ -2,22 +2,24 @@
 
 
 MONEY SAVING OPTION
-The money saving option is a feature offered by the PowerEnjoy system to the clients: its porpouse is to guarantee a uniform distribution of the cars in the city, considering both the destination of the registered users and the availability of power plugs in the safe areas. As stated in the RASD document, only the safe areas known as “power safe area” are provided with power plugs (RASD, 1.6) and every slot in a power safe area has a dedicated and working power plug (RASD, 2.5.2, D14): the following algorithm, then, considers only the power safe areas as possible destinations for the registered users, evaluating both the distance from the original destination of the user and the occupied spots in the power safe areas. The algorithm focuses on offering the closest power safe area to the user’s original destination.
+The money saving option is a feature offered by the PowerEnjoy system to the clients: its purpose is to guarantee a uniform distribution of the cars in the city, considering both the destination of the registered users and the availability of power plugs in the safe areas. As stated in the RASD document, only the safe areas known as “power safe area” are provided with power plugs (RASD, 1.6) and every slot in a power safe area has a dedicated and working power plug (RASD, 2.5.2, D14): the following algorithm, then, considers only the power safe areas as possible destinations for the registered users, evaluating both the distance from the original destination of the user and the occupied spots in the power safe areas. The algorithm focuses on offering the closest power safe area to the user’s original destination.
 
 
-The algorithm is based on two arrays defined as spots and distance, further on called s and d for short. The algorithm also used a list q. The dimension n of both the arrays is equal to the number of power safe areas saved in the system.
+The algorithm is based on two arrays defined as spots and distance, further on called s and d for short. Notice that the cells of the two arrays corresponds to the set of power safe areas saved in the system: so the first cell of array s and d corresponds to the first power safe area saved in the system and so on. The algorithm also used a list q. The dimension n of both the arrays is equal to the number of power safe areas saved in the system.
 
 
 Steps of the algorithm:
--update s by checking how many spots are occupied in the power safe areas;
--update d by getting the distance (in meters) of the power safes from the user’s destination, using the Google Maps API;
+-initialize q as an empty list;
+-update s by checking how many spots are occupied in each power safe area and inserting the number in the corresponding cell of s;
+-update d by getting the distance (in meters) of each power safe area from the user’s destination, using the Google Maps API;
 -calculates the average a of the occupied spots by summing the values of the array s and dividing the sum by n;
 -executes the following cycle:
-        -if q has all n indeces, the algorithm stops and returns the index i of the minimum of the
-        array d (that’s when the algorithm starts from a situation of uniform distribution);
-        -finds the minimum in the array d without considering the cells whose index is saved in the list
-q;
-        -check if the cell at index i of the array b is less than a; if it is less, the iteration stops and the 
+        -if q has all n indices, the algorithm stops and returns the index i of the minimum value in the
+        array d (that’s when the algorithm starts from a situation of uniform distribution and offers to
+the user the closest power safe area);
+        -finds the minimum value in the array d without considering the cells whose index is saved in 
+the list q and save the corresponding index i;
+        -check if the cell at index i of the array s is less than a; if it is less, the iteration stops and the 
         algorithm returns the index i, corresponding to the power safe area where the system will 
         send the user. If it is equal or more the index i is saved in the list q and the iteration restarts.
 
@@ -25,4 +27,51 @@ q;
 This algorithm provides a way to guarantee a uniform distribution of cars in the city, by considering the distance of the selected power safe area from the destination of the user, in order to avoid that the user is sent to a power safe area too distant from his destination.
 
 
-Both from space an time complexity view this algortihm offers a linear performance, in the order of O(n).
+Both from space and time complexity view this algorithm offers a linear performance, in the order of O(n).
+        
+
+
+
+
+
+
+
+
+
+
+
+
+Example of execution:
+
+
+Array s:
+3
+	2
+	4
+	5
+	1
+	
+
+Array d:        
+25
+	100
+	300
+	250
+	600
+	
+
+List q: 
+<empty> ← step 1), 2), 3), 4)
+‘0’ ← step  5), 6), 7)
+
+
+1. The algorithm updates s and d and initializes d;
+2. The algorithm evaluates the average a: given five power safe areas  n=5 and a is evaluated as (3+2+4+5+1)/5 = 3.
+3. The algorithm checks if q contains all the n indeces: since the algorithm just started, d is still empty and the execution proceeds;
+4. The minimum of d is search by considering only the indeces that are not contained in q:  a minimum with value 25 is found and its corresponding index is saved, thus setting the value of i to 0;
+5. The value saved in the cell at index i of the array s is checked: since 3 is not less than the average a, i is saved in the list q and the algorithm restarts iterating from step 3;
+6. The minimum of d is search by considering only the indeces that are not contained in q: a minimum with value 100 is found (since 25 is ignored) and its corresponding index is saved, thus setting the value of i to 1;
+7. The value saved in the cell at index i of the array s is checked: since 2 is less than the average a, the algorithm stops and returns the index i;
+
+
+The system will then communicate to the user the location of the second power safe area saved in the system, since the algorithm has returned the second index of the arrays.
