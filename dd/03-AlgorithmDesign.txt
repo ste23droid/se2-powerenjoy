@@ -2,10 +2,10 @@
 
 
 MONEY SAVING OPTION
-The money saving option is a feature offered by the PowerEnjoy system to the clients: its purpose is to guarantee a uniform distribution of the cars in the city, considering both the destination of the registered users and the availability of power plugs in the safe areas. As stated in the RASD document, only the safe areas known as “power safe area” are provided with power plugs (RASD, 1.6) and every slot in a power safe area has a dedicated and working power plug (RASD, 2.5.2, D14): the following algorithm, then, considers only the power safe areas as possible destinations for the registered users, evaluating both the distance from the original destination of the user and the occupied spots in the power safe areas. The algorithm focuses on offering the closest power safe area to the user’s original destination.
+The money saving option is a feature offered by the PowerEnjoy system to the clients: its purpose is to guarantee a uniform distribution of the cars in the city, considering both the destination of the registered users and the availability of power plugs in the safe areas. As stated in the RASD document, the safe areas are distributed uniformly in the city (RASD, 2.5.2, D17), only the safe areas known as “power safe area” are provided with power plugs (RASD, 1.6) and every slot in a power safe area has a dedicated and working power plug (RASD, 2.5.2, D14): the following algorithm, then, considers only the power safe areas as possible destinations for the registered users, evaluating both the distance from the original destination of the user and the occupied spots in the power safe areas. The algorithm focuses on offering the closest power safe area to the user’s original destination while realizing a uniform distribution of the cars in the city, so that the saving money option can be more gladly used by the users of PowerEnjoy.
 
 
-The algorithm is based on two arrays defined as spots and distance, further on called s and d for short. Notice that the cells of the two arrays corresponds to the set of power safe areas saved in the system: so the first cell of array s and d corresponds to the first power safe area saved in the system and so on. The algorithm also used a list q. The dimension n of both the arrays is equal to the number of power safe areas saved in the system.
+The algorithm is based on two arrays defined as spots and distance, further on called s and d for short. Notice that the cells of the two arrays corresponds to the oredered set of power safe areas saved in the system: so the first cell of array s and d corresponds to the first power safe area saved in the system and so on. The algorithm also used a list of integers q. The dimension n of both the arrays is equal to the number of power safe areas saved in the system.
 
 
 Steps of the algorithm:
@@ -19,12 +19,14 @@ Steps of the algorithm:
 the user the closest power safe area);
         -finds the minimum value in the array d without considering the cells whose index is saved in 
 the list q and save the corresponding index i;
-        -check if the cell at index i of the array s is less than a; if it is less, the iteration stops and the 
-        algorithm returns the index i, corresponding to the power safe area where the system will 
-        send the user. If it is equal or more the index i is saved in the list q and the iteration restarts.
+        -check if the cell at index i of the array s is less than a and if the associated power safe are in
+the system has at least one available spot; if the occupied spots are strictly less than the
+average a and if there is at least one spot available, the iteration stops and the algorithm
+returns the index i, corresponding to the power safe area where the system will send the user.
+Otherwise the index i is saved in the list q and the iteration restarts.
 
 
-This algorithm provides a way to guarantee a uniform distribution of cars in the city, by considering the distance of the selected power safe area from the destination of the user, in order to avoid that the user is sent to a power safe area too distant from his destination.
+This algorithm provides a way to guarantee a uniform distribution of cars in the city and privileges the minimum possible distance of the selected power safe area from the destination of the user, in order to avoid that the user is sent to a power safe area too distant from his destination.
 
 
 Both from space and time complexity view this algorithm offers a linear performance, in the order of O(n).
@@ -60,6 +62,16 @@ Array d:
 	600
 	
 
+Array available_spots: notice that this array is not actually created by the algorithm, since these informations about the available free spots can be retrieved directly from the power safe areas entities in the system; it is represented for better clearness on how the algorithm works.
+2
+	3
+	2
+	0
+	6
+	
+
+
+
 List q: 
 <empty> ← step 1), 2), 3), 4)
 ‘0’ ← step  5), 6), 7)
@@ -67,11 +79,11 @@ List q:
 
 1. The algorithm updates s and d and initializes d;
 2. The algorithm evaluates the average a: given five power safe areas  n=5 and a is evaluated as (3+2+4+5+1)/5 = 3.
-3. The algorithm checks if q contains all the n indeces: since the algorithm just started, d is still empty and the execution proceeds;
-4. The minimum of d is search by considering only the indeces that are not contained in q:  a minimum with value 25 is found and its corresponding index is saved, thus setting the value of i to 0;
-5. The value saved in the cell at index i of the array s is checked: since 3 is not less than the average a, i is saved in the list q and the algorithm restarts iterating from step 3;
-6. The minimum of d is search by considering only the indeces that are not contained in q: a minimum with value 100 is found (since 25 is ignored) and its corresponding index is saved, thus setting the value of i to 1;
-7. The value saved in the cell at index i of the array s is checked: since 2 is less than the average a, the algorithm stops and returns the index i;
+3. The algorithm checks if q contains all the n indices: since the algorithm just started, d is still empty and the execution proceeds;
+4. The minimum of d is search by considering only the indices that are not contained in q:  a minimum with value 25 is found and its corresponding index is saved, thus setting the value of i to 0;
+5. The value saved in the cell at index i of the array s is checked: since 3 is not less than the average a  (even though the associate power safe area in the system has still 2 spots available), i is saved in the list q and the algorithm restarts iterating from step 3;
+6. The minimum of d is search by considering only the indices that are not contained in q: a minimum with value 100 is found (since 25 is ignored) and its corresponding index is saved, thus setting the value of i to 1;
+7. The value saved in the cell at index i of the array s is checked: since 2 is less than the average a and since the associate power safe area in the system has still 3 spots available, the algorithm stops and returns the index i;
 
 
 The system will then communicate to the user the location of the second power safe area saved in the system, since the algorithm has returned the second index of the arrays.
