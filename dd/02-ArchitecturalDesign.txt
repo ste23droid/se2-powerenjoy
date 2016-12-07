@@ -2,15 +2,13 @@
 This section aims to present an overview of the architecture of the PowerEnjoy system, starting from the main software layers (also called abstraction layers or logical components) and their interconnections. 
 
 
-The software layers can be considered the main high-level components of the PowerEnjoy system. Then the high-level components will be exploded in their sub-components, also by presenting some static and dynamic behavioural views of the system. 
+The software layers can be considered the main high-level components of the PowerEnjoy system. Then the high-level components will be exploded in their sub-components, also by presenting some static and dynamic behavioural views of the system using UML diagrams.
 
 
-The end of this section will provide information about the main architectural styles and patterns used to design the system, the main design choices made and their rationales.
+The end of this section will provide information about the main architectural styles and patterns used to design the system and their rationales.
 
 
 High level components and their interaction
-
-
 HIGH LEVEL COMPONENTS
 The system will be constituted by the following four high-level components (logical layers):
 
@@ -18,10 +16,10 @@ The system will be constituted by the following four high-level components (logi
 * Database layer: this layer is responsible for storing and retrieving the persistent data of the PowerEnjoy company. It doesn’t implement any business logic and must guarantee the ACID properties during transactions. This layer is accessed through the Application layer.
 
 
-* Application layer:  the application layer implements the whole business logic and its algorithms. It is also responsible for the interaction with the cars (management and connection handling) . It interacts with the database layer. Part of the business functionalities can be provided through service-oriented interfaces.
+* Application (Business) layer:  the application layer implements the whole business logic and its algorithms. It is also responsible for the interaction with the cars (management and connection handling) . It interacts with the database layer. Part of the business functionalities can be provided through service-oriented interfaces.
 
 
-* Web layer: the web layer implements the web presentation layer. This layer can be used partially for the presentation on the mobile application, but it will be more useful if a future browser web application will be developed to access the PowerEnjoy services (this is design for flexibility). This layer does not involve any business logic, which is inside the Application Layer.
+* Web (Presentation) layer: the web layer implements the web presentation layer. This layer can be used partially for the presentation on the mobile application, This layer does not involve any business logic.
 
 
 *     Client Layer
@@ -53,13 +51,13 @@ All the interactions between the layers can be considered synchronous, except th
 
 
 TECHNOLOGICAL VIEWPOINT
-The Mobile Application will be developed as an application on Android OS or iOS. 
+The Mobile Application will be developed as an application on Android OS and on iOS. 
 
 
 The Car application will be developed as an application on Android OS.
 
 
-The Web Layer and the Application Layer will be developed with Java EE7. In particular the vendor implementation chosen is GlassFish Server.
+The Web Layer and the Application Layer will be developed with Java EE7. In particular the vendor implementation chosen is GlassFish.
 
 
 The Database Layer will be developed using MySQL Server.
@@ -101,7 +99,7 @@ APPLICATION LAYER
 
 
  ApplicationLayerComponent.png 
-
+[c]
 
 
 The main sub-components of the application layer are implemented using stateless Enterprise JavaBeans (Session Beans).
@@ -121,7 +119,7 @@ This EJB is responsible for all the operations related to users’ and operators
 
 
 UserManager
-This EJB manages the most used functionalities that are available through the mobile application to the users enrolled to the system. Among these functionalities the most relevant are: locate all the available cars, reserve an available car, request the unlock of a reserved car. This EJB is designed with the principle of flexibility in mind, for example this EJB in future may contain functionalities to retrieve the list of all the reservations made by a user since its registration to the system. [c]
+This EJB manages the most used functionalities that are available through the mobile application to the users enrolled to the system. Among these functionalities the most relevant are: locate all the available cars, reserve an available car, request the unlock of a reserved car. This EJB is designed with the principle of flexibility in mind, for example this EJB in future may contain functionalities to retrieve the list of all the reservations made by a user since its registration to the system. [d]
 
 
 OperatorManager
@@ -157,7 +155,7 @@ Any modification of a car property will be forwarded to the related entity bean 
 
 Notice that this bean is not directly accessible through the users’ mobile application, and thus it is not offering any external interface to the outside world.
  ClassDiagramEJB.png 
-[d]
+
  ClassDiagramEntityBeans.png 
 
 
@@ -178,55 +176,96 @@ The following is a component diagram exploding the internal of the Web Layer at 
 
 
 MOBILE APPLICATION
-The Mobile Application will be natively developed using Android SDK and Swift SDK respectively for Android OS and iOS. 
+The Mobile Application will be natively developed using Android SDK and iOS SDK respectively for Android OS and iOS. The language used for the Android Application is Java, the language used for the iOS application is Swift.
+In general, for both platforms
+we will use the MVC pattern because:
+
+
+-The distinction between view and controlled is already implicitly present in the SDKs, since layouts, images, assets and media are considered view resources, which get coupled at runtime with the view controllers code.
+-The distinction between controllers and model (logic) can be done more easily since we access remote services and we keep all the business logic separately on the Application Layer.
+
+
+We’ve made a distinction between two types of Controllers:
+* View Controllers: controllers responsible to handle view events. This controllers will also deal with the interaction with the MapsService, since the MapsService uses specific views.
+* Model Controllers: controllers responsible to:
+-interact with the model offered by the Application Layer through external interfaces
+-do some necessary elaborations, like parsing the response obtained by the Application Layer.
+
+
+ MobileApplicationComponent.png 
+
+
+
+Some Web Views will be used to offer part of the PowerEnjoy functionalities (like the registration), without having to write them natively on each platform. See Web Layer for more informations.
+
+
 ANDROID:
+-View Controller: we can use Activity from android.support.v7.app.AppCompatActivity. We use the AppCompatActivity to deal more easily with multiple Android OS versions, in order to provide similar experiences to users.
+- Model Controller: we can use again android.support.v7.app.AppCompatActivity.
+- View: the native UI view layout is defined with image assets and with XML layout files, one for every View Controller. We can use all the UI elements from android.view.View, android.app.Dialog and android.webkit.WebView, like: buttons, pickers, dialogs, switches, web views etc;
+-GPS positioning: in order to deal with GPS positioning, we can use the APIs provided by the LocationManager from android.location.LocationManager. Special permissions “ACCESS_COARSE_LOCATION” and “ACCESS_FINE_LOCATION” will be needed in the application manifest file.
+-Internet connection: can be used immediately by adding “INTERNET" and “ACCESS_NETWORK_STATE" permissions in the application manifest file.
+-MapsService: the MapsService is already part of Android SDK, it should only be configured properly.
 
 
+iOS
+-View Controller: we can use UIViewController.
+-Model Controller: for this part we can use custom Swift classes using specific functionalities provided by iOS SDK. 
+-View: we can use UIView subclasses, and also UIWebView.
+-GPS Positioning: we can use the CoreLocator APIs.
+-Internet Connection: we don’t need special permissions to use internet connection.
+-Maps Service: can be used by integrating separately the Google Maps SDK for iOS.
+ 
 CAR APPLICATION
-The common HTTP protocol is not very suitable for handling the communication between the PowerEnjoy cars and the system: usually in the HTTP protocol the server is passive and it is able to send data to the client only in response to a client’s request.
+The Car Application will be developed with the Android SDK. The whole code will be written using the Java language.
 
 
-In the PowerEnjoy system, though, it is necessary to the application server to request different commands to be performed on the cars when needed.
+The general concepts about Views and View Controllers are the same as the ones provided for the Android Mobile Application in the previous section, however, there are differences in terms of the interaction with external interfaces and in the communication with the Application Layer.
 
 
-The HTTP protocol offers some possible solutions to this issue, such as HTTP push server or HTTP polling, by basically putting the client in a situation of periodically sending requests to server: this techniques though are pretty expensive in terms of resources and it seems preferable to use another communication protocol, such as the WebSocket protocol.
+The Car Controllers are responsible to interact with the car’s hardware and sensors and to manage the network communication with the Application Layer. They also partially interact with the MapsServiceInt for some path discovery and map navigation functionalities.
 
 
-The WebSocket protocol allows us to create a full-duplex channel of communication between the web server of the system and every car of PowerEnjoy over the TCP protocol; the system can establish a unique and bidirectional stream of requests and information between each car and the web server of the system.
+The network communication between the Car Application and the Application Layer is based on a full-duplex communication channel. The Application Layer plays an active role in this communication, meaning that it can push messages to the Car Application. See rationales.
 
 
-In addition, JEE offers an API for creating a WebSocket component in the web server; it also allows the application server to communicate with the WebSocket endpoint using different features, such as injection of managed beans.
+The Car Application will interact with:
+* VehicleInterface: this interface will be used to get informations from the car’s hardware and sensors (like battery SoC) and to actuate commands on the car hardware itself (like locking the car). 
+* MapsServiceInt: this interface (or set of interfaces), will be used to interact with Google Maps services, for functionalities like: map visualization; find a feasible path from an origin GPS position to a destination GPS position; car navigation functionalities; visualization of safe areas on the map view etc. 
+* CarAppInt: the interface used in the full-duplex network communication with the Application Layer. This communication is based on the WebSocket protocol.                
+                 CarApplicationComponent.png 
+
+
 
 
 Deployment View
 This section aims to show the topology of the system architecture, by underlining anything that exists in its operational context.
 
 
-Usually the mapping between tiers and physical machines is not 1:1, for example a 4 tiered architecture can be deployed on three different machines. However we have decided to deploy our 4 tiered architecture on 4 different machines. See rationales.
+Usually the mapping between tiers and physical machines is not 1:1.
+However we have decided to deploy our 4 tiered architecture on 4 different machines. See rationales.
 
 
-This diagram shows a possible deployment of our artifacts on physical machines.
+This diagram shows a possible deployment of our artifacts and components on physical machines.
 
 
  Deployment.png 
-
+[e]
 
 
 
 
 Runtime View
-This section aims at showing the runtime behaviour of the system through sequence diagrams representing the most significant interactions of components. 
+This section aims to show part of the runtime behaviour of the system through sequence diagrams representing the most significant interactions between components. 
 
 
-Many interactions have already been shown in the RASD document, using high level sequence diagrams, where the PowerEnJoy system was treated like a black box. Here, instead, we want to focus more on the internal interactions between components that occur in the PowerEnJoy system.
+Many interactions have already been shown in the RASD document, using high level sequence diagrams where the PowerEnJoy system was treated like a “black box”. Here, instead, we want to focus more on the internal interactions between components that occur in the PowerEnJoy system.
 
 
 -pay last ride
 -conclude rental and lock
 -unlock car
 -interaction with google maps api
-
-
 
 
 Component Interfaces
@@ -279,6 +318,7 @@ This function allows a registered user to unlock a car he previously reserved. I
 -evaluateMakeStop(latitude, longitude): boolean //chiamato da makeStop
 -evaluateMissedReservation: boolean //chiamato dall’unlock, verifica che non sia missed e in caso fa pagre la fee di 1 euro
 -chargeUser()//chiamato da evaluateResTer stoppa il conteggio e chiama il conteggio dei discounts per sapere la cifra finale e poi interagisce con Stripe. 
+-notifyUserBill(billInfo) //notifica l’utente del costo dell’ultima ride
 -detectCarsSafeArea(safeAreaID): int //chiamato da evaluateResTer per vedere numero di auto in safe area per sapere i posti liberi
 -handleCarFailure(): //setta l’auto come unavailable, ferma la reservation e procede con la charge. Metodo chiamato dal CarManager quando riceve una comunicazione di guasto.
 
@@ -306,34 +346,129 @@ Notice that this bean is not directly accessible to the users’ mobile applicat
 -getCarBatteryPercentage(carLicensePlate): //un int
 -setCarStatus(carLicensePlate, status): //modifica stato auto quando ce n’è bisogno
 -getCarStatus(carLicensePlate)
--getCarProblem(carLicensePlate)
+-checksUserOutsideCity(carLicensePlate) //started as soon as the engine ignites, monitors th position in order to verify that the car is inside the city area, otherwise it will notify the user
 
 
  Selected Architectural Styles And 
  Patterns
-This section aims to list all the architectural styles and patterns applied during the design phase of the system, underlining also the rationales behind the main design decisions. This can be useful to make the system more maintainable.
-   * 4-Tier Architecture:
-   * JPA:
-   * Publisher/Subscriber:
-   * MVC:
-   * Client/Server:
+This section aims to list all the architectural styles and patterns applied during the design phase of the system, underlining also the rationales behind the main design decisions. 
+
+
+ARCHITECTURAL STYLES:
+   * Client/Server: if we abstract away some details, our architecture is implementing a Client/Server architecture, even if we don’t have only 2 tiers. This is mainly due to the fact that the most computationally intensive
+business logics are located inside the Application (Business) Layer, while the Client Layer has only to deal with presentation functionalities (completely, or partially if it is interacting with the web layer). The client layer is therefore  left “thin” regarding the business logic, while the Application Layer is “fat”.
+         This is advantageous for multiple reasons:
+
+
+        - Avoid platform desynchronization:
+The main devices accessing the PowerEnjoy services are mobile devices. The APIs used to develop Android or iOS applications change frequently and this needs to be accounted to guarantee the best possible user experience. If the business logic is located too much on the Client Layer, this may cause desynchronization between the platforms, ending up privileging updates to a platform instead of another.
+
+
+-Device support flexibility: with a “thin” Client Layer and a “fat” Application Layer it is easier to add support to new client devices, for example web browsers.
+
+
+-Maintenance: a “fat” Application Layer improves maintenance, since we don’t have to stop the service to update the business logic code.
+
+
+   * 4-Tier Architecture: the separation of our system in 4 software layers (tiers) can be useful for a number of reasons: 
+
+
+-Process Flexibility: process flexibility is enhanced since during the implementation phase, each layer can be assigned to different teams of people, which can proceed the development in parallel.
+
+
+-Device support flexibility: same rationales as in the Client/Server explanation. 
+
+
+-Maintenance and testing: every software layer can be tested and maintained more or less separately from the others. Therefore it will be  easier to identify and correct eventual bugs.
+
+
+- Scalability: the number of machines on which a particular layer is deployed can be incremented or decremented based on demand loads and budget.
+
+
+-Modularity and extendability: since each software layer as a specific functionality to achieve, it is easier to add modules and components to it. 
+
+
+-Security: if in the future the security of the system becomes a bigger concern, then it will be easier to create multiple DMZ in order to protect more efficiently the business data.
+
+
+   * Active Server (Server Push: in the HTTP protocol the server is passive and it is able to send data to the client only in response to a client’s request.
+
+
+In the PowerEnjoy system, though, it is necessary from the Application Layer to request different commands to be actuated on the cars when needed.
+
+
+The HTTP protocol offers some possible solutions to this issue, such as HTTP polling, by basically putting the client in a situation of periodically sending requests to the server to know if there are some new updates destinated to him.
+
+
+This technique though is pretty expensive in terms of time and resources, so it seems preferable to use another communication protocol which guarantees a full-duplex communication channel, such as the WebSocket protocol.
+
+
+In addition, JEE offers the WebSocket APIs for creating and managing easily WebSocket components.
+
+
+DESIGN PATTERNS:
+   * MVC: this design pattern has been followed for both the Mobile Application and the Web Layer. It is well known for the separation of concerns between the roles of model, view and controller.
+   * Publisher/Subscriber: this design pattern can be used for the communication between the Application Layer and the Car Applications.
 
 
 Other Design Decisions
-//StripeAPI
-We will use Stripe API to handle the payments and the user’s payment information. The main reason for this choice is due to the fact that with Stripe we won’t need to store any payment information detail in our database: after checking it, Stripe just sends a payment token that identifies the user inside Stripe. We just need to store this token in the database and to retrieve it when we will need to interact with Stripe service to deal with payments.
+   * BillingService: StripeAPI
+We will use Stripe APIs to validate the payment informations provided by the users and to charge the users when needed. The main reason for this choice are:
 
 
-   in the database we won’t store any payment information detail -> Stripe api
+- Security: by using Stripe APIs we will limit the storage of personal payment information in our database. After checking the payment informations provided by the user through Stripe APIs, Stripe APIs return us a payment token that identifies that payment informations inside their database. We just need to store this token in our database and retrieve it when we will need to charge the user using Stripe APIs.
 
 
-//MapsService
-We chose to use Google Maps API to deal with maps, as it is the most popular and reliable Maps API and it is easy to use, portable and it is always available.
-facilità d’uso, portabilità, disponibilità
+- Simplicity and Good Documentation: the Stripe APIs are simple to use and very well documented.
 
 
-//VehicleInterface
-la vehicle interface ci viene fornita come libreria jar e swift dai fornitori dell’auto, e ci serve per interagire con l’auto, mentre per le cose come GPS e 3G usiamo le api native.
+The following sample code can be used to charge a user:
+
+
+// Create a Customer
+Map<String, Object> customerParams = new HashMap<String, Object>();
+// here we use the payment token retrieved after the validation of the user’s payment information performed by Stripe
+customerParams.put("source", token);
+customerParams.put("description", "Mario Rossi");
+
+Customer customer = Customer.create(customerParams);
+
+// Charge the Customer
+Map<String, Object> chargeParams = new HashMap<String, Object>();
+chargeParams.put("amount", 1000); // Amount in cents
+chargeParams.put("currency", "eur");
+chargeParams.put("customer", customer.getId());
+
+Charge.create(chargeParams);
+
+
+   * MapsService: Google Maps
+We have chosen to use Google Maps APIs to deal with maps visualization; geolocalization on a map; path search; distance calculation between GPS positions. We have made this choice since:
+   * Google Maps APIs are the most popular and reliable maps API.
+   * Google Maps APIs are easy to use, the APIs provided are wide and very well documented.
+   * Google Maps APIs are portable, since Google has released them for all the most used software platforms (Android, iOS, Java platforms included).
+   * Google Maps APIs provide a very high availability.
+
+
+   * VehicleInterface
+The VehicleInterface will be used by the Car Application in order to 
+interact with the hardware and sensors of the car. Through this interface the Car Application will be able to get informations from the car and also to actuate commands on the car’s hardware, like for example locking/unlocking the car. The cars’ provider from which our customer has bought the cars will provide us a jar library which will contain the above mentioned interface and all the code necessary for that interface to accomplish its tasks.
+This library can be included in the Car Application source code during the development.
+An example of the VehicleInterface is the following:
+getSoC();
+getCurrent();
+getBatteryStatus();
+getVoltage();
+getDoorsStatus();
+getTrunkDoorStatus();
+getDirection();
+getSpeed();
+getFaults();
+getSpecificFaultInformations(fault);
+getPassengersNumber();
+execCommand(command, params[]);
+
+
 
 
 
@@ -346,5 +481,6 @@ la vehicle interface ci viene fornita come libreria jar e swift dai fornitori de
 
 [a]managed beans?
 [b]manca il raggio della safe area
-[c]/*Ricordati di inserire nel documento una breve parte in cui parli di Injection e della possibilità di injection of managed beans (tra cui gli EJB e il WebSocket component) grazie al JNDI*/
-[d]lat e long sono float non int
+[c]FILL MAPS SERVICE NAME
+[d]/*Ricordati di inserire nel documento una breve parte in cui parli di Injection e della possibilità di injection of managed beans (tra cui gli EJB e il WebSocket component) grazie al JNDI*/
+[e]da fixare Web container
