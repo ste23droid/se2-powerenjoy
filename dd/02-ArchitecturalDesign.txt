@@ -1,0 +1,614 @@
+﻿Overview
+This section aims to present an overview of the architecture of the PowerEnjoy system, starting from the main software layers (also called abstraction layers or logical components) and their interconnections. 
+
+
+The software layers can be considered the main high-level components of the PowerEnjoy system. Then the high-level components will be exploded in their sub-components, also by presenting some static and dynamic behavioural views of the system using UML diagrams.
+
+
+The end of this section will provide information about the main architectural styles and patterns used to design the system and their rationales.
+
+
+High level components and their interaction
+
+
+HIGH LEVEL COMPONENTS
+The system will be constituted by the following four high-level components (logical layers):
+
+
+* Database layer: this layer is responsible for storing and retrieving the persistent data of the PowerEnjoy company. It doesn’t implement any business logic and must guarantee the ACID properties during transactions. This layer is accessed through the Application layer.
+
+
+* Application (Business) layer:  the application layer implements the whole business logic and its algorithms. It is also responsible for the interaction with the cars (management and connection handling) . It interacts with the database layer. Part of the business functionalities can be provided through service-oriented interfaces.
+
+
+* Web (Presentation) layer: the web layer implements the web presentation layer. This layer can be used partially for the presentation on the mobile application, This layer does not involve any business logic.
+
+
+*     Client Layer
+   * Mobile application: the mobile application used by the users and the operators, which runs on an Android or iOS device. The mobile application communicates directly with the application layer to access the main services offered by the PowerEnjoy system, but also with the web layer to delegate part of the presentation.
+
+
+   * Car application: Android application running on a car owned by the PowerEnjoy company; it communicates directly with the application layer, since the car application will have its own native UI and there’s no need to interact with the Web Layer for the presentation.
+
+
+
+
+ Layers.png 
+
+
+
+This design choice for the logical layers is suitable for the PowerEnjoy system: this design separates well the business logic and the web presentation, allowing more easily the extension of a layer and thus providing an adequate degree of scalability. 
+
+
+In fact, as stated in the RASD, the architecture should be developed having in mind a future access to the PoweEnjoy services through a web browser and in this case the web presentation layer will become more important. 
+
+
+The four logical layers identified define a 4-tier architecture. 
+
+
+The architecture provided is not fully layered, this is mainly due to the interaction with the cars.
+
+
+All the interactions between the layers can be considered synchronous, except the interaction between the Car Application and the Application layer, which is asynchronous.
+
+
+TECHNOLOGICAL VIEWPOINT
+The Mobile Application will be developed as an application on Android OS and on iOS. 
+
+
+The Car application will be developed as an application on Android OS.
+
+
+The Web Layer and the Application Layer will be developed with Java EE7. In particular the vendor implementation chosen is GlassFish.
+
+
+The Database Layer will be developed using MySQL Server.
+
+
+The following diagram shows the relations between the high-level components identified and a possible set of technologies to use for the future implementation phase.
+
+
+ More low_level tiers.png 
+[a]
+
+
+It is reasonable to use RESTful APIs for the communication between the Mobile Application and the Application layer since they are usually deployed on different machines. However, the interaction between the Web Layer and the Application Layer can use RESTful APIs or injection mechanism, it depends if the two layers are deployed on the same machine or not.
+
+
+Component View
+This section aims to provide more information about the sub-components identified from every high-level component previously mentioned.
+
+
+Some UML Component diagrams will be provided in order to show the modular decomposition of a component into separate modules and the decoupling of the  architecture in functional areas.
+
+
+This section will follow a descriptive top-down approach. In designing the component diagrams we have tried to minimize the risks of desynchronization of the different areas of the architecture.
+ HighLevelComponentsNEW.png 
+
+
+
+The Web Layer and the Application layer are included for simplicity in the PowerEnjoy Servers component.
+
+
+ ServerComponentNEW.png 
+
+
+
+DATABASE LAYER
+The database layer uses MySQL Server; for every transactions it must guarantee the ACID properties.
+It is interacted from the application layer using the Java Persistence API (JPA) instead of the classic JDBC. JPA provides a convenient shortcut to many of the steps that JDBC has to follow in order to store and retrieve the application data into the DBMS and to make the application layer synchronized with the database layer.
+JPA deals with the O/R Mapping and allows to store data by converting the application data objects into persistence entities in the relational database, using annotations in Java classes. It manages the transition of entities from the application layer to the database layer through an API called the EntityManager. The following diagram shows the E/R Model of the PowerEnjoy company.  ER Diagram.png 
+
+
+APPLICATION LAYER
+
+
+ ApplicationLayerComponentNEW.png 
+
+
+
+The main sub-components of the application layer are implemented using stateless Enterprise JavaBeans (Session Beans).
+
+
+These sub-components provide the majority of the business logic of the system and are designed to follow the design principles of high cohesion and loose coupling, by offering functionalities strictly related and also by reducing the dependencies between each other. 
+
+
+A detailed class diagram showing the interactions between the Enterprise JavaBeans implementing the business logic will be shown later.
+
+
+Some of these beans implement the RESTful principles and so they offer some external services. The external services provided will be designed to follow the CRUD principles, so that each HTTPS request can be mapped to an appropriate service offered.
+
+
+AccountManager
+This EJB is responsible for all the operations related to users’ and operators’ accounts. This bean is enough self contained to be easily extended in future with other operations related to account management, like: editing of account informations; deletion of a user account; providing a more complex policy to manage the suspension of a user from the PowerEnjoy system; modify the payment informations associated to an account.
+
+
+UserManager
+This EJB manages the most used functionalities that are available through the mobile application to the users enrolled to the system. Among these functionalities the most relevant are: locate all the available cars by GPS or address; insert the personal PIN to unlock the reserved car; request the reservation of a car. This bean can be extended in future with functionalities like: contact an operator of the PowerEnjoy service to ask questions regarding the usage of the service.
+
+
+OperatorManager
+This EJB provides all the features needed by the operators in order to accomplish their maintenance tasks: obtaining a list of all the unavailable cars; the possibility to set one of the unavailable cars as under maintenance; the possibility to set the fixed car back to an available state.
+
+
+ReservationManager
+This EJB manages the features related to the management of a reservation of a car performed by a user, like: understanding when to start counting the reservation time; evaluate if a reservation can terminate; evaluate if the user can make a stop; evaluate if a reservation has been missed; handle the reservation according to a car failure.
+
+
+This EJB is designed with the principle of extendability in mind, for example this EJB in future may contain functionalities to retrieve the list of all the reservations made by a user since its registration to the system[b], or to visualize the remaining time until the pickup of a reserved car will expire.
+
+
+
+
+
+
+BillingManager
+This EJB manages all the functionalities related to the user’s billing, like: the verification of the payment information submitted by the user during the registration procedure; the computation of the user’s bill, discounts and penalties at the end of a ride; the charge of a given amount of money to a user. In order to accomplish part of the billing functionalities, this EJB interacts with the BillingService.
+
+
+CarManager
+This EJB handles all the requests that the Application Layer needs to send to the Car Application and also all the consequences of the notification of events that a car forwards to the the Application Layer.
+
+
+The communication with the car is done through a WebSocket endpoint in the Application Layer (typically through the managed bean injection feature offered by Java EE).
+
+
+This bean will be able to request any actuation of a command on a specified car.
+
+
+Any modification of a car property will be forwarded to the related entity bean in the EJB container, and the Java Persistence API will handle the O/R mapping to persist the modification inside the appropriate table in the database.
+
+
+Notice that this bean is not directly accessible through the users’ mobile application, and thus it is not offering any external interface to the outside world.
+ 
+ ClassDiagramEntityBeans.png 
+
+
+
+WEB LAYER
+This layer is responsible to handle presentation functionalities. Among the multiple available web components in Java EE 7 specification (servlets, JSP), we decide to use the framework JSF (JavaServer Faces) because they are designed based on the MVC pattern in order to separate precisely the roles of the View and the Controller. The view can be implemented using static or dynamic HTML web pages, the controller can be implemented using session beans. The model is the core of the PowerEnjoy system and it’s located in the Application Layer.
+
+
+For the first release of the PowerEnjoy system, we won’t provide a web application accessible completely through a web browser. However this layer will be immediately useful for the Mobile Application, since for some functionalities, like registration, we can use this layer instead of creating twice (Android, iOS) the native UIs. 
+
+
+This layer is also useful to provide with ease in future, also on Mobile Applications, some “FAQs”, “Q&A”, “Billing Guides” and basic informations about the PowerEnjoy service.
+
+
+The following is a component diagram exploding the internal of the Web Layer at very high level.
+ WebLayerComponentNEW.png 
+
+CLIENT LAYER
+
+
+* MOBILE APPLICATION
+The Mobile Application will be natively developed using Android SDK and iOS SDK respectively for Android OS and iOS. The language used for the Android Application is Java, the language used for the iOS application is Swift.
+In general, for both platforms
+we will use the MVC pattern because:
+
+
+-The distinction between view and controlled is already implicitly present in the SDKs, since layouts, images, assets and media are considered view resources, which get coupled at runtime with the view controllers code.
+-The distinction between controllers and model (logic) can be done more easily since we access remote services and we keep all the business logic separately on the Application Layer.
+
+
+We’ve made a distinction between two types of Controllers:
+* View Controllers: controllers responsible to handle view events. This controllers will also deal with the interaction with the MapsService, since the MapsService uses specific views.
+* Model Controllers: controllers responsible to:
+-interact with the model offered by the Application Layer through external interfaces
+-do some necessary elaborations, like parsing the response obtained by the Application Layer.
+
+
+ MobileApplicationComponent.png 
+
+
+
+Some Web Views will be used to offer part of the PowerEnjoy functionalities (like the registration), without having to write them natively on each platform. See Web Layer for more informations.
+
+
+ANDROID:
+-View Controller: we can use Activity from android.support.v7.app.AppCompatActivity. We use the AppCompatActivity to deal more easily with multiple Android OS versions, in order to provide similar experiences to users.
+- Model Controller: we can use again android.support.v7.app.AppCompatActivity.
+- View: the native UI view layout is defined with image assets and with XML layout files, one for every View Controller. We can use all the UI elements from android.view.View, android.app.Dialog and android.webkit.WebView, like: buttons, pickers, dialogs, switches, web views etc;
+-GPS positioning: in order to deal with GPS positioning, we can use the APIs provided by the LocationManager from android.location.LocationManager. Special permissions “ACCESS_COARSE_LOCATION” and “ACCESS_FINE_LOCATION” will be needed in the application manifest file.
+-Internet connection: can be used immediately by adding “INTERNET" and “ACCESS_NETWORK_STATE" permissions in the application manifest file.
+-MapsService: the MapsService is already part of Android SDK, it should only be configured properly.
+
+
+iOS
+-View Controller: we can use UIViewController.
+-Model Controller: for this part we can use custom Swift classes using specific functionalities provided by iOS SDK. 
+-View: we can use UIView subclasses, and also UIWebView.
+-GPS Positioning: we can use the CoreLocator APIs.
+-Internet Connection: we don’t need special permissions to use internet connection.
+-Maps Service: can be used by integrating separately the Google Maps SDK for iOS.
+ 
+* CAR APPLICATION
+The Car Application will be developed with the Android SDK. The whole code will be written using the Java language.
+
+
+The general concepts about Views and View Controllers are the same as the ones provided for the Android Mobile Application in the previous section, however, there are differences in terms of the interaction with external interfaces and in the communication with the Application Layer.
+
+
+The Car Controllers are responsible to interact with the car’s hardware and sensors and to manage the network communication with the Application Layer. They also partially interact with the MapsServiceInt for some path discovery and map navigation functionalities.
+
+
+The network communication between the Car Application and the Application Layer is based on a full-duplex communication channel. The Application Layer plays an active role in this communication, meaning that it can push messages to the Car Application. See rationales.
+
+
+The Car Application will interact with:
+* VehicleInterface: this interface will be used to get informations from the car’s hardware and sensors (like battery SoC) and to actuate commands on the car hardware itself (like locking the car). 
+* MapsServiceInt: this interface (or set of interfaces), will be used to interact with Google Maps services, for functionalities like: map visualization; find a feasible path from an origin GPS position to a destination GPS position; car navigation functionalities; visualization of safe areas on the map view etc. 
+* CarSocketInt: the interface used in the full-duplex network communication with the Application Layer. This communication is based on the WebSocket protocol.                
+                 CarApplicationComponent.png 
+
+
+
+
+Deployment View
+This section aims to show the topology of the system architecture, by underlining anything that exists in its operational context.
+
+
+Usually the mapping between tiers and physical machines is not 1:1.
+However we have decided to deploy our 4 tiered architecture on 4 different machines: client device, Glassfish Web Server, GlassFish Application Server, mySQL Server. See rationales.
+
+
+This diagram shows a possible deployment of our artifacts and components on physical machines.
+
+
+ Deployment.png 
+[c]
+
+
+
+
+Runtime View
+This section aims to show part of the runtime behaviour of the system mainly through sequence diagrams. These diagrams represent the most significant interactions between components. 
+
+
+Many interactions have already been shown in the RASD document, using high level sequence diagrams where the PowerEnJoy system was treated like a “black box”. Here, instead, we want to focus more on the internal interactions between components that occur in the PowerEnJoy system.
+At the end of the section we will provide a state chart diagram regarding the evolution of the status of a car and the events triggering its transitions.
+
+
+SEQUENCE DIAGRAMS
+ CarUnlocking.png 
+                
+ LockCar.png 
+
+ Pay last ride.png 
+
+ TerminateReservation.png 
+
+
+
+ OperatorFixesCar.png 
+
+
+
+STATECHART
+ Car status.png 
+
+
+
+
+
+
+
+Component Interfaces
+
+
+Interface between Car Application and Application Layer
+The Car Application communicates with the Application Layer by sending
+string messages over the WebSocket protocol: it is necessary then to define a common interface composed by a shared list of possible types of messages, so that both the parties will be able to react appropriately to messages of the other party and to operate over a common protocol of communication.
+          
+    Interface exposed by the Database Layer to Application Layer
+The Application Layer interacts with the Database Layer by using the interfaces offered by the Java Persistence API: JPA, in particular, enables the status of the Entity Beans of the Application Layer to persist be persisted in a relational database. The JPA’s interface is a suitable solution for the system since it provides convenient shortcuts to the most important operations of JDBC, such as querying informations over the database
+data. In particular we will use the Hibernate implementation of the JPA specifications.
+
+
+
+
+
+
+
+
+Interface exposed by the Web Layer to Mobile Application
+            
+The Mobile Application interacts with the Web Layer by using the interfaces
+offered through the HTTPS protocol, allowing a secure communication between the clients and the Web Layer using different HTTPS requests. For the initial release of our system, this interface will be used only by a few features on the
+Mobile Application, such as the registration procedure. However, this interface 
+could assume a more significant role in future improvements of the system: by
+already adapting this interface, in fact, an eventual expansion to desktop
+browsers would be more easily feasible.
+
+
+Interfaces exposed by Application Layer to Mobile Application and Web Layer
+The following are the public APIs exposed by some components of the Application Layer. Not all the components of the Application Layer offer public APIs. These APIs can be exposed using a RESTful approach.
+
+
+The output of each exposed functionality can be wrapped in an XML file, an HTML page or a JSON. We think JSON is the most versatile response format, however the choice is at discretion of the development team. Since this is not particularly relevant, we will only show the outcome at a high level.
+
+
+Every service whose functionality is associated and accessed by a particular user, requires also as input a token, which identifies the session of that user. This is necessary since the RESTful approach requires the resources to be stateless.  
+
+
+AccountManagerInt:
+* register
+   * INPUT:         
+      * userEmail
+      * userPassword
+      * personalData[]
+      * paymentInformation[]
+   * OUTPUT: 
+      * registrationOutcome
+
+
+This function allows guests to register to PowerEnJoy. It creates a new user with the information provided as parameters and saves it as an entity in the database of the system. It returns a registrationOutcome representing the outcome of the registration process: registration successful or failed. The paymentInformation[] are not stored in the database. More informations about the management of payment information is shown in the Other Design Decision section.
+
+
+* login
+   * INPUT:
+      * userEmail
+      * userPassword
+   * OUTPUT:
+      * session_identifier_token or error_info
+
+
+This function allows a user to log into the PowerEnJoy system using his email and password. If the credentials are correct, it returns a session_identifier_token that identifies the session of the user during his interaction with the system; otherwise it returnsan error_info message.
+
+
+UserManagerInt
+* findAvailableCarsByGPS
+   * INPUT:
+      * userLatitude
+      * userLongitude
+   * OUTPUT: 
+      * available_cars_list 
+      * available_cars_info
+This function allows a registered user to find available cars starting from the GPS position of his mobile device (characterized by the attributed latitude and longitude) and to see their info. It returns a list containing all available cars in the city area and their related informations.
+
+
+
+
+* findAvailableCarsByAddress
+   * INPUT:
+      * address
+   * OUPUT:
+      * available_cars_list
+      * available_cars_info
+
+
+This function allows a registered user to find available cars starting from an address in the city area and to see their info. It returns a list containing all available cars in the city area and their related informations.
+
+
+* insertPIN
+   * INPUT:
+      * uniquePIN
+      * userLatitude
+      * userLongitude
+   * OUTPUT:
+      * PINvalidationOutcome
+
+
+This function allows a registered user to insert his unique PIN code on his mobile device in order to unlock his previously reserved car. It receives the PIN code and the user’s GPS position (latitude and longitude, retrieved through the mobile device’s GPS signal). This function checks that the PIN is correct and that the user is at most 10m from his reserved car. It returns a PINvalidationOutcome containing the message that the PIN insertion was successful if the above conditions are valid, otherwise containing an error message. 
+
+
+OperatorManagerInt:
+* findUnavailableCars
+   * OUTPUT: 
+      * unavailable_cars_list
+      * unavailable_cars_problems
+      * unavailable_cars_info
+
+
+This function allows an operator to find all unavailable cars and to see their info and the kind of problem they have. It returns a list containing all unavailable cars in the city area, with related informations and problem occured.
+
+
+* maintainCar
+   * INPUT: 
+      * carLicensePlate
+   * OUTPUT:  
+      * maintenanceEnabled
+
+
+This function allows an operator to set as under maintenance an unavailable car, identified by its license plate. It returns a maintenanceEnabled containing the request’s outcome: successful or unsuccessful: depending if the operator had another car currently under his maintenance.
+
+
+* setCarToAvailable
+   * OUTPUT:  
+      * requestOutcome
+
+
+This function allows an operator to set as available a car he maintained. It returns a requestOutcome containing the outcome of the request: successful or unsuccessful: depending if the operator did not have any car under his maintenance.
+
+
+ReservationManagerInt:
+* reserveCar
+   * INPUT:
+      * carLicensePlate
+   * OUTPUT: 
+      * reservationOutcome
+
+
+This function allows a registered user to reserve an available car, identified by its license plate. It also asynchronously enables the verification of the time passed from the reservation, in order to set the car back to available if the user doesn’t unlock it within one hour. It returns a reservationOutcome representing the outcome of the reservation: reservation successful or failed.
+
+
+* terminateReservation
+   * INPUT:
+      * carLatitude
+      * carLongitude
+   * OUTPUT: 
+      * terminationRequestOutcome
+
+
+This function allows a registered user to terminate his reservation by pressing on related the button on the reserved car’s screen. It receives as parameter the GPS location of the car (characterized by latitude and longitude). It calls the local method evaluateReservationTermination(latitude, longitude). Only if the latter method returns a true value the reservation can actually terminate. It returns a terminationRequestOutcome containing the outcome, that will be displayed on the car’s screen (reservation ended correctly or error message).
+
+
+* makeStop
+   * INPUT:
+      * carLatitude
+      * carLongitude
+   * OUTPUT: 
+      * stopRequestOutcome
+
+
+This function allows a registered user to make a stop during his ride by pressing on the related button on the car’s screen. It receives as parameter the GPS location of the car (characterized by latitude and longitude). It calls the local method evaluateMakeStop(latitude, longitude); only if the latter method returns a true value the user can actually make a stop. It returns a stopRequestOutcome: success or error_message, that will be displayed on the car’s screen.
+
+
+* activateMoneySaving
+   * INPUT:
+      * carLatitude
+      * carLongitude
+      * destinationAddress
+   * OUTPUT:
+      * destinationPowerSafeArea or errorMessage
+
+
+This function allows a registered user to activate the money saving option from the reserved car’s screen. It receives as parameters the current GPS position of the car (characterized by latitude and longitude) and the destination of the user (specified as an address). The function returns in the parameter destinationPowerSafeArea the GPS location of the selected power safe area where to park the car at the end of the ride in order to get a discount. The safe area selected guarantees a uniform distribution of cars in the city area and depends on both the available parking slots and on the distance from the user’s destination. If no power safe area is found satisfying the above criteria, it returns an errorMessage. 
+
+
+* requestUnlock
+   * OUTPUT:
+      * unlockRequestOutcome
+
+
+This function allows a registered user to unlock his latest reserved car. It verifies that a reservation for the user that requested the unlock actually exists and that the time passed from the reservation is no more than one hour. If so, it calls the method carUnlock inside CarManager, getting the user’s GPS position from his mobile device. It also starts an asynchronous verification of the time passed from the unlocking, so that, if the engine is not ignited within 20 minutes, the method handleCarFailure inside reservationManager is called. This function returns a unlockRequestOutcome representing the outcome of the unlocking request performed by the user.
+        
+
+
+
+
+ Selected Architectural Styles And 
+ Patterns
+This section aims to list all the architectural styles and patterns applied during the design phase of the system, underlining also the rationales behind the main design decisions. 
+
+
+ARCHITECTURAL STYLES:
+* Client/Server: if we abstract away some details, our architecture is implementing a Client/Server architecture, even if we don’t have only 2 tiers. This is mainly due to the fact that the most computationally intensive
+business logics are located inside the Application (Business) Layer, while the Client Layer has only to deal with presentation functionalities (completely, or partially if it is interacting with the web layer). The client layer is therefore  left “thin” regarding the business logic, while the Application Layer is “fat”.
+         This is advantageous for multiple reasons:
+
+
+        - Avoid platform desynchronization:
+The main devices accessing the PowerEnjoy services are mobile devices. The APIs used to develop Android or iOS applications change frequently and this needs to be accounted to guarantee the best possible user experience. If the business logic is located too much on the Client Layer, this may cause desynchronization between the platforms, ending up privileging updates to a platform instead of another.
+
+
+-Device support flexibility: with a “thin” Client Layer and a “fat” Application Layer it is easier to add support to new client devices, for example web browsers.
+
+
+-Maintenance: a “fat” Application Layer improves maintenance, since we don’t have to stop the service to update the business logic code.
+
+
+* 4-Tier Architecture: the separation of our system in 4 software layers (tiers) can be useful for a number of reasons: 
+
+
+-Process Flexibility: process flexibility is enhanced since during the implementation phase, each layer can be assigned to different teams of people, which can proceed the development in parallel.
+
+
+-Device support flexibility: same rationales as in the Client/Server explanation. 
+
+
+-Maintenance and testing: every software layer can be tested and maintained more or less separately from the others. Therefore it will be  easier to identify and correct eventual bugs.
+
+
+- Scalability: the number of machines on which a particular layer is deployed can be incremented or decremented based on demand loads and budget.
+
+
+-Modularity and extendability: since each software layer as a specific functionality to achieve, it is easier to add modules and components to it. 
+
+
+-Security: if in the future the security of the system becomes a bigger concern, then it will be easier to create multiple DMZ and add firewalls in order to protect more efficiently the business data.
+
+
+* Active Server (Server Push: in the HTTP protocol the server is passive and it is able to send data to the client only in response to a client’s request.
+
+
+In the PowerEnjoy system, though, it is necessary from the Application Layer to request different commands to be actuated on the cars when needed.
+
+
+The HTTP protocol offers some possible solutions to this issue, such as HTTP polling, by basically putting the client in a situation of periodically sending requests to the server to know if there are some new updates destinated to him.
+
+
+This technique though is pretty expensive in terms of time and resources, so it seems preferable to use another communication protocol which guarantees a full-duplex communication channel, such as the WebSocket protocol.
+
+
+In addition, JEE offers the WebSocket APIs for creating and managing easily WebSocket components.
+
+
+DESIGN PATTERNS:
+* MVC: this design pattern has been followed for both the Mobile Application and the Web Layer. It is well known for the separation of concerns between the roles of model, view and controller.
+
+
+
+
+* Publisher/Subscriber: this design pattern can be used for the communication between the Application Layer and the Car Applications.
+
+
+Other Design Decisions
+* BillingService: StripeAPI
+We will use Stripe APIs to validate the payment informations provided by the users and to charge the users when needed. The main reason for this choice are:
+
+
+- Security: by using Stripe APIs we will limit the storage of personal payment information in our database. After checking the payment informations provided by the user through Stripe APIs, Stripe APIs return us a payment token that identifies that payment informations inside their database. We just need to store this token in our database and retrieve it when we will need to charge the user using Stripe APIs.
+
+
+- Simplicity and Good Documentation: the Stripe APIs are simple to use and very well documented.
+
+
+The following sample code can be used to charge a user:
+
+
+// Create a Customer
+Map<String, Object> customerParams = new HashMap<String, Object>();
+// here we use the payment token retrieved after the validation of the user’s payment information performed by Stripe
+customerParams.put("source", token);
+customerParams.put("description", "Mario Rossi");
+
+Customer customer = Customer.create(customerParams);
+
+// Charge the Customer
+Map<String, Object> chargeParams = new HashMap<String, Object>();
+chargeParams.put("amount", 1000); // Amount in cents
+chargeParams.put("currency", "eur");
+chargeParams.put("customer", customer.getId());
+
+Charge.create(chargeParams);
+
+
+* MapsService: Google Maps
+We have chosen to use Google Maps APIs to deal with maps visualization; geolocalization on a map; path search; distance calculation between GPS positions. We have made this choice since:
+* Google Maps APIs are the most popular and reliable maps API.
+* Google Maps APIs are easy to use, the APIs provided are wide and very well documented.
+* Google Maps APIs are portable, since Google has released them for all the most used software platforms (Android, iOS, Java platforms included).
+* Google Maps APIs provide a very high availability.
+
+
+* VehicleInterface
+The VehicleInterface will be used by the Car Application in order to 
+interact with the hardware and sensors of the car. Through this interface the Car Application will be able to get informations from the car and also to actuate commands on the car’s hardware, like for example locking/unlocking the car. The cars’ provider from which our customer has bought the cars will provide us a jar library which will contain the above mentioned interface and all the code necessary for that interface to accomplish its tasks.
+This library can be included in the Car Application source code during the development.
+An example of the VehicleInterface is the following:
+getSoC();
+getCurrent();
+getBatteryStatus();
+getVoltage();
+getDoorsStatus();
+getTrunkDoorStatus();
+getDirection();
+getSpeed();
+getFaults();
+getSpecificFaultInformations(fault);
+getPassengersNumber();
+execCommand(command, params[]);
+
+
+
+
+
+
+
+
+
+
+[a]managed beans?
+[b]/*Ricordati di inserire nel documento una breve parte in cui parli di Injection e della possibilità di injection of managed beans (tra cui gli EJB e il WebSocket component) grazie al JNDI*/
+[c]da fixare Web container
