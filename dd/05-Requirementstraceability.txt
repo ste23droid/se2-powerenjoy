@@ -1,0 +1,88 @@
+﻿Functional requirements 
+
+
+
+
+Component
+	Requirement
+	AccountManager
+	R1.1.1
+R1.1.2
+R1.1.3
+R1.1.4
+R1.1.5
+R1.1.6
+	UserManager
+	R1.2.1
+R1.2.2
+R1.3.1
+R1.3.2
+R1.3.3
+R2.2.10
+	OperatorManager
+	R2.2.6
+R2.2.7
+	ReservationManager
+	R2.1.1
+R2.1.6
+R2.1.7
+R2.1.8
+R2.1.9
+R2.1.10
+R2.1.11
+R2.1.12
+R2.1.13
+R2.1.14
+R2.1.15
+R2.1.16
+R2.1.17
+R2.2.2
+R2.2.3
+R2.2.4
+R2.2.8
+R2.2.9
+R3.3
+R4.1
+R4.2.2
+	BillingManager
+	R1.1.6
+R2.1.3
+R2.1.4
+R2.1.17
+R3.1
+R4.1
+R4.1.1
+R4.1.2
+R4.2.1
+	CarManager
+	R1.2.1
+R1.2.2
+R1.2.3
+R1.3.1
+R1.3.3
+R2.1
+R2.2
+R2.1.1
+R2.1.2
+R2.1.3
+R2.1.4
+R2.1.5
+R2.1.6
+R2.1.8
+R2.1.10
+R2.1.13
+R2.1.14
+R2.1.15
+R2.1.16
+R2.2.1
+R2.2.2
+R2.2.5
+R2.2.6
+R2.2.7
+R2.2.8
+R2.2.9
+R3.1
+R3.2
+	
+
+Non-functional requirements

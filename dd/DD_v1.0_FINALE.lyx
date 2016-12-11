@@ -1,0 +1,4933 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\hypersetup{urlcolor=blue, linkcolor=blue}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref section
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+P
+\noun on
+ower
+\noun default
+E
+\noun on
+n
+\noun default
+J
+\noun on
+oy
+\noun default
+
+\begin_inset Newline newline
+\end_inset
+
+D
+\series default
+esign 
+\series bold
+D
+\series default
+ocument
+\end_layout
+
+\begin_layout Author
+\noindent
+Stefano Brandoli (mat.
+ 875633)
+\begin_inset Newline newline
+\end_inset
+
+Silvia Calcaterra (mat.
+ 874887)
+\begin_inset Newline newline
+\end_inset
+
+Samuele Conti (mat.
+ 875708)
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Logo_Politecnico_Milano.png
+	lyxscale 30
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\noun on
+Version 1.0
+\noun default
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\color black
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+hypersetup{linkcolor=black}
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+hypersetup{linkcolor=blue}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Subsection
+Purpose 
+\end_layout
+
+\begin_layout Standard
+The Design Document (DD) follows the redaction of the RASD.
+\end_layout
+
+\begin_layout Standard
+The main purposes of this document are: record the main design information
+ and decisions to communicate them to some key stakeholders; identify the
+ main architectural components of the system together with their functional
+ description and interactions; highlight the interfaces of the system and
+ their impact on the architecture; describe the main algorithms to be implemente
+d; provide a view of the user interfaces.
+\end_layout
+
+\begin_layout Standard
+The intended audience of this document are: developers, designers, project
+ managers, quality assurance people and testers.
+ 
+\end_layout
+
+\begin_layout Standard
+This document tries to keep an high level of abstraction and to provide
+ a top down approach.
+ It can be used as a basis to design future refinements of the system architectu
+re through “Detailed Design Documents” and as a basis for the developers
+ who want to obtain a general idea on how to start the implementation phase.
+\end_layout
+
+\begin_layout Subsection
+Scope 
+\end_layout
+
+\begin_layout Standard
+The aim of the system is to manage the PowerEnjoy car-sharing service, which
+ only employs electric cars.
+\end_layout
+
+\begin_layout Standard
+The system will interact with some external interfaces to provide part of
+ its functionalities, in particular regarding the interaction with the cars’
+ hardware and sensors; the handling of user’s payments and payment informations;
+ the interaction with Google Maps APIs.
+ 
+\end_layout
+
+\begin_layout Standard
+During the design of the system, architectural styles and design patterns
+ will be used, when reasonable, to provide a structure of the system based
+ on well known solutions.
+ This may also to reduce the development and maintenance costs during the
+ implementation phase.
+\end_layout
+
+\begin_layout Subsection
+Definitions, Acronyms, Abbreviations
+\end_layout
+
+\begin_layout Subsubsection
+Definitions
+\end_layout
+
+\begin_layout Description
+Tier = a tier can be seen as a synonym of software layer.
+ It is a level of software responsibility, a software functional area.
+ It’s important to notice that this definition doesn’t deal with the number
+ of physical machines on which the software will actually be running on.
+\end_layout
+
+\begin_layout Description
+Component = a component is a design unit that represents a piece of software
+ that will typically be implemented using replaceable modules.
+ A component encapsulates behavior and implements specified interfaces.
+\end_layout
+
+\begin_layout Description
+Artifact = An artifact is a physical unit, such as a file, executable, script,
+ database etc, which is deployed on physical machines.
+\end_layout
+
+\begin_layout Subsubsection
+Acronyms 
+\end_layout
+
+\begin_layout Itemize
+DD = Design Document.
+ 
+\end_layout
+
+\begin_layout Itemize
+RASD = Requirements Analysis and Specification Document.
+ 
+\end_layout
+
+\begin_layout Itemize
+UI = User Interface.
+ 
+\end_layout
+
+\begin_layout Itemize
+API = Application Programming Interface.
+ 
+\end_layout
+
+\begin_layout Itemize
+ACID = Atomicity, Consistency, Isolation, Durability.
+\end_layout
+
+\begin_layout Itemize
+HTTP = HyperText Transfer Protocol.
+ 
+\end_layout
+
+\begin_layout Itemize
+HTTPS = HyperText Transfer Protocol over Secure Socket Layer (SSL).
+ 
+\end_layout
+
+\begin_layout Itemize
+DBMS = Database Management System.
+ 
+\end_layout
+
+\begin_layout Itemize
+RESTful = Representational State Transfer.
+ 
+\end_layout
+
+\begin_layout Itemize
+JAX-RS = Java API for RESTful web services.
+ 
+\end_layout
+
+\begin_layout Itemize
+JPA = Java Persistence API.
+ 
+\end_layout
+
+\begin_layout Itemize
+EJB = Enterprise Java Bean.
+ 
+\end_layout
+
+\begin_layout Itemize
+CRUD = Create, Read, Update, Delete.
+ 
+\end_layout
+
+\begin_layout Itemize
+JDBC = Java DataBase Connectivity.
+ 
+\end_layout
+
+\begin_layout Itemize
+JSF = Java Server Faces.
+ 
+\end_layout
+
+\begin_layout Itemize
+JSP = Java Server Pages.
+ 
+\end_layout
+
+\begin_layout Itemize
+SDK = Software Development Kit.
+ 
+\end_layout
+
+\begin_layout Itemize
+SoC = State of Charge.
+ 
+\end_layout
+
+\begin_layout Itemize
+DMZ = Demilitarized Zone.
+\end_layout
+
+\begin_layout Subsection
+Reference Documents 
+\end_layout
+
+\begin_layout Itemize
+Specification Document of PowerEnjoy.
+ 
+\end_layout
+
+\begin_layout Itemize
+PowerEnjoy RASD.
+ 
+\end_layout
+
+\begin_layout Itemize
+Danny Coward - Java EE 7: The Big Picture: this book has been used to get
+ a general and precise overview of the Java EE 7 platform.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+API First
+\begin_inset Quotes erd
+\end_inset
+
+ Architecture: 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.leaseweb.com/labs/2013/10/api-first-architecture-fat-vs-thin-server-de
+bate/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Concept of “Component” in UML2: 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.ibm.com/developerworks/rational/library/dec04/bell/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+iOS MVC pattern: 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.raywenderlich.com/132662/mvc-in-ios-a-modern-approach
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+WebSockets library for Java: 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/TooTallNate/Java-WebSocket
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Document Structure 
+\end_layout
+
+\begin_layout Standard
+This document has been structured in the following sections: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Section 1: Introduction
+\series default
+: this first section provides the introductory information about the purposes
+ of the DD and its structure.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Section 2: Architectural Design
+\series default
+: this section defines the core concepts of the whole document.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Section 3: Algorithm Design:
+\series default
+ this section will be used to present the most important algorithms designed
+ to fulfill the goals of the S2B.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Section 4: User Interface Design
+\series default
+: this section will provide a refinement of the mockups presented in the
+ RASD and a UX diagram.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Section 5: Requirements Traceability
+\series default
+: this section will show how the design decisions taken in this document
+ and the components identified are related with the requirements provided
+ in the RASD.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Architectural Design
+\end_layout
+
+\begin_layout Subsection
+Overview
+\end_layout
+
+\begin_layout Standard
+This section aims to present an overview of the architecture of the PowerEnjoy
+ system, starting from the main software layers (also called abstraction
+ layers or logical components) and their interconnections.
+ 
+\end_layout
+
+\begin_layout Standard
+The software layers can be considered the main high-level components of
+ the PowerEnjoy system.
+ Then the high-level components will be exploded in their sub-components,
+ also by presenting some static and dynamic behavioural views of the system
+ using UML diagrams.
+\end_layout
+
+\begin_layout Standard
+The end of this section will provide information about the main architectural
+ styles and patterns used to design the system and their rationales.
+\end_layout
+
+\begin_layout Subsection
+High Level Components and Their Interaction
+\end_layout
+
+\begin_layout Subsubsection
+High Level Components
+\end_layout
+
+\begin_layout Standard
+The system will be constituted by the following four high-level components
+ (logical layers):
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Database layer:
+\series default
+ this layer is responsible for storing and retrieving the persistent data
+ of the PowerEnjoy company.
+ It doesn’t implement any business logic and must guarantee the ACID properties
+ during transactions.
+ This layer is accessed through the Application layer.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Application (Business) layer:
+\series default
+ the application layer implements the whole business logic and its algorithms.
+ It is also responsible for the interaction with the cars (management and
+ connection handling).
+ It interacts with the database layer.
+ Part of the business functionalities can be provided through service-oriented
+ interfaces.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Web (Presentation) layer:
+\series default
+ the web layer implements the web presentation.
+ This layer can be used partially for the presentation on the mobile application.
+ This layer does not involve any business logic.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Client Layer 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+Mobile application:
+\series default
+ the mobile application used by the users and the operators, which runs
+ on an Android or iOS device.
+ The mobile application communicates directly with the application layer
+ to access the main services offered by the PowerEnjoy system, but also
+ with the web layer to delegate part of the presentation.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Car application: 
+\series default
+Android application running on a car owned by the PowerEnjoy company; it
+ communicates directly with the application layer, since the car application
+ will have its own native UI and there’s no need to interact with the Web
+ Layer for the presentation.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Other diagrams/Layers.png
+	lyxscale 10
+	width 45col%
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+High level view of the layers of the system
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This design separates well the business logic and the web presentation,
+ allowing more easily the extension of a layer and thus providing an adequate
+ degree of scalability.
+ In fact, as stated in the RASD, the architecture should be developed having
+ in mind a future access to the PoweEnjoy services through a web browser
+ and in this case the web presentation layer will become more important.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The four logical layers identified define a 4-tier architecture.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The architecture provided is not fully layered, this is mainly due to the
+ interaction with the cars.
+\end_layout
+
+\begin_layout Standard
+All the interactions between the layers can be considered synchronous, except
+ the interaction between the Car Application and the Application layer,
+ which is asynchronous.
+\end_layout
+
+\begin_layout Subsubsection
+Technological Viewpoint
+\end_layout
+
+\begin_layout Standard
+The Mobile Application will be developed as an application on Android OS
+ and on iOS.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The Car application will be developed as an application on Android OS.
+\begin_inset Newline newline
+\end_inset
+
+The Web Layer and the Application Layer will be developed with Java EE 7.
+ In particular the vendor implementation chosen is GlassFish.
+\begin_inset Newline newline
+\end_inset
+
+For the Database Layer we will use MySQL Server.
+\begin_inset Newline newline
+\end_inset
+
+The 4-layers previously presented, are designed to follow an 
+\begin_inset Quotes eld
+\end_inset
+
+API First
+\begin_inset Quotes erd
+\end_inset
+
+ architecture, where the focus is put on the services exposed by the system,
+ thus on mobile and web devices.
+ The following diagram shows the relations between the high-level components
+ identified and a possible set of technologies to be used for the future
+ implementation phase.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Other diagrams/More low_level tiersNEW.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Component View
+\end_layout
+
+\begin_layout Standard
+This section aims to provide more information about the sub-components identifie
+d from every high-level component previously mentioned.
+\begin_inset Newline newline
+\end_inset
+
+Some UML Component diagrams will be provided in order to show the modular
+ decomposition of a component into separate modules and the decoupling of
+ the architecture in functional areas.
+\begin_inset Newline newline
+\end_inset
+
+This section will follow a descriptive top-down approach.
+ In designing the component diagrams we have tried to minimize the risks
+ of desynchronization of the different areas of the architecture.
+ The Web Layer and the Application layer are included for simplicity in
+ an abstract component called 
+\begin_inset Quotes eld
+\end_inset
+
+PowerEnjoy Servers
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Component diagrams/01 - HighLevelComponentsNEW.png
+	lyxscale 10
+	width 125col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Component diagrams/02 - ServerComponent.png
+	lyxscale 10
+	width 125col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Database Layer
+\end_layout
+
+\begin_layout Standard
+The database layer uses MySQL Server; for every transactions it must guarantee
+ the ACID properties.
+ It is accessed from the application layer using the Java Persistence API
+ (JPA) instead of the classic JDBC.
+ JPA provides a convenient shortcut to many of the steps that JDBC has to
+ follow in order to store and retrieve the application data into the DBMS
+ and to make the application layer synchronized with the database layer.
+ JPA deals with the 
+\emph on
+O/R Mapping
+\emph default
+ and allows to store data by converting the application objects into persistence
+ entities in the relational database, using annotations in Java classes.
+ JPA manages the transition of entities from the application layer to the
+ database layer through an API called the EntityManager.
+ JPA abstracts JDBC which is used 
+\begin_inset Quotes eld
+\end_inset
+
+under the hood
+\begin_inset Quotes erd
+\end_inset
+
+.
+ The following diagram shows the 
+\emph on
+E/R Model
+\emph default
+ of the PowerEnjoy company.
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Other diagrams/ER Diagram.png
+	lyxscale 10
+	width 140col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Application Layer
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Component diagrams/03 - ApplicationLayerComponentNEW.png
+	lyxscale 10
+	width 125col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The main sub-components of the application layer are implemented using stateless
+ Enterprise JavaBeans (Session Beans).
+\end_layout
+
+\begin_layout Standard
+These sub-components provide the majority of the business logic of the system
+ and are designed to follow the design principles of high cohesion and loose
+ coupling, by offering functionalities strictly related and also by reducing
+ the dependencies between each other.
+ 
+\end_layout
+
+\begin_layout Standard
+Some of these beans implement the RESTful principles and so they offer some
+ external services.
+ The external services provided will be designed to follow the CRUD principles,
+ so that each HTTPS request can be mapped to an appropriate service offered.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+AccountManager
+\end_layout
+
+\begin_layout Standard
+This EJB is responsible for all the operations related to users’ and operators’
+ accounts.
+ This bean is enough self contained to be easily extended in future with
+ other operations related to account management, like: editing of account
+ informations; deletion of a user account; providing a more complex policy
+ to manage the suspension of a user from the PowerEnjoy system; modify the
+ payment informations associated to an account.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+UserManager 
+\end_layout
+
+\begin_layout Standard
+This EJB manages the most used functionalities that are available through
+ the mobile application to the users registered to the system.
+ Among these functionalities the most relevant are: locate all the available
+ cars by GPS or address; insert the personal PIN to unlock the reserved
+ car.
+ This bean can be extended in future with functionalities like: contact
+ an operator of the PowerEnjoy service to ask questions regarding the usage
+ of the service.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+OperatorManager 
+\end_layout
+
+\begin_layout Standard
+This EJB provides all the features needed by the operators in order to accomplis
+h their maintenance tasks: obtaining a list of all the unavailable cars;
+ the possibility to set one of the unavailable cars as under maintenance;
+ the possibility to set the fixed car back to an available state.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+ReservationManager 
+\end_layout
+
+\begin_layout Standard
+This EJB manages the features related to the management of a reservation
+ of a car performed by a user, like: reserve an available car; understanding
+ when to start counting the reservation time; evaluate if a reservation
+ can terminate; evaluate if the user can make a stop; evaluate if a reservation
+ has been missed; handle the reservation according to a car failure.
+ This EJB may be extended in future to retrieve the list of all the reservations
+ made by a user since its registration to the system, or to visualize the
+ remaining time until the pickup of a reserved car will expire.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+BillingManager
+\end_layout
+
+\begin_layout Standard
+This EJB manages all the functionalities related to the user’s billing,
+ like: the verification of the payment information submitted by the user
+ during the registration procedure; the computation of the user’s bill,
+ discounts and penalties at the end of a ride; the charge of a given amount
+ of money to a user.
+ In order to accomplish part of the billing functionalities, this EJB interacts
+ with the BillingService.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+CarManager 
+\end_layout
+
+\begin_layout Standard
+This EJB manages all the logic that determines the requests that need to
+ be sent to the cars and handles all the logical consequences of the events
+ that a car forwards to the the Application Layer.
+ Any modification of a car property will be forwarded to the related entity
+ bean in the EJB container, and JPA will handle the 
+\emph on
+O/R mapping
+\emph default
+.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+CarConnectionManager
+\end_layout
+
+\begin_layout Standard
+This EJB handles all the requests that the Application Layer needs to send
+ to the Car Application and deals with the connection established with each
+ car.
+ This bean will be able to request any actuation of a command on a specified
+ car; in particular, the communication with the car is done through a WebSocket
+ endpoint.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Class Diagrams/ClassDiagramEntityBeans.png
+	lyxscale 5
+	width 160col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Class diagram of the Entity Beans (up) and of the Enterprise Beans (down).
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Class Diagrams/ClassDiagramEJB.png
+	lyxscale 5
+	width 110col%
+	rotateAngle 270
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Web Layer
+\end_layout
+
+\begin_layout Standard
+This layer is responsible to handle presentation functionalities.
+ Among the multiple available web components in Java EE 7 specification
+ (servlets, JSP), we have decided to use the JSF framework (JavaServer Faces)
+ because they are designed based on the MVC pattern in order to separate
+ precisely the roles of the View and the Controller.
+ The view can be implemented using static or dynamic HTML web pages, the
+ controller can be implemented using stateless session beans.
+ The model is the core of the PowerEnjoy system and it's accessed from the
+ Application Layer.
+\end_layout
+
+\begin_layout Standard
+For the first release of the PowerEnjoy system, we won’t provide a web applicati
+on accessible completely through a web browser.
+ However this layer will be immediately useful for the Mobile Application,
+ since for some functionalities, like registration, we can use this layer
+ instead of creating twice (Android, iOS) the native UIs.
+ 
+\end_layout
+
+\begin_layout Standard
+This layer may also be useful in future to provide with ease, also on Mobile
+ Applications, some “FAQs”, “Q&A”, “Billing Guides” and basic informations
+ about the PowerEnjoy service.
+\end_layout
+
+\begin_layout Standard
+The following is a component diagram exploding the internal of the Web Layer
+ at a very high level.
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Component diagrams/04 - WebLayerComponentNEW.png
+	lyxscale 10
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Client Layer
+\end_layout
+
+\begin_layout Paragraph
+Mobile Application 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Mobile Application will be natively developed using Android SDK and
+ iOS SDK respectively for Android OS and iOS.
+ The language used for the Android Application is Java, the language used
+ for the iOS application is Swift.
+ In general, for both platforms we will use the MVC pattern because:
+\end_layout
+
+\begin_layout Itemize
+The distinction between view and controlled is already implicitly present
+ in both the above mentioned SDKs, since layouts, images, assets and media
+ are considered view resources, which get coupled at runtime with the view
+ controllers code.
+ 
+\end_layout
+
+\begin_layout Itemize
+The distinction between controllers and model (logic) can be done more easily
+ since we access remote services and we keep all the business logic separately
+ on the Application Layer.
+\end_layout
+
+\begin_layout Standard
+We’ve made a distinction between two types of Controllers: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+View Controllers
+\series default
+: controllers responsible to handle view events.
+ These controllers will also deal with the interaction with the MapsService,
+ since the MapsService uses specific views, and with the interaction with
+ the WebInt through Web Views.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Model Controllers
+\series default
+: controllers responsible to: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+interact with the model offered by the Application Layer through external
+ interfaces.
+\end_layout
+
+\begin_layout Itemize
+do some necessary elaborations, like parsing the response obtained from
+ the Application Layer.
+\end_layout
+
+\begin_layout Itemize
+interact with the MapsServiceInt for map and positioning functionalities.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Component diagrams/05 - MobileApplicationComponent.png
+	lyxscale 10
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Some Web Views will be used to offer part of the PowerEnjoy functionalities
+ (like the registration), without having to write them natively on each
+ platform.
+ See Web Layer for more informations.
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Android
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+View Controller
+\series default
+: we can use Activity from
+\emph on
+ 
+\begin_inset Newline newline
+\end_inset
+
+android.support.v7.app.AppCompatActivity
+\emph default
+.
+ We use the AppCompatActivity to deal more easily with multiple Android
+ OS versions, in order to provide similar experiences to users.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Model Controller
+\series default
+: we can use again 
+\emph on
+
+\begin_inset Newline newline
+\end_inset
+
+android.support.v7.app.AppCompatActivity
+\emph default
+.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+View
+\series default
+: the native UI view layout is defined with image assets and with XML layout
+ files, one for every View Controller.
+ We can use all the UI elements from
+\emph on
+ android.view.View
+\emph default
+, 
+\emph on
+android.app.Dialog
+\emph default
+ and 
+\emph on
+android.webkit.WebView
+\emph default
+, like: buttons, pickers, dialogs, switches, web views etc.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+GPS positioning
+\series default
+: in order to deal with GPS positioning, we can use the APIs provided by
+ the LocationManager from
+\emph on
+ 
+\begin_inset Newline newline
+\end_inset
+
+android.location.LocationManager
+\emph default
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Special permissions “ACCESS_COARSE_LOCATION” and “ACCESS_FINE_LOCATION”
+ will be needed in the application manifest file.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Internet connection
+\series default
+: can be used immediately by adding “INTERNET" and “ACCESS_NETWORK_STATE"
+ permissions in the application manifest file.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+MapsService
+\series default
+: the MapsService is already part of the Android SDK, it should only be
+ configured properly.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+iOS
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+View Controller
+\series default
+: we can use UIViewController.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Model Controller:
+\series default
+ for this part we can use custom Swift classes using specific functionalities
+ provided by iOS SDK.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+View
+\series default
+: we can use UIView subclasses, and also UIWebView.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+GPS Positioning
+\series default
+: we can use the CoreLocator APIs.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Internet Connection
+\series default
+: we don’t need special permissions to use internet connection.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Maps Service
+\series default
+: can be used by integrating separately the Google Maps SDK for iOS.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Paragraph
+Car Application 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The Car Application will be developed with the Android SDK.
+ The whole code will be written using the Java language.
+\end_layout
+
+\begin_layout Standard
+The general concepts about Views and View Controllers are the same as the
+ ones provided for the Android Mobile Application in the previous section,
+ however, there are differences in terms of the interaction with external
+ interfaces and in the communication with the Application Layer.
+\end_layout
+
+\begin_layout Standard
+The Car Controllers are responsible to interact with the car’s hardware
+ and sensors and to manage the network communication with the Application
+ Layer.
+ They also partially interact with the MapsServiceInt for some path discovery
+ and map navigation functionalities.
+\end_layout
+
+\begin_layout Standard
+The network communication between the Car Application and the Application
+ Layer is based on a full-duplex communication channel.
+ The Application Layer plays an active role in this communication, meaning
+ that it can push messages to the Car Application.
+ See other design decisions.
+\end_layout
+
+\begin_layout Standard
+The Car Application will interact with: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+VehicleInterface
+\series default
+: this interface will be used to get informations from the car’s hardware
+ and sensors (like battery SoC) and to actuate commands on the car hardware
+ itself (like locking the car).
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+MapsServiceInt
+\series default
+: this interface (or set of interfaces), will be used to interact with Google
+ Maps services, for functionalities like: map visualization; find a feasible
+ path from an origin GPS position to a destination GPS position; car navigation
+ functionalities; visualization of safe areas on the map view etc.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+CarSocketInt
+\series default
+: the interface used in the full-duplex network communication with the Applicati
+on Layer.
+ This communication is based on the WebSocket protocol.
+ To support this protocol on the Car Application, we may use the client
+ library 
+\begin_inset Quotes eld
+\end_inset
+
+Java WebSockets
+\begin_inset Quotes erd
+\end_inset
+
+, which can be retrieved from Maven.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Component diagrams/06 - CarApplicationComponent.png
+	lyxscale 10
+	width 80col%
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Deployment View 
+\end_layout
+
+\begin_layout Standard
+This section aims to show the topology of the system architecture, by underlinin
+g anything that exists in its operational context.
+\end_layout
+
+\begin_layout Standard
+Usually the mapping between tiers and physical machines is not 1:1.
+ However we have decided to deploy our 4 tiered architecture on 4 different
+ machines: client device, Glassfish Web Server, GlassFish Application Server,
+ mySQL Server.
+ 
+\end_layout
+
+\begin_layout Standard
+This diagram shows a possible deployment of our artifacts and components
+ on physical machines.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Deployment diagrams/DeploymentDiagram.png
+	lyxscale 10
+	width 140col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Runtime View
+\end_layout
+
+\begin_layout Standard
+This section aims to show part of the runtime behaviour of the system mainly
+ through sequence diagrams.
+ These diagrams represent the most significant interactions between components.
+ 
+\end_layout
+
+\begin_layout Standard
+Many interactions have already been shown in the RASD document, using high
+ level sequence diagrams where the PowerEnJoy system was treated like a
+ “black box”.
+ Here, instead, we want to focus more on the internal interactions between
+ components that occur in the PowerEnJoy system.
+\end_layout
+
+\begin_layout Standard
+At the end of the section we will provide a state chart diagram regarding
+ the evolution of the status of a car and the events triggering its transitions.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Sequence Diagrams
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Sequence diagrams/CarUnlocking.png
+	lyxscale 5
+	width 150col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Sequence diagrams/LockCar.png
+	lyxscale 5
+	width 150col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Sequence diagrams/Pay last ride.png
+	lyxscale 5
+	width 150col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Sequence diagrams/TerminateReservation.png
+	lyxscale 5
+	width 150col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/Sequence diagrams/OperatorFixesCar.png
+	lyxscale 5
+	width 150col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+StateChart
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/StateChart/Car status.png
+	lyxscale 5
+	width 130col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Component Interfaces
+\end_layout
+
+\begin_layout Subsubsection
+Interface 
+\begin_inset Quotes eld
+\end_inset
+
+exposed
+\begin_inset Quotes erd
+\end_inset
+
+ by the Application Layer to Car Application
+\end_layout
+
+\begin_layout Standard
+The Car Application communicates with the Application Layer by sending string
+ messages over the WebSocket protocol: it is necessary then to define a
+ common interface composed by a shared list of possible types of messages,
+ so that both the parties will be able to communicate using an agreed message
+ protocol.
+ The services listed below are located in the ReservationManager and are
+ considered public, since they are accessed by the car Application, even
+ if they are not exposed as RESTful services.
+\end_layout
+
+\begin_layout Itemize
+
+\color red
+terminateReservation
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color red
+INPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color red
+carLatitude 
+\end_layout
+
+\begin_layout Itemize
+
+\color red
+carLongitude 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\color red
+OUTPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color red
+terminationRequestOutcome
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows a registered user to terminate his reservation by pressing
+ on the related button on the reserved car’s screen.
+ It receives as parameter the GPS location of the car (characterized by
+ latitude and longitude).
+ It calls the local method evaluateReservationTermination(latitude, longitude).
+ Only if the latter method returns a true value the reservation can actually
+ terminate.
+ It returns a terminationRequestOutcome containing the outcome, that will
+ be displayed on the car’s screen: reservation ended correctly or error
+ message.
+\end_layout
+
+\begin_layout Itemize
+
+\color red
+makeStop 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color red
+INPUT:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color red
+carLatitude
+\end_layout
+
+\begin_layout Itemize
+
+\color red
+carLongitude
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\color red
+OUTPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color red
+stopRequestOutcome
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows a registered user to make a stop during his ride by
+ pressing on the related button on the reserved car’s screen.
+ It receives as parameter the GPS location of the car (characterized by
+ latitude and longitude).
+ It calls the local method evaluateMakeStop(latitude, longitude).
+ Only if the latter method returns a true value the user can actually make
+ a stop.
+ It returns a stopRequestOutcome: success or error_message, that will be
+ displayed on the car’s screen.
+\end_layout
+
+\begin_layout Itemize
+
+\color red
+activateMoneySaving 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color red
+INPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color red
+carLatitude
+\end_layout
+
+\begin_layout Itemize
+
+\color red
+carLongitude 
+\end_layout
+
+\begin_layout Itemize
+
+\color red
+destinationAddress 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\color red
+OUTPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color red
+destinationPowerSafeArea or errorMessage
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows a registered user to activate the money saving option
+ from the reserved car’s screen.
+ It receives as parameters the current GPS position of the car (characterized
+ by latitude and longitude) and the destination of the user (specified as
+ an address).
+ The function returns in the parameter destinationPowerSafeArea the GPS
+ location of the selected power safe area where to park the car at the end
+ of the ride in order to possibly get a discount.
+ The safe area selected guarantees a uniform distribution of cars in the
+ city area and depends on both the available parking slots and on the distance
+ from the user’s destination.
+ If no power safe area is found satisfying the above criteria, it returns
+ an errorMessage.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Interface exposed by the Database Layer to Application Layer 
+\end_layout
+
+\begin_layout Standard
+The Application Layer interacts with the Database Layer by using the interfaces
+ offered by the Java Persistence API.
+ JPA, in particular, enables the status of the Entity Beans of the Application
+ Layer to be persisted in a relational database.
+ In particular we will use the Hibernate implementation of the JPA specification.
+\end_layout
+
+\begin_layout Subsubsection
+Interface exposed by the Web Layer to Mobile Application 
+\end_layout
+
+\begin_layout Standard
+The Mobile Application interacts with the Web Layer by using the interfaces
+ offered through the HTTPS protocol, allowing a secure communication between
+ the clients and the Web Layer.
+ For the initial release of our system, this interface will be used only
+ for the registration procedure.
+ However, this interface could assume a more significant role in future
+ updates of the system: by already adapting this interface, in fact, an
+ eventual expansion to desktop browsers would be more easily feasible.
+\end_layout
+
+\begin_layout Subsubsection
+Interfaces exposed by Application Layer to Mobile Application and Web Layer
+ 
+\end_layout
+
+\begin_layout Standard
+The following are the public APIs exposed by some components of the Application
+ Layer.
+ Not all the components of the Application Layer offer public APIs.
+ These APIs can be exposed using a RESTful approach.
+ The RESTful approach will be based on JAX-RS.
+\end_layout
+
+\begin_layout Standard
+The output of each exposed functionality can be wrapped in an XML file,
+ an HTML page or a JSON.
+ We think JSON is the most versatile response format, however the choice
+ is at discretion of the development team.
+ Since this is not particularly relevant, we will only show the outcome
+ at a high level.
+\end_layout
+
+\begin_layout Standard
+Every service whose functionality is associated and accessed by a particular
+ user, requires also as input a token, which identifies the session of that
+ user.
+ This is necessary since the RESTful approach requires the user session
+ to be stateless.
+\end_layout
+
+\begin_layout Paragraph
+
+\series bold
+AccountManagerInt: 
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+register 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+INPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+userEmail
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+userPassword 
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+personalData[] 
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+paymentInformation[] 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\color blue
+OUTPUT:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+registrationOutcome
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows guests to register to PowerEnJoy.
+ It creates a new user with the information provided as parameters and saves
+ it as an entity in the database of the system.
+ It returns a registrationOutcome representing the outcome of the registration
+ procedure: registration successful or failed.
+ The paymentInformation[] are not stored in the database.
+ More informations about the management of payment information are shown
+ in the Other Design Decision section.
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+login 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+INPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+userEmail 
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+userPassword 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\color blue
+OUTPUT
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+session_identifier_token or error_info
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows a user to log into the PowerEnJoy system using his
+ email and password.
+ If the credentials are correct, it returns a session_identifier_token that
+ identifies the session of the user during his interaction with the system;
+ otherwise it returns an error_info message.
+\end_layout
+
+\begin_layout Paragraph
+
+\series bold
+UserManagerInt:
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+findAvailableCarsByGPS 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+INPUT:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+userLatitude 
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+userLongitude
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\color blue
+OUTPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+available_cars_list
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+available_cars_info 
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows a registered user to find available cars starting from
+ the GPS position of his mobile device (characterized by the attributed
+ latitude and longitude) and to see their info.
+ It returns a list containing all available cars in the city area and their
+ related informations.
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+findAvailableCarsByAddress
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+INPUT:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+address
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\color blue
+OUPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+available_cars_list 
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+available_cars_info
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows a registered user to find available cars starting from
+ an address in the city area and to see their info.
+ It returns a list containing all available cars in the city area and their
+ related informations.
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+insertPIN 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+INPUT:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+uniquePIN 
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+userLatitude
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+userLongitude
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\color blue
+OUTPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+PINvalidationOutcome
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows a registered user to insert his unique PIN code on
+ his mobile device in order to unlock his previously reserved car.
+ It receives the PIN code and the user’s GPS position (latitude and longitude,
+ retrieved through the mobile device’s GPS signal).
+ This function checks that the PIN is correct.
+ It returns a PINvalidationOutcome containing the message that the PIN insertion
+ was successful if the above conditions are valid, otherwise containing
+ an error message.
+ 
+\end_layout
+
+\begin_layout Paragraph
+
+\series bold
+OperatorManagerInt:
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+findUnavailableCars
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+OUTPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+unavailable_cars_list
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+unavailable_cars_problems 
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+unavailable_cars_info
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows an operator to find all unavailable cars and to see
+ their info and the kind of problem they have.
+ It returns a list containing all unavailable cars in the city area, with
+ related informations and problem occured.
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+maintainCar 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+INPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+carLicensePlate 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\color blue
+OUTPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+maintenanceEnabled
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows an operator to set as under maintenance an unavailable
+ car, identified by its license plate.
+ It returns a maintenanceEnabled containing the request’s outcome: successful
+ or unsuccessful, depending if the operator had another car currently under
+ his maintenance.
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+setCarToAvailable
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+OUTPUT:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+requestOutcome
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows an operator to set as available a car he maintained.
+ It returns a requestOutcome containing the outcome of the request: successful
+ or unsuccessful, depending if the operator did not have any car under his
+ maintenance.
+\end_layout
+
+\begin_layout Paragraph
+
+\series bold
+ReservationManagerInt:
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+reserveCar
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+INPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+carLicensePlate 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\color blue
+OUTPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+reservationOutcome
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows a registered user to reserve an available car, identified
+ by its license plate.
+ It also asynchronously enables the verification of the time passed from
+ the reservation, in order to set the car back to available if the user
+ doesn’t unlock it within one hour.
+ It returns a reservationOutcome representing the outcome of the reservation
+ request: reservation successful or failed.
+\end_layout
+
+\begin_layout Itemize
+
+\color blue
+requestUnlock
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+OUTPUT: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\color blue
+unlockRequestOutcome
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+This function allows a registered user to unlock his latest reserved car.
+ It verifies that a reservation for the user that requested the unlock actually
+ exists and that the time passed from the reservation is no more than one
+ hour.
+ If so, it calls the method carUnlock inside CarManager, getting the user’s
+ GPS position from his mobile device.
+ It also starts an asynchronous verification of the time passed from the
+ unlocking, so that, if the engine is not ignited within 20 minutes, the
+ method handleCarFailure inside reservationManager is called.
+ This function returns a unlockRequestOutcome representing the outcome of
+ the unlocking request performed by the user.
+ 
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Selected Architectural Styles And Patterns 
+\end_layout
+
+\begin_layout Standard
+This section aims to list all the architectural styles and patterns applied
+ during the design phase of the system, underlining also the rationales
+ behind the main design decisions.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Architectural Styles 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Client/Server:
+\series default
+ if we abstract away some details, our architecture is implementing a Client/Ser
+ver architecture, even if we don’t have only 2 tiers.
+ This is mainly due to the fact that the most computationally intensive
+ business logics are located inside the Application (Business) Layer, while
+ the Client Layer has only to deal with presentation functionalities (completely
+, or partially if it is interacting with the web layer).
+\begin_inset Newline newline
+\end_inset
+
+The client layer is therefore left “thin” regarding the business logic,
+ while the Application Layer is “fat”.
+ 
+\begin_inset Newline newline
+\end_inset
+
+This is advantageous for multiple reasons:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\bar under
+Avoid platform desynchronization
+\bar default
+: 
+\begin_inset Newline newline
+\end_inset
+
+The main devices accessing the PowerEnjoy services are mobile devices.
+ The SDKs used to develop Android or iOS applications change frequently
+ and this needs to be taken into account to guarantee the best possible
+ user experience.
+ If the business logic is located too much on the Client Layer, this may
+ cause desynchronization between the platforms, ending up privileging updates
+ to a platform instead of another.
+\end_layout
+
+\begin_layout Itemize
+
+\bar under
+Device support flexibility
+\bar default
+: 
+\begin_inset Newline newline
+\end_inset
+
+With a “thin” Client Layer and a “fat” Application Layer it is easier to
+ add support to new client devices, for example web browsers.
+\end_layout
+
+\begin_layout Itemize
+
+\bar under
+Maintenance
+\bar default
+: 
+\begin_inset Newline newline
+\end_inset
+
+A “fat” Application Layer improves maintenance, since the changes in the
+ business logic are encapsulated in the Application Layer.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+4-Tier Architecture:
+\series default
+ the separation of our system in 4 software layers (tiers) can be useful
+ for a number of reasons: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\bar under
+Process Flexibility
+\bar default
+: 
+\begin_inset Newline newline
+\end_inset
+
+Process flexibility is enhanced since during the implementation phase, each
+ layer can be assigned to different teams of people, which can proceed the
+ development in parallel.
+\end_layout
+
+\begin_layout Itemize
+
+\bar under
+Device support flexibility
+\bar default
+:
+\begin_inset Newline newline
+\end_inset
+
+ Same rationales as in the Client/Server explanation.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\bar under
+Maintenance and testing
+\bar default
+: 
+\begin_inset Newline newline
+\end_inset
+
+Every software layer can be tested and maintained more or less separately
+ from the others.
+ Therefore it will be easier to identify and correct eventual bugs.
+\end_layout
+
+\begin_layout Itemize
+
+\bar under
+Scalability
+\bar default
+:
+\begin_inset Newline newline
+\end_inset
+
+ The number of machines on which a particular layer is deployed can be increment
+ed or decremented based on demand loads and budget.
+\end_layout
+
+\begin_layout Itemize
+
+\bar under
+Modularity and extendability
+\bar default
+: 
+\begin_inset Newline newline
+\end_inset
+
+Since each software layer has a specific functionality to achieve, it is
+ easier to add modules and components to it.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\bar under
+Security
+\bar default
+: 
+\begin_inset Newline newline
+\end_inset
+
+If in the future the security of the system becomes a bigger concern, then
+ it will be easier to create multiple DMZ and add firewalls in order to
+ protect more efficiently the business data.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+REST, 
+\begin_inset Quotes eld
+\end_inset
+
+API First
+\begin_inset Quotes erd
+\end_inset
+
+ Architecture: 
+\series default
+the architecture presented, besides the interaction with the cars, is mainly
+ service-oriented (SOA).
+ It is based on a RESTful approach to expose to the world the biggest part
+ of the system's functionalities, and it's 
+\begin_inset Quotes eld
+\end_inset
+
+API first
+\begin_inset Quotes erd
+\end_inset
+
+ since it treats the API user as the primary user.
+ This is useful for multiple reasons:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+More flexibility if the APIs need to be extended.
+\end_layout
+
+\begin_layout Itemize
+The APIs can be reused more easily.
+\end_layout
+
+\begin_layout Itemize
+The network communication in the middle is more abstracted.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+Active Server (Server Push):
+\series default
+ in the HTTP protocol the server is passive and it is able to send data
+ to the client only in response to a client’s request.
+ 
+\begin_inset Newline newline
+\end_inset
+
+In the PowerEnjoy system, though, it is necessary from the Application Layer
+ to request different commands to be actuated on the cars when needed.
+ 
+\begin_inset Newline newline
+\end_inset
+
+The HTTP protocol offers some workarounds to this issue, such as HTTP polling,
+ by basically putting the client in a situation of periodically sending
+ requests to the server to know if there are some new updates destinated
+ to him.
+ 
+\begin_inset Newline newline
+\end_inset
+
+This technique though is pretty expensive in terms of time and resources,
+ so it seems preferable to use another communication protocol which guarantees
+ a full-duplex communication channel, such as the WebSocket protocol.
+\begin_inset Newline newline
+\end_inset
+
+In addition, JEE 7 offers the WebSocket APIs for creating and managing easily
+ WebSocket components.
+\end_layout
+
+\begin_layout Subsubsection
+Design Patterns
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+MVC:
+\series default
+ this design pattern has been followed for both the Mobile Application,
+ Car Application and the Web Layer.
+ It is well known for the separation of concerns between the roles of model,
+ view and controller.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Publisher/Subscriber:
+\series default
+ this design pattern can be used for the communication between the Application
+ Layer and the Car Applications over the WebSocket protocol.
+\end_layout
+
+\begin_layout Subsection
+Other Design Decisions 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+System configuration
+\series default
+ 
+\begin_inset Newline newline
+\end_inset
+
+Since we are not providing any particular graphical interface for administrators
+, the configuration of the system will be done using various files.
+ Every bean needing a configuration setting will read from an appropriate
+ file.
+ In these configuration files we have at least: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+A list of tuples <safeArea or powerSafeArea, GPS position, safeAreaRadius>
+\end_layout
+
+\begin_layout Itemize
+All the emails and passwords of the operators.
+ 
+\end_layout
+
+\begin_layout Itemize
+All the settings needed by each tier.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+BillingService: Stripe API
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+We will use Stripe APIs to validate the payment informations provided by
+ the users and to charge the users when needed.
+ The main reason for this choice are:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\bar under
+Security
+\bar default
+: 
+\begin_inset Newline newline
+\end_inset
+
+By using Stripe APIs we will limit the storage of personal payment information
+ in our database.
+ After checking the payment informations provided by the user through Stripe
+ APIs, Stripe APIs return us a payment token that identifies that payment
+ informations inside their database.
+ We just need to store this token in our database and retrieve it when we
+ will need to charge the user using Stripe APIs.
+\end_layout
+
+\begin_layout Itemize
+
+\bar under
+Simplicity and Good Documentation
+\bar default
+: 
+\begin_inset Newline newline
+\end_inset
+
+The Stripe APIs are simple to use and very well documented.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+The following sample code can be used to charge a user:
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+// Create a Customer 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+Map<String, Object> customerParams = new HashMap<String, Object>(); 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+// here we use the payment token retrieved after the validation 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+// of the user’s payment information performed by Stripe 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+customerParams.put("source", token); 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+customerParams.put("description", "Mario Rossi");
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+Customer customer = Customer.create(customerParams);
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+// Charge the Customer 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+Map<String, Object> chargeParams = new HashMap<String, Object>();
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+chargeParams.put("amount", 1000); // Amount in cents
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+chargeParams.put("currency", "eur"); 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+chargeParams.put("customer", customer.getId());
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\size small
+\color blue
+Charge.create(chargeParams);
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+MapsService: Google Maps
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+We have chosen to use Google Maps APIs to deal with maps visualization;
+ geolocalization on a map; path search; distance calculation between GPS
+ positions.
+ We have made this choice since: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Google Maps APIs are the most popular maps API.
+ 
+\end_layout
+
+\begin_layout Itemize
+Google Maps APIs are easy to use: the APIs provided are wide and very well
+ documented.
+ 
+\end_layout
+
+\begin_layout Itemize
+Google Maps APIs are portable, since Google has released them for all the
+ most used software platforms.
+\end_layout
+
+\begin_layout Itemize
+Google Maps APIs provide a very high availability.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+VehicleInterface
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+The VehicleInterface will be used by the Car Application in order to interact
+ with the hardware and sensors of the car.
+ Through this interface the Car Application will be able to get informations
+ from the car and also to actuate commands on the car’s hardware.
+ The cars’ provider from which our customer has bought the cars will provide
+ us a library which will contain the above mentioned interface and all the
+ code necessary for that interface to accomplish its tasks.
+ 
+\begin_inset Newline newline
+\end_inset
+
+This library can be included in the Car Application source code during the
+ development.
+ 
+\begin_inset Newline newline
+\end_inset
+
+An example of the VehicleInterface is the following: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+getSoC(); 
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+getCurrent();
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+getBatteryStatus();
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+getVoltage();
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+getDoorsStatus();
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+getTrunkDoorStatus();
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+getDirection();
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+getSpeed();
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+getFaults(); 
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+getSpecificFaultInformations(fault); 
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+getPassengersNumber(); 
+\end_layout
+
+\begin_layout Itemize
+
+\family typewriter
+\size small
+\color blue
+execCommand(command, params[]);
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Algorithm Design
+\end_layout
+
+\begin_layout Subsection
+Money Saving Option
+\end_layout
+
+\begin_layout Standard
+The money saving option is a feature offered by the PowerEnjoy system to
+ its users: its purpose is to guarantee a uniform distribution of the cars
+ in the city area, considering both the destination of the registered users
+ and the availability of power plugs in the safe areas.
+ As stated in the RASD document, the safe areas are distributed uniformly
+ in the city area (RASD, 2.5.2, D17), only the safe areas known as “power
+ safe area” are provided with power plugs (RASD, 1.6) and every parking slot
+ in a power safe area has a dedicated and working power plug (RASD, 2.5.2,
+ D14): the following algorithm, then, considers only the power safe areas
+ as possible destinations for the registered users, evaluating both the
+ distance from the original destination of the user and the occupied spots
+ in the power safe areas.
+ The algorithm focuses on offering the closest power safe area to the user’s
+ original destination while realizing a uniform distribution of the cars
+ in the city, so that the saving money option can be more gladly used by
+ the users of PowerEnjoy.
+\end_layout
+
+\begin_layout Standard
+The algorithm is based on two arrays defined as 
+\series bold
+spots
+\series default
+ and 
+\series bold
+distance
+\series default
+, further on called 
+\series bold
+s
+\series default
+ and 
+\series bold
+d
+\series default
+ for short.
+ Notice that the cells of the two arrays corresponds to the ordered set
+ of power safe areas saved in the system: so the first cell of array 
+\series bold
+s
+\series default
+ and 
+\series bold
+d
+\series default
+ corresponds to the first power safe area saved in the system and so on.
+ The algorithm also uses a list of integers 
+\series bold
+q
+\series default
+.
+ The dimension 
+\series bold
+n
+\series default
+ of both the arrays is equal to the number of power safe areas saved in
+ the system.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Steps of the algorithm: 
+\end_layout
+
+\begin_layout Itemize
+initialize 
+\series bold
+q
+\series default
+ as an empty list; 
+\end_layout
+
+\begin_layout Itemize
+update 
+\series bold
+s
+\series default
+ by checking how many spots are occupied in each power safe area and inserting
+ the number in the corresponding cell of 
+\series bold
+s
+\series default
+; 
+\end_layout
+
+\begin_layout Itemize
+update 
+\series bold
+d
+\series default
+ by getting the distance (in meters) of each power safe area from the user’s
+ destination, using the Google Maps API; 
+\end_layout
+
+\begin_layout Itemize
+calculates the average 
+\series bold
+a
+\series default
+ of the occupied spots by summing the values of the array 
+\series bold
+s
+\series default
+ and dividing the sum by 
+\series bold
+n
+\series default
+; 
+\end_layout
+
+\begin_layout Itemize
+executes the following cycle: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+if 
+\series bold
+q
+\series default
+ has all 
+\series bold
+n
+\series default
+ indices, the algorithm stops and returns the index 
+\series bold
+i
+\series default
+ of the minimum value in the array 
+\series bold
+d
+\series default
+ (that’s when the algorithm starts from a situation of uniform distribution
+ and offers to the user the closest power safe area); 
+\end_layout
+
+\begin_layout Itemize
+finds the minimum value in the array 
+\series bold
+d
+\series default
+ without considering the cells whose index is saved in the list 
+\series bold
+q
+\series default
+ and save the corresponding index 
+\series bold
+i
+\series default
+; 
+\end_layout
+
+\begin_layout Itemize
+check if the cell at index 
+\series bold
+i
+\series default
+ of the array 
+\series bold
+s
+\series default
+ is less than 
+\series bold
+a
+\series default
+ and if the associated power safe are in the system has at least one available
+ spot; if the occupied spots are strictly less than the average 
+\series bold
+a
+\series default
+ and if there is at least one spot available, the iteration stops and the
+ algorithm returns the index 
+\series bold
+i
+\series default
+, corresponding to the power safe area where the system will send the user.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Otherwise the index 
+\series bold
+i
+\series default
+ is saved in the list 
+\series bold
+q
+\series default
+ and the iteration restarts.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+This algorithm provides a way to guarantee a uniform distribution of cars
+ in the city and privileges the minimum possible distance of the selected
+ power safe area from the destination of the user, in order to avoid a situation
+ in which the user is sent to a power safe area too distant from his destination.
+\begin_inset Newline newline
+\end_inset
+
+Both from space and time complexity view this algorithm offers a linear
+ performance, in the order of O(
+\series bold
+n
+\series default
+).
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Money Saving Option: example of execution
+\end_layout
+
+\begin_layout Standard
+Array 
+\series bold
+s
+\series default
+: 
+\begin_inset Tabular
+<lyxtabular version="3" rows="1" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Array 
+\series bold
+d
+\series default
+: 
+\begin_inset Tabular
+<lyxtabular version="3" rows="1" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+25
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+100
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+300
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+250
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+600
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Array available_spots: 
+\begin_inset Tabular
+<lyxtabular version="3" rows="1" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+ (notice that this array is not actually created by the algorithm, since
+ these informations about the available free spots can be retrieved directly
+ from the power safe areas entities in the system; it is represented for
+ better clearness on how the algorithm works) 
+\begin_inset Newline newline
+\end_inset
+
+List 
+\series bold
+q
+\series default
+: <empty> ← step 1), 2), 3), 4)
+\begin_inset Newline newline
+\end_inset
+
+‘0’ ← step 5), 6), 7)
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The algorithm updates 
+\series bold
+s
+\series default
+ and 
+\series bold
+d
+\series default
+ and initializes 
+\series bold
+d
+\series default
+; 
+\end_layout
+
+\begin_layout Itemize
+The algorithm evaluates the average 
+\series bold
+a
+\series default
+: given five power safe areas 
+\series bold
+n
+\series default
+=5 and a is evaluated as (3+2+4+5+1)/5 = 3.
+ 
+\end_layout
+
+\begin_layout Itemize
+The algorithm checks if 
+\series bold
+q
+\series default
+ contains all the 
+\series bold
+n
+\series default
+ indices: since the algorithm just started, 
+\series bold
+d
+\series default
+ is still empty and the execution proceeds; 
+\end_layout
+
+\begin_layout Itemize
+The minimum of 
+\series bold
+d
+\series default
+ is search by considering only the indices that are not contained in 
+\series bold
+q
+\series default
+: a minimum with value 25 is found and its corresponding index is saved,
+ thus setting the value of 
+\series bold
+i
+\series default
+ to 0;
+\end_layout
+
+\begin_layout Itemize
+The value saved in the cell at index 
+\series bold
+i
+\series default
+ of the array 
+\series bold
+s
+\series default
+ is checked: since 3 is not less than the average 
+\series bold
+a
+\series default
+ (even though the associate power safe area in the system has still 2 spots
+ available), 
+\series bold
+i
+\series default
+ is saved in the list 
+\series bold
+q
+\series default
+ and the algorithm restarts iterating from step 3; 
+\end_layout
+
+\begin_layout Itemize
+The minimum of 
+\series bold
+d
+\series default
+ is search by considering only the indices that are not contained in 
+\series bold
+q
+\series default
+: a minimum with value 100 is found (since 25 is ignored) and its corresponding
+ index is saved, thus setting the value of 
+\series bold
+i
+\series default
+ to 1; 
+\end_layout
+
+\begin_layout Itemize
+The value saved in the cell at index
+\series bold
+ i
+\series default
+ of the array s is checked: since 2 is less than the average 
+\series bold
+a
+\series default
+ and since the associate power safe area in the system has still 3 spots
+ available, the algorithm stops and returns the index 
+\series bold
+i
+\series default
+;
+\end_layout
+
+\begin_layout Standard
+The system will then communicate to the user the location of the second
+ power safe area saved in the system, since the algorithm has returned the
+ second index of the arrays.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+User Interface Design
+\end_layout
+
+\begin_layout Subsection
+UX Diagram 
+\end_layout
+
+\begin_layout Standard
+The UX Diagram shows what are the screens of the User and Operator mobile
+ interfaces and in which way they interact with each other.
+ Both registered users and operators interact with our system through the
+ PowerEnJoy application only; in future releases, a web browser interaction
+ may be added.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Diagrams/images/UXDiagram.png
+	lyxscale 10
+	width 110col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+\series bold
+Mobile Application: User Interfaces
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Mockups/login_framed-min.png
+	lyxscale 10
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Mockups/mainUserMenu_framed-min.png
+	lyxscale 10
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+Login screen: 
+\series default
+initial screen of the mobile application for the registered user.
+ It allows the user to log in to PowerEnJoy and to register if he is not
+ registered yet.
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "r"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+Main user menu screen: 
+\series default
+the main menu of the mobile application for the registered user.
+ It allows the user to go to the screen where he can find and reserve available
+ cars, or to unlock a car that he previously reserved.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Mockups/findCars_framed-min.png
+	lyxscale 10
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Mockups/UserPaymentNotification_framed-min.png
+	lyxscale 10
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+Find available cars screen:
+\series default
+ the screen through which the registered user can find available cars and
+ reserve them.
+ It features a map that uses Google Maps API to let the user search for
+ an address or use his GPS position in order to center the map on that position
+ and show all the available cars in the city.
+ By clicking on a car, a pop up that shows all car’s info and allows the
+ user to reserve it opens.
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+Notification email:
+\series default
+ at the end of the ride, the user receives a notification on his mobile
+ device, where he is informed about the charge he will pay and the discount
+ applied.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+\series bold
+Mobile Application: Operator Interfaces
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Mockups/mainOperatorMenu_framed-min.png
+	lyxscale 10
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Mockups/operatorFindUnavailableCars_framed-min.png
+	lyxscale 10
+	width 50col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+Main operator menu screen:
+\series default
+ the main menu of the mobile application for the operator.
+ It allows the operator to go to the screen where he can find unavailable
+ cars and set one of them as under maintenance, or to set back to available
+ a car that he fixed.
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+Find unavailable cars screen:
+\series default
+ the screen through which the operator can find unavailable cars in the
+ city area and set one of them as under maintenance.
+ It features a map that uses Google Maps API to let the operator see all
+ unavailable cars in the city.
+ By clicking on a car, a pop up that shows all car’s info and the problem
+ that occurred opens.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+\series bold
+Car Application: Screen Interface
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Mockups/carMap_framed-min.png
+	lyxscale 10
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+Main car screen:
+\series default
+ The main screen in the car screen interface.
+ It features a map that uses Google Maps API to show the car’s current location
+ and all the safe areas in the city; by clicking on one of them a pop up
+ with all its basic information opens.
+ The top bar contains an address bar through which the user can insert his
+ destination; he can also enable the money saving options through a switch
+ button, if he does so the suggested destination safe area is shown with
+ a marker on the map.
+ The top bar contains information about the riding time and the current
+ charges as well.
+ In the bar to the bottom of the screen there are two buttons to terminate
+ the ride or make a stop.
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Requirements Traceability
+\end_layout
+
+\begin_layout Subsection
+Functional Requirements
+\end_layout
+
+\begin_layout Standard
+In the following table we provide the mapping between the components of
+ the system and their related functional requirements identified in the
+ RASD.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size small
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="2">
+<features islongtable="true" longtabularalignment="center">
+<column alignment="center" valignment="top" width="35text%">
+<column alignment="left" valignment="top" width="35col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+Component
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+Functional Requirements
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+AccountManager
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+R1.1.1 ; R1.1.2 ; R1.1.3
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R1.1.4 ; R1.1.5 ; R1.1.6
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.2.10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+UserManager
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+R1.2.1 ; R1.2.2 ; R2.1.1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+OperatorManager
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+R2.2.6 ; R2.2.7
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+ReservationManager
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+R1.3.1 ; R1.3.2 ; R1.3.3 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.1.1 ; R2.1.2 ; R2.1.3 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.1.6 ; R2.1.7 ; R2.1.8 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.1.9 ; R2.1.10 ; R2.1.11 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.1.12 ; R2.1.13 ; R2.1.14 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.1.15 ; R2.1.16 ; R2.1.17 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.2.2 ; R2.2.3 ; R2.2.4 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.2.8 ; R2.2.9 ; R3.3 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R4.1 ; R4.2.2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+BillingManager
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+R1.1.6 ; R2.1.3 ; R2.1.4 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.1.17 ; R3.1 ; R4.1 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R4.1.1 ; R4.1.2 ; R4.2.1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+CarManager
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+R1.2.1 ; R1.2.2 ; R1.2.3 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R1.3.1 ; R1.3.3 ; R2.1 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.2 ; R2.1.1 ; R2.1.2 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.1.3 ; R2.1.5 ; R2.1.6 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.1.7 ; R2.1.8 ; R2.1.10 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.1.13 ; R2.1.14 ; R2.1.15 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.1.16 ; R2.2.1 ; R2.2.2
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.2.4 ; R2.2.5 ; R2.2.6 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.2.7 ; R2.2.8 ; R2.2.9 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R3.1 ; R3.2 ; R4.1.1
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R4.1.2 ; R4.2.1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+CarConnectionManager
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\size small
+R1.2.3 ; R2.1 ; R2.2 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R2.1.6 ; R2.1.13 ; R2.2.1 
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+R3.2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Non functional requirements
+\end_layout
+
+\begin_layout Standard
+In this section we map each non functional requirement defined in the RASD
+ with one or more design decisions taken in this document:
+\end_layout
+
+\begin_layout Itemize
+[NF1] [NF3] [NF4]: see the CarConnectionManager component, the section 2.2.2
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Technological Viewpoint
+\begin_inset Quotes erd
+\end_inset
+
+, the section 2.8 
+\begin_inset Quotes eld
+\end_inset
+
+Other Design Decisions
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+[NF2]: this non functional requirement can be achieved by using a proper
+ configuration of the technology used by the Web Layer and by the Application
+ Layer.
+ See 
+\begin_inset Quotes eld
+\end_inset
+
+System configuration
+\begin_inset Quotes erd
+\end_inset
+
+ in the section 2.8 
+\begin_inset Quotes eld
+\end_inset
+
+Other Design Decisions
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+[NF5] [NF6]: the scalability and modularity of the system provided by the
+ distinction of 4 logical layers will help to satisfy these quality requirements
+, for example by using replication of components.
+\end_layout
+
+\begin_layout Itemize
+[NF7]: see the section 2.2.2 
+\begin_inset Quotes eld
+\end_inset
+
+Technological Viewpoint
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+[NF8]: see 
+\begin_inset Quotes eld
+\end_inset
+
+BillingService: Stripe API
+\begin_inset Quotes erd
+\end_inset
+
+ in the section 2.8 
+\begin_inset Quotes eld
+\end_inset
+
+Other Design Decisions
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Software and tools used
+\end_layout
+
+\begin_layout Itemize
+Git (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/
+\end_layout
+
+\end_inset
+
+) : for the version controlling of files shared between the team.
+\end_layout
+
+\begin_layout Itemize
+Slack (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://slack.com/
+\end_layout
+
+\end_inset
+
+): used for group communication.
+\end_layout
+
+\begin_layout Itemize
+GoogleDocs (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.google.it/intl/it/docs/about/
+\end_layout
+
+\end_inset
+
+): to write this document.
+\end_layout
+
+\begin_layout Itemize
+Astah Professional (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://astah.net/editions/professional
+\end_layout
+
+\end_inset
+
+): to create all the UML diagrams.
+\end_layout
+
+\begin_layout Itemize
+Draw.io (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.draw.io/
+\end_layout
+
+\end_inset
+
+): to create the UX diagram.
+\end_layout
+
+\begin_layout Itemize
+Lyx (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.lyx.org/ 
+\end_layout
+
+\end_inset
+
+): to format this document.
+\end_layout
+
+\begin_layout Itemize
+JustInMind (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.justinmind.com/
+\end_layout
+
+\end_inset
+
+): to create the mockups.
+\end_layout
+
+\begin_layout Itemize
+Android Device Art Generator (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://developer.android.com/distribute/tools/promote/device-art.html
+\end_layout
+
+\end_inset
+
+): to insert the mockups in an Android phone frame.
+\end_layout
+
+\begin_layout Section
+Effort spent
+\end_layout
+
+\begin_layout Standard
+Total hours of work for the DD creation:
+\end_layout
+
+\begin_layout Itemize
+Stefano Brandoli: 30 hours
+\end_layout
+
+\begin_layout Itemize
+Silvia Calcaterra: 25 hours
+\end_layout
+
+\begin_layout Itemize
+Samuele Conti: 25 hours
+\end_layout
+
+\end_body
+\end_document
