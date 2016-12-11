@@ -1,1 +1,0 @@
-# se2-powerenjoy: dd_alg_design
