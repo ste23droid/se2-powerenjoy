@@ -1,0 +1,44 @@
+﻿Revision History
+This version of the document is the release v1.0 of 11 January 2017.
+
+
+Purpose and Scope
+
+
+Purpose
+This document is the Integration Test Plan Document (ITPD) for PowerEnjoy.
+The purpose of this document is to precisely describe the plan identified to perform the integration testing activity of the components and subsystems identified in the DD. It will also highlight the rationales behind the integration test strategy followed and the tools to be used to perform the integration.
+
+
+Scope
+The scope is to develop PowerEnJoy, a digital management system
+for a car-sharing service that exclusively employs electric cars. PowerEnjoy will provide all the basic functionalities available in a regular car-sharing service, plus:
+* An intelligent management of the distribution of the cars in the city area.
+* Users’ fee incentives for a proper usage of the cars.
+
+
+List of Definitions and Abbreviations
+
+
+Definitions
+System = the complete PowerEnjoy software to be developed and deployed on physical machines.
+
+
+Subsystem = high-level component of the system. Every subsystem corresponds to a software layer (tier) presented in the DD.
+        
+Abbreviations
+* RASD = Requirements Analysis and Specification Document.
+* DD = Design Document.
+* API = Application Programming Interface.
+* DBMS = Database Management System.
+* JPA = Java Persistence API.
+* EJB = Enterprise Java Bean.
+* SDK = Software Development Kit.
+
+
+List of Reference Documents
+* Specification Document of PowerEnjoy.
+* PowerEnjoy RASD.
+* PowerEnjoy DD.
+* Integration Test        Plan Example: SpinGrid
+* Integration Testing Example Document: myTaxiService
