@@ -1,0 +1,286 @@
+﻿Integration Strategy
+
+
+Entry Criteria
+Before any kind of integration between units and then between subsystems can begin, the following conditions must be met:
+* The RASD, DD and this document (ITPD) have been released.
+* The estimated completion of each unit should be at least 85% according to the information provided in the DD. This because in this way the testing environment will be closer to the future production environment. The complete completion of the code will also depend on how the integration tests will be performed and on their results.
+* Each unit must be unit tested using JUnit with a code coverage of: approximately 80 % for non critical units, approximately 90 % for the critical ones. The critical units regard the management of the cars and of their reservations.
+* All the high prioritized bugs in each single unit must be fixed and closed. 
+* Each unit must be documented (using JavaDocs where possible and markdown for Swift). The level of detail and priority of the documentation depends on both the level of importance and exposure of a functionality.
+
+
+Elements to be Integrated
+In this section we will provide a list of the subsystems and their units that need to be integrated together. The high level components (subsystems) defined in the DD are: 
+* Car Application
+* Mobile Application
+* Web Layer
+* Application Layer
+* Database Layer
+
+
+Each subsystem is then obtained by the interaction between different units. 
+
+
+The integration phase will be done in two steps:
+1. Integrate the units belonging to the same subsystem. This will not regard the Database Layer, since we only need to interface and configure the DBMS.
+2. Integrate the subsystems interacting with each other.
+
+
+Integration Testing Strategy
+The integration testing strategy will use a mixed strategy following these approaches:
+
+
+1. Bottom-Up approach: we can start first with the integration of the most independent units which depend on few other units to function or on already developed units. In this way:
+      1. We will limit the number of stubs (mocks) that may be necessary, saving budget and time.
+      2. The integration phase will follow more closely the development process, in fact the development will start from the simplest and less dependent units.
+1. Critical Modules approach: when the order of integration of components is not much significative by following the previous approach, we can first concentrate on the integration of the riskiest units (functional critical or algorithmically complex), since a bad behaviour of these integrations will strongly compromise the ability of our system to fulfill its goals.
+
+
+Sequence of Component/Function Integration
+Given two components or subsystems A and B, A -> B means that A relies on at least one functionality provided by B.
+
+
+Software Integration Sequence
+In this subsection it is described the order of integration of the different subcomponents inside every subsystem. As stated before, to choose the priority of each subcomponent in the integration ordering, we will follow a bottom-up approach mixed with a critical modules strategy.
+
+
+Application Layer Integration Sequence
+ID
+	Integration Test
+	Paragraphs
+	I1
+	RegisteredUser, Reservation, Car, SafeArea, PowerSafeArea, Operator -> DBMS
+	
+
+	I2
+	AccountManager -> RegisteredUser, Operator
+	
+
+	I3
+	CarManager -> Car
+	
+
+	I4
+	SafeArea, PowerSafeArea -> MapsService
+	
+
+	I5
+	ReservationManager -> SafeArea, PowerSafeArea, Reservation
+	
+
+	I6
+	BillingManager -> Reservation
+	
+
+	I7
+	UserManager -> RegisteredUser
+	
+
+	I8
+	OperatorManager -> Operator
+	
+
+	I9
+	BillingManager -> AccountManager
+	
+
+	I10
+	ReservationManager, CarManager -> MapsService
+	
+
+	I11
+	ReservationManager -> BillingManager
+	
+
+	I12
+	CarManager -> ReservationManager
+	
+
+	I13
+	CarConnectionManager -> CarManager
+	
+
+	I14
+	ReservationManager -> CarManager
+	
+
+	I15
+	CarManager -> CarConnectionManager
+	
+
+	I16
+	BillingManager -> BillingService
+	
+
+	I17
+	AccountManager -> BillingManager
+	
+
+	I18
+	UserManager, OperatorManager -> MapsService
+	
+
+	I19
+	UserManager -> CarManager
+	
+
+	I20
+	OperatorManager -> CarManager
+	
+
+	
+
+ Integration Application Layer.png 
+
+1. Entity Beans -> Database Management System (I1)
+Since most of the features offered by the system rely on a persistent representation of the data, the interaction between the Entity beans in the Appliication layer and the Database Management System is the first one to be tested. The Database Management System has to be able to persist, update, remove and query the data saved in the database: since the architecture of the PowerEnjoy servers will be implemented using JEE, each Entity bean of the Application Layer will have the possibility to access the Database Layer by using the EntityManager class offered by the JPA API: thus a driver will be necessary to simulate all the possible calls that the EntityManager could send to the Database Layer.
+1. Beans in the Application Layer (I2-I9)
+The integration between the beans in the Application Layer is tested using the bottom-up approach, by selecting each bean and eventually using a driver to simulate all the possible calls derived from the interactions with the other beans.
+1. Application Layer -> Web Layer(I10)
+The integration between the Application Layer and the Web Layer is tested by using a driver to simulate the possible calls to the components of the Web Layer.
+1. Car Application sub-components (I11 - I14)
+Following again the bottom-up approach, the sub-components inside the Car Application are tested by considering the possible interaction between them.
+1. Mobile Application sub-components (I15-I17)
+Still following the bottom-up approach, interactions between the sub-components inside the Mobile Application are tested.
+1. Web Layer -> Application Layer
+2. Car Application -> Application Layer
+The integration between the Car Application and the Application Layer is tested by covering every possible interaction between these two parties over the WebSocket protocol.
+1. Mobile Application -> Application Layer
+The integration between the Mobile Application and the Web Server is tested by covering the functioning of all the RESTful services offered by the Application Layer and used by the Mobile Application.
+1. Mobile Application -> Web Layer
+The integration between the Mobile Application and the Web Server is tested by covering the interaction between the Mobile Application and the Web services offered by the Web Layer.
+
+
+Car Application Integration Sequence
+
+
+ID
+	Integration Test
+	Paragraphs
+	I1
+	CarControllers -> VehicleInterface
+	
+
+	I2
+	CarControllers -> MapsService
+	
+
+	I3
+	ViewControllers -> Views
+	
+
+	I4
+	ViewControllers -> MapsService
+	
+
+	I5
+	CarControllers -> ViewControllers
+	
+
+	I6
+	ViewControllers -> CarControllers
+	
+
+	
+
+ Integration_car.png 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Web Layer Integration Sequence
+ID
+	Integration Test
+	Paragraphs
+	I1
+	WebPage Controllers -> JavaServer Faces
+	
+
+	
+
+ Integration_web.png 
+
+
+
+
+
+
+
+Mobile Application Integration Sequence
+
+
+ID
+	Integration Test
+	Paragraphs
+	I1
+	ModelControllers -> Maps Service
+	
+
+	I2
+	ViewControllers -> Views
+	
+
+	I3
+	ViewControllers -> Maps Service
+	
+
+	I4
+	ModelControllers -> ViewControllers
+	
+
+	I5
+	ViewControllers -> ModelControllers
+	
+
+	
+
+
+
+                 Integration_mobile.png 
+
+
+Subsystems Integration Sequence
+ID
+	Integration Test
+	Paragraphs
+	S1
+	Application Layer -> Database Layer
+	
+
+	S2
+	Car Application -> Application Layer
+	
+
+	S3
+	Application Layer -> Car Application
+	
+
+	S4
+	Mobile Application -> Application Layer
+	
+
+	S5 
+	Web Layer -> Application Layer
+	
+
+	S6
+	Mobile Application -> Web Layer
+	
+
+	
+
+
+
+ SubsystemIntegrationSequence.png
