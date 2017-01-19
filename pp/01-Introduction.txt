@@ -1,0 +1,49 @@
+﻿Introduction
+
+
+Revision History
+
+
+Version
+	Date
+	Summary
+	1.0
+	22-01-2017
+	Initial Release
+	
+
+Purpose and Scope
+This document is the Project Plan document for PowerEnjoy. 
+The aim of this document is to provide information about the size, the cost and the effort estimation needed for the design and the implementation of PowerEnjoy. This document can also be useful as a guidance to define the required budget, the resource allocation and the schedule of the various activities.
+
+
+Definitions, Acronym, Abbreviations
+
+
+              Definitions
+            Person/Month = is the amount of time one person spends working on 
+software development for one month.
+                Maturity Model = set of structured levels that describe how well the behaviors, 
+       practices and processes of an organization can reliably and 
+       sustainably produce required outcomes.
+
+
+Abbreviations
+UFP = Unadjusted Function Points
+ILF = Internal Logic Files
+ELF = External Logic Files
+EI = External Input
+EO = External Output
+EQ = External Inquiry
+            PM = Person-Month
+    SLOC = Source lines of code
+            KSLOC = Kilo source lines of code.
+          
+List of Reference Documents
+* Specification Document of PowerEnjoy.
+* PowerEnjoy RASD.
+* PowerEnjoy DD.
+* Cocomo II: Model Definition Manual http://csse.usc.edu/csse/research/COCOMOII/cocomo2000.0/CII_modelman2000.0.pdf 
+* Project Plan Example Document: myTaxiService
+* UFP to SLOC conversion ratios: http://www.qsm.com/resources/function-point-languages-table 
+* Wikipedia : https://en.wikipedia.org/wiki/Capability_Maturity_Model

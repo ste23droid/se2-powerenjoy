@@ -1,0 +1,84 @@
+﻿Resource Allocation
+
+
+In this chapter the different tasks defined in the previous section are divided between the members of the team to provide a high-level overview of the personal workload required by this project. Notice that the resource allocation is not described at lower details, since the dimension of the team is fairly small compared to the one of the project: refined resource allocation will be introduced directly during each task of the project.
+The main tasks of the project are divided in some main subtasks, corresponding to the main sections of the related documents.
+As explained more thoroughly in the risk section of the document, it’s advisable that each member of the team gives his contribution to each project task, in order to avoid any possible inconvenience caused by a sudden unavailability of a member in a small team: a wider insight of the project could slow down the general process but would definitively provide more robustness.
+
+
+Notice that in the pictures below part of the Development stage was cut out to focus better on the first phases of the projects.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Resource_Allocation_Ste_FIN.png 
+
+ Resource_Allocation_Silvia_FIN.png 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Resourec_Allocation_Sam_FIN.png

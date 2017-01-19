@@ -1,0 +1,41 @@
+﻿Tasks And Schedule
+
+
+The project can be provided with a high-level schedule that defines adequate deadlines for each of its phases. By generally following the standard waterfall schema, it’s possible to identify these main tasks:
+* Deliver the Requirement Analysis and Specification Document (RASD), in which are described the functional and non-functional requirements of the project, along with the goals, the domain assumptions, a list of possible scenarios, model and runtime views regarding the system under examination.
+* Deliver the Design Document (DD), describing the design and the architecture of the system.
+* Deliver the Integration Testing Plan Document (ITPD), containing the main strategies adopted to test the integration between the main components of the systems.
+* Deliver the Project Plan (PP), whose scope is describe in the Introduction of this document.
+* Develop and implement the project, preferably in parallel with the unit testing of the components.
+* Perform integration testing of the main components of the system.
+* Deploy the system in the real world.
+
+
+Notice that independently from the level of depth adopted in the identification and description of the requirements, the customer of the project could request new features to be introduced along the different tasks.
+In general, the executional order between the tasks must be respected, although some flexibility is encouraged to handle more easily the development of the system: it is advisable, in fact, to back up the develop phase with the unit testing of the components in order to not lose too much effort and resources in late corrections and modifications of the software.
+As evaluate using the COCOMO II model in the previous section, the project wil last 13 months, starting from October 2016 and finishing in November 2017.
+
+
+
+
+Task
+	Starting Date
+	End Date
+	RASD
+	16/10/2016
+	13/11/2016
+	DD
+	14/11/2016
+	11/12/2016
+	ITPD
+	12/12/2016
+	15/01/2017
+	PP
+	16/01/2017
+	22/01/2017
+	Development
+	23/01/2017
+	16/10/2017
+	Deployment
+	17/10/2017
+	16/11/2017
