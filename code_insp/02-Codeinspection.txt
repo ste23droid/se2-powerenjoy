@@ -3,7 +3,7 @@ This section highlights all the issues that we have found during
 the code inspection of the classes CmsEvents and CommonWorkers.
 
 
-The issues found will follow the checklist provided. If other problems are found which are not present in the checklist, they will be pointed out in the Other Problems section.
+The issues found will follow the checklist provided. The other problems found which are not present in the checklist will be pointed out in the “Other Problems” section.
 
 
 Notation
@@ -27,21 +27,24 @@ CmsEvents class
 * C7: 
    * L.76 and L.111 “_ERROR_MESSAGE_”, is not valid constant name
    * L.123 "_CURRENT_CHAIN_VIEW_", is not valid constant name
-* C8: indentation missing L.122-136
+* C8: indentation missing L.122-136, L.333.
 * C11: if, while, do-while, try-catch, and for statements having only one statement and not surrounded by curly braces: 
    * L.233, L.247, L.251, L.371. L.196, L.198, L.424, L.427, ‘if’ construct with only one statement is not surrounded by curly braces.
-
-
-* C13: multiple lines exceeding 80 characters, thus reducing readability: L.76, L.103-119, L.144, L.167, L.179, L.196-199, L.412
-* C14: multiple lines are also exceeding 120 characters: L.76, L.106, L.108, L.111, L.117, L.119, L.167, L.412. This is mainly due to chains of method calls which are put on the same line.
+* C12:  L.258, L.276, L.296, L.356, L.374-375
+* C13: multiple lines exceeding 80 characters, reducing readability: L.66-68, L.76, L.82, L.102-123, L.129, L.136, L.139, L.143-145, L.167, L.179, L.196, L.198, L.212, L.225-227, L.233-263, L.278-310, L.318-329, L.337, L.348, L.350, L.355-356, L.374-377, L.382, L.397, L.401-403, L.412-418, L.424. This is mainly due to:
+   * The deep nesting of if-else statements, which are a lot since the class was not separated properly in sub functionalities.
+   * Deep method calls chains.
+* C14: multiple lines are also exceeding 120 characters, reducing significantly readability: L.76, L.106, L.108, L.111, L.117, L.167, L.252, L.261, L.291-310, L.412, L.318 - 329, L.348, L.350, L.355, L.397, L.401, L.412. This is mainly due to long chains of method calls which are put on the same line.
 * C16: higher level breaks are not used in lines L.238, L.239, L.240
 * C18: 
    * the JavaDoc of this class is basically inexistent. 
-   * In the code of  the class some comments are present, although not always useful.
+   * In the code of the class some comments are present, although not always useful.
 * C22: it’s quite hard to say whether the external interfaces are implemented correctly, since there is basically no JavaDoc for this class.
 * C23: JavaDoc missing completely.
-* C27: The “cms” method is huge. Its internal logic could have been at least delegated to some smaller methods in the CmsEvents class, each of which handling a particular sub functionality. Thus the cms method is also breaking encapsulation.
-* C29: except from L.62, all the other variables are in the scope of methods, since they’re strictly related to HTTP requests that vary every time. Also variables aren’t declared in the proper scope in line L.295 (?), L.358 (?)
+* C27: 
+   * The “cms” method is huge. It contains almost all the internal logic of the class. It could have been splitted in smaller methods in the CmsEvents class or in some other classes in the /content package, each of which handling a particular sub functionality. 
+   * Evident duplicated code: L.85-94
+* C29: except from L.62, all the other variables are in the scope of methods, since they’re strictly related to HTTP requests that vary every time. 
 * C30: L.277: method MapStack.create() refers to this:
    * public static <K> MapStack<K> create() {
    *         MapStack<K> newValue = new MapStack<K>();
@@ -50,10 +53,8 @@ CmsEvents class
    *         return newValue;
    *     }
             The create() method is used as a kind of static constructor which creates the object and performs a computation on it. The dev should have used directly the constructor and call another method to perform the required computation.
-* C32: variables aren’t initialized when declared in line L.391.
+* C32: variables aren’t initialized when declared: lines L.391.
 * C33: L.82, L.83, L.97-100, L.102, L.165, L.179, L.197, L.207, L.208, L.235, L.282, L.283, L.291, L.295, L.334, L.335, L.391
-* C40:  objects are compared with == and not with equals in lines L.232, L.246, L.262, L.318, L.338, L.341, L.347
-* C42: 
 
 
 
@@ -75,24 +76,28 @@ C16:
 *  L.91: the second method of the class getStateList lacks an explanatory comment.
         The lack of comments is probabily one of the biggest issue with the CommonWorkers class.
 C23:
-* L40: the declaration of the class lacks a sufficiently explainatory javadoc;
-* L46: the method getCountryList lacks a sufficiently explainatory javadoc;
-* L91: the method getStateList lacks a sufficiently explainatory javadoc;
-* L103: the method getAssociatedStateList lacks a sufficiently explainatory javadoc;
-* L110: the method getAssociatedStateList lacks a sufficiently explainatory javadoc;
+* L.40: the declaration of the class lacks a sufficiently explainatory javadoc;
+* L.46: the method getCountryList lacks a sufficiently explainatory javadoc;
+* L.91: the method getStateList lacks a sufficiently explainatory javadoc;
+* L.103: the method getAssociatedStateList lacks a sufficiently explainatory javadoc;
+* L.110: the method getAssociatedStateList lacks a sufficiently explainatory javadoc;
 Again, the lack of javadocs and documentation in general is one of
 the biggest issue with the CommonWorkers class.
         C33:
-* L58, the variable exprs is not declared at the beginning of the block;
-* L59, the variable countriesAvailable is not declared at the beginning of the block;
-* L65, the variable countriesList is not declared at the beginning of the block; 
-* L119, the variable sortList is not declared at the beginning of the block;
-* L121, the variable geoList is not declared at the beginning of the block;
-* L146, the variable stateProvinceFindCond is not declared at the beginning of the block.
+* L.58, the variable exprs is not declared at the beginning of the block;
+* L.59, the variable countriesAvailable is not declared at the beginning of the block;
+* L.65, the variable countriesList is not declared at the beginning of the block; 
+* L.119, the variable sortList is not declared at the beginning of the block;
+* L.121, the variable geoList is not declared at the beginning of the block;
+* L.146, the variable stateProvinceFindCond is not declared at the beginning of the block.
         C53:
-* L69: in the catch block only a log is called, no significant action is taken to deal with the exception;
-* L97: in the catch block only a log is called, no significant action is taken to deal with the exception;
-* L159: in the catch block only a log is called, no significant action is taken to deal with the exception.
+* L.69: in the catch block only a log is called, no significant action is taken to deal with the exception;
+* L.97: in the catch block only a log is called, no significant action is taken to deal with the exception;
+* L.159: in the catch block only a log is called, no significant action is taken to deal with the exception.
 
 
 Other problems
+
+
+* Some methods with too much parameters, maybe for the sake of performance they are sacrifing the OO principles. It’s better to define some data structures to keep together parameters that are always used together example line 298.
+* Hardcoded strings reused multiple times: if a modification will be needed, modifications are needed through all the class. It’s better to use an enum or a specific abstract class to contain all of them.
