@@ -1,0 +1,131 @@
+﻿Risk Management
+
+
+The aim of this section is to identify the risks related with our system and to analyze their sphere of influence and probability to occur, in order to try to reason on strategies to tackle them (Proactive Approach). We distinguish between the following risk categories:
+* Project Risks
+* Technical Risks
+* Business Risks
+
+
+Project Risks
+Project risks are related to the project plan. If they occur usually the whole project schedule shifts forward and the cost of the project increases.
+
+
+* Schedule Delays:
+A wrong project schedule definition is likely to lead to delays in the delivery of the finished product. This risk can be prevented by being cautious about the schedule total duration: we’ve already overestimated the total expected duration of the project to take this into account.
+
+
+* Underestimated development time: 
+The development time for our system has been estimated in section 2, however a real implementation may require some unexpected extra time. In case this happens, we’ll deliver a simplified working version of the system with less functionalities depending on the delay accumulated.
+
+
+* Requirements change:
+Our customer might partially change the requirements during the development of the software. This risk cannot be prevented,  but its effects can be mitigated by using traceability to help locating and distinguishing the various requirements, since understanding the difference between the old and the new requirements will be critical. In addition, writing reusable code will ease modifications if needed. 
+
+
+* Problems among team members:
+Problems inside the team, like synchronization and communication problems. The team will have to synchronize the work using tools for version control, however misunderstandings of interfaces and parameters used may lead to time loss and all the team members may not stay synchronized. This type of risk can be mitigated by establishing a clear division of responsibilities and tasks among the team members.
+
+
+* Staff illness: 
+Team members might get ill during the development of the project, causing potential delays in the delivery of the project. This problem can be prevented by ensuring that every team member knows what the other team members have been doing, so that the ill member can be temporarily replaced.
+
+
+Technical Risks
+Technical risks are related to the quality and timeliness of the project and if they occur the implementation of the project might become difficult or impossible.
+
+
+* Scalability issues: our system might not be able to face an increase in the number of users using the PowerEnjoy services in a proper way. This problem can be prevented by using load balancers and machine replication.
+
+
+* Loss of data: a loss of cars and users data in our DBMS might affect our system and its quality. This problem can be prevented by replicating the cars and users data, namely by keeping a backup copy of the most critical data of our system.
+
+
+* Integration failure: our system might fail the integration tests described in the ITPD document; this risk can oblige us to rewrite pieces of code and to reorganize the interaction between components. This risk can be prevented by avoiding a “Big Bang Approach“ for integration and by precisely defining in advance the interfaces of the components.
+
+
+* Issues with external services: our system highly depends on some external services, namely Google Maps API, Stripe API and the Vehicle Interface. If some of these external services experiences problems that compromise its functionalities, our system’s efficiency and quality might be jeopardized. We can prevent this risk by carefully choosing reliable and well known external services that are highly available.
+
+
+* Technical death: the mobile operating systems that our system uses might be discontinued, obliging us to rewrite chunks of code, mainly regarding the front end, and this can highly increase the cost of maintenance for our system. This risk cannot be truly prevented, but it can be mitigated by choosing to use reliable, well known mobile operating systems.
+
+
+Business Risks
+Business risks are related to the viability of the system to be developed, if they occur they’ll put it in danger in a general way.
+* Car provider bankrupt: the provider of our cars may not be able to provide and maintain new vehicles because of a bankrupt. We can partially prevent this risk by choosing to rely on a well known car provided on the market and that is not likely to have serious economic issues.
+* Budget: our customer may not be able to pay the whole project. This risk can be prevented by doing a correct and accurate feasible study before starting the real development of the project.
+* Legislation change: the government of the city might decide to change the placement, size or rules of restricted traffic areas; this may obstacle our system, since we will have to increment the fees of our users or write new code to forbid access to these areas.
+* System acceptance:
+      * No acceptance by city administration: 
+         * the city administration may not trust the innovative ideas of PowerEnjoy.
+         * decide that another competitor in the car sharing service is useless inside the city area.
+This may obstacole the development and success of the system itself. 
+      * No acceptance by potential customers: potential customers might decide not to trust the new PowerEnJoy service and they might continue to use the traditional transportation services inside the city. 
+                This risk can be prevented by creating an appealing and efficient service that uses innovative systems in order to attract the potential customers.
+* Competitors: there are other famous car sharing services available in the city that can steal clients from our service. In order to deal with this risk, we might need to develop new and innovative features for PowerEnJoy and/or to make it more efficient with respect to the other car sharing services.
+        
+                
+Risk
+	Type
+	Probability
+	Effects
+	Schedule delays
+	Project risk
+	Low
+	Moderate
+	Underestimated development time
+	Project risk
+	Low
+	Moderate
+	Requirements change
+	Project risk
+	Low
+	Critical
+	Problems among team members
+	Project risk
+	Low
+	Critical
+	Staff illness
+	Project risk
+	Low
+	Moderate
+	Scalability issues
+	Technical risk
+	Medium
+	Moderate
+	Loss of data
+	Technical risk
+	Medium
+	Critical
+	Integration failure
+	Technical risk
+	Low
+	Critical
+	Issues with external services
+	Technical risk
+	Low
+	Critical
+	Technical death
+	Technical risk
+	Medium
+	Moderate
+	Car provider bankrupt
+	Business risk
+	Medium
+	Moderate
+	Budget
+	Business risk
+	Low
+	Critical
+	Legislation change
+	Business risk
+	Low
+	Critical
+	System acceptance
+	Business risk
+	Medium
+	Critical
+	Competitors
+	Business risk
+	High
+	Critical

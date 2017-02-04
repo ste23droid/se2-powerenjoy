@@ -1,0 +1,96 @@
+﻿INTRODUCTION
+
+
+Reference Links and Documents
+https://ofbiz.apache.org/documentation.html SITO BASE
+
+
+https://cwiki.apache.org/confluence/display/OFBIZ/Component+and+Component+Set+Dependencies BASE DEL SISTEMA
+
+
+https://cwiki.apache.org/confluence/display/OFBIZ/Base+Application+stack  UTILE
+
+
+https://cwiki.apache.org/confluence/display/OFBIZ/Content+Management        
+INUTILE
+
+
+http://ofbiz.135035.n4.nabble.com/OFBiz-CMS-Tutorial-td157240.html Nabble        
+
+
+https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Content+Management+How+to utile
+
+
+Classes Assigned
+These are the classes assigned to our team:
+* CmsEvents
+* CommonWorkers
+
+
+The first one is located in /apache-ofbiz-16.11.01/applications/content/src/main/java/org/apache/ofbiz/content/cms/CmsEvents.java.
+
+
+The second one is located in /apache-ofbiz-16.11.01/framework/common/src/main/java/org/apache/ofbiz/common/CommonWorkers.java.
+	
+
+Functional Role
+
+
+General Apache OFbiz Overview
+Apache OFBiz® is an open source product for the automation of enterprise processes that includes framework components and business applications for ERP, CRM, E-Business / E-Commerce, SCM, MRP, MMS/EAM.
+
+
+Apache OFBiz is a framework that provides a common data model and a rich set of business processes. All applications are built around a common architecture using common data, logic and process components. 
+
+
+There are a small number of component sets current in OFBiz (from lowest-level to highest-level): 
+1. framework
+2. applications
+3. specialpurpose
+4. hot-deploy
+Dependencies between components in these sets normally go up the list. For example components in applications can depend on components in framework, but not vice versa.
+The following image shows a general schema architecture of Apache OfBiz. However, since the classes assigned to us belong to the framework/common and applications/content/cms, we will mostly concentrate on them. WADF-02-framework.png 
+
+
+Framework
+The framework is the underlying data structures and utilities that supply the essential common features used by the base applications and the extended components. 
+In this component set, we will perform the code inspection of the class CommonWorkers.java.
+Applications
+The base applications components depend on each other as shown in the following diagram (components higher in the diagram depend on components lower in the diagram).
+In this component set, we will perform the code inspection of the class CmsEvent.java. This class is located in the content component in the diagram below.
+ Schema Framework.png 
+
+
+
+CmsEvent class
+The Content Management Application in the OFBiz application component set supports the creation, modification and management of the content of web pages. 
+
+
+This application is the front-end user interface that allows a user, even with limited expertise, to add, modify, and remove content from a webpage without the intervention of a webmaster.
+
+
+As stated in OFbiz documentation, the CmsEvent class is used to setup a website whose content can be managed using the OFBiz built-in features of the Content Management Application.
+
+
+In particular, the CmsEvent class is used in relation with the definition of the controller.xml file of a web page. Here is an example from the OFbiz documentation:
+<default-request request-uri="cms"/>
+<request-map uri="main">
+    <security https="false" auth="false"/>
+    <response name="success" type="request" value="cms"/>
+</request-map>
+<request-map uri="cms">
+    <security https="false" auth="false"/>
+    <event type="java" path="org.ofbiz.content.cms.CmsEvents" invoke="cms"/>
+    <response name="success" type="none"/>
+    <response name="error" type="view" value="error"/>
+</request-map>
+
+
+With the above setup, by default all the incoming requests will be dispatched to the CmsEvents event, which can be seen as part of a content delivery application (CDA); this event will use the data in the Content data model to generate the content of the page and will return it back to the browser. In this way it will be possible to add new pages just editing the data in the Content data model and without editing the controller.xml file.
+
+
+CommonWorkers class
+CommonWorkers is a class situated in the ofbiz.common package, contained inside the framework component set of the system: most of the import statements of the class refers to the ofbiz.entity package, indicating that CommonWorkers is probably a sort of utility class used by different classes in the entity package; 
+
+
+In particular, CommonWorkers is strictly connected to the Delegator class: all the methods in CommonWorkers receives an object Delegator as argument and return a list of states or country related to the delegator. The scope of CommonWorkers seems to be associated to a geographical utility provided to the ofbiz.entity package.

@@ -1,0 +1,1431 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\hypersetup{urlcolor=blue, linkcolor=blue}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref section
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+
+\series bold
+PowerEnJoy
+\begin_inset Newline newline
+\end_inset
+
+C
+\series default
+ode 
+\series bold
+I
+\series default
+nspection
+\end_layout
+
+\begin_layout Author
+\noindent
+Stefano Brandoli (mat.
+ 875633)
+\begin_inset Newline newline
+\end_inset
+
+Silvia Calcaterra (mat.
+ 874887)
+\begin_inset Newline newline
+\end_inset
+
+Samuele Conti (mat.
+ 875708)
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/02 - DD/Logo_Politecnico_Milano.png
+	lyxscale 30
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\noun on
+Version 1.0
+\noun default
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\color black
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+hypersetup{linkcolor=black}
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+hypersetup{linkcolor=blue}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+In this document we will perform the code inspection of some classes from
+ the Apache OFBiz® source code.
+\end_layout
+
+\begin_layout Subsection
+Classes Assigned
+\end_layout
+
+\begin_layout Standard
+These are the classes assigned to our team: 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+CmsEvents
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+CommonWorkers
+\end_layout
+
+\begin_layout Enumerate
+The first one is located in 
+\series bold
+
+\begin_inset Newline newline
+\end_inset
+
+/apache-ofbiz-16.11.01/applications
+\begin_inset Newline newline
+\end_inset
+
+/content/src/main/java/org/apache/
+\begin_inset Newline newline
+\end_inset
+
+ofbiz/content/cms/CmsEvents.java
+\series default
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The second one is located in
+\begin_inset Newline newline
+\end_inset
+
+
+\series bold
+ /apache-ofbiz-16.11.01/framework
+\begin_inset Newline newline
+\end_inset
+
+/common/src/main/java/org/apache/ofbiz/common/
+\begin_inset Newline newline
+\end_inset
+
+CommonWorkers.java
+\series default
+.
+\end_layout
+
+\begin_layout Subsection
+Functional Role
+\end_layout
+
+\begin_layout Subsubsection
+General Apache OFbiz Overview
+\end_layout
+
+\begin_layout Standard
+Apache OFBiz® is an open source product for the automation of enterprise
+ processes that includes framework components and business applications
+ for ERP, CRM, E-Business / E-Commerce, SCM, MRP, MMS/EAM.
+\end_layout
+
+\begin_layout Standard
+Apache OFBiz is a framework that provides a common data model and a rich
+ set of business processes.
+ All applications are built around a common architecture using common data,
+ logic and process components.
+ 
+\end_layout
+
+\begin_layout Standard
+There are a small number of component sets currently in OFBiz (from lowest-level
+ to highest-level): 
+\end_layout
+
+\begin_layout Itemize
+Framework
+\end_layout
+
+\begin_layout Itemize
+Applications
+\end_layout
+
+\begin_layout Itemize
+Specialpurpose
+\end_layout
+
+\begin_layout Itemize
+Hot-deploy
+\end_layout
+
+\begin_layout Standard
+Dependencies between components in these sets normally go up the list.
+ For example components in applications can depend on components in framework,
+ but not vice versa.
+ 
+\end_layout
+
+\begin_layout Standard
+The following image shows a general schema architecture of Apache OFBiz.
+ Since the classes assigned to us belong to the 
+\series bold
+framework/common
+\series default
+ and 
+\series bold
+applications/content/cms
+\series default
+, we will mostly concentrate on the areas highlighted in orange in the schema.
+\begin_inset VSpace 1cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/05 - Code_Inspection/Diagrams/Arch schema.png
+	lyxscale 10
+	width 130col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace 1cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Framework
+\end_layout
+
+\begin_layout Standard
+The framework is made by the underlying data structures and utilities that
+ supply the essential common features used by the base applications and
+ the extended components.
+ In this component set, we will perform the code inspection of the class
+ 
+\series bold
+CommonWorkers.java
+\series default
+.
+\end_layout
+
+\begin_layout Subsubsection
+Applications
+\end_layout
+
+\begin_layout Standard
+The base applications components depend on each other as shown in the following
+ diagram (components higher in the diagram depend on components lower in
+ the diagram).
+ In this component set, we will perform the code inspection of the class
+ 
+\series bold
+CmsEvent.java
+\series default
+.
+ This class is located in the 
+\series bold
+content component
+\series default
+ in the diagram below, taken from the Apache OFBiz documentation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centerline{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /Users/stefano/Google Drive/SW2 POWER-ENJOY/05 - Code_Inspection/Diagrams/image00.png
+	lyxscale 10
+	width 120col%
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+CmsEvent class
+\end_layout
+
+\begin_layout Standard
+The 
+\series bold
+Content Management Application
+\series default
+ in the OFBiz application component set supports the creation, modification
+ and management of the content of web pages.
+ 
+\end_layout
+
+\begin_layout Standard
+This application is the front-end user interface that allows a user, even
+ with limited expertise, to add, modify, and remove content from a webpage
+ without the intervention of a webmaster.
+\end_layout
+
+\begin_layout Standard
+As stated in OFbiz documentation, the 
+\series bold
+CmsEvent 
+\series default
+class is used to setup a website whose content can be managed using the
+ OFBiz built-in features of the Content Management Application.
+\end_layout
+
+\begin_layout Standard
+In particular, the CmsEvent class is used in relation with the definition
+ of the 
+\series bold
+controller.xml
+\series default
+ file of a web page.
+ Here is an example coming from the OFbiz documentation: 
+\begin_inset VSpace 1cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color black
+<default-request 
+\color blue
+request-uri="cms"
+\color black
+/>
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color black
+<request-map uri="main"> 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color black
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+<security https="false" auth="false"/> 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color black
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+<response name="success" type="request" 
+\color blue
+value="cms"
+\color black
+/>
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color black
+</request-map>
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color black
+<request-map 
+\color blue
+uri="cms"
+\color black
+> 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color black
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+<security https="false" auth="false"/> 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color black
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\color blue
+<event type="java" path="org.ofbiz.content.cms.CmsEvents"
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color black
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\color blue
+invoke="cms"/> 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color blue
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+<response name="success" type="none"/> 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color blue
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+<response name="error" type="view" value="error"/> 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color black
+</request-map>
+\family default
+\color inherit
+
+\begin_inset VSpace 1cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+With the above setup, by default all the incoming requests will be dispatched
+ to the CmsEvents class, which can be seen as part of a content delivery
+ application (CDA).
+ The event generated will use the data in the Content data model to generate
+ the content of the webpage and will return it back to the browser.
+ In this way it is possible to add new pages by just editing the data in
+ the Content data model, without editing the controller.xml file.
+\end_layout
+
+\begin_layout Subsubsection
+CommonWorkers class
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+CommonWorkers
+\series default
+ is a class situated in the 
+\series bold
+ofbiz.common package
+\series default
+, contained inside the framework component set of the system: most of the
+ import statements of the class refers to the 
+\series bold
+ofbiz.entity package
+\series default
+, indicating that CommonWorkers is probably a sort of utility class used
+ by different classes in the entity package.
+\end_layout
+
+\begin_layout Standard
+In particular, CommonWorkers is strictly connected to the Delegator class:
+ every method in CommonWorkers receives an object Delegator as argument
+ and returns a list of states or countries related to the delegator.
+ The scope of CommonWorkers seems to be associated to a geographical utility
+ provided to the 
+\series bold
+ofbiz.entity package
+\series default
+.
+\end_layout
+
+\begin_layout Subsection
+Reference Links and Documents
+\end_layout
+
+\begin_layout Standard
+The following are the links to the main documentation resources we've used
+ to try to understand the operational context of the classes assigned to
+ us.
+ Given the absense of JavaDocs, we had to extract the majority of the informatio
+ns from the more general documentation of the Apache OFBiz project.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://ofbiz.apache.org/documentation.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://cwiki.apache.org/confluence/display/OFBIZ/Component+and+Component+Set+Depe
+ndencies
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://cwiki.apache.org/confluence/display/OFBIZ/Base+Application+stack
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://cwiki.apache.org/confluence/display/OFBIZ/Content+Management
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://cwiki.apache.org/confluence/display/OFBIZ/OFBiz+Content+Management+How+to
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Code Inspection
+\end_layout
+
+\begin_layout Standard
+This section highlights all the issues that we have found during the code
+ inspection of the classes 
+\series bold
+CmsEvents
+\series default
+ and 
+\series bold
+CommonWorkers
+\series default
+.
+ The issues found will follow the checklist provided.
+ The other problems found which were not present in the checklist will be
+ pointed out in the 
+\begin_inset Quotes eld
+\end_inset
+
+Other Problems
+\begin_inset Quotes erd
+\end_inset
+
+ section.
+\end_layout
+
+\begin_layout Subsection
+Notation 
+\end_layout
+
+\begin_layout Itemize
+A single line of code are denoted by 
+\series bold
+L.012
+\end_layout
+
+\begin_layout Itemize
+Intervals of lines of code are denoted as 
+\series bold
+L.100-200
+\end_layout
+
+\begin_layout Itemize
+Checklist inspection points: they are denoted as 
+\series bold
+Ci, i = 1….60
+\end_layout
+
+\begin_layout Subsection
+Issues found
+\end_layout
+
+\begin_layout Subsubsection
+CmsEvents class
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C1
+\series default
+: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.64: “cms” is not a meaningful name for a method, since it has to handle
+ a request/response interaction with HTTP servlets.
+ 
+\end_layout
+
+\begin_layout Itemize
+Other not meaningful names: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.68 “session” is not a good name for an HTTP session 
+\end_layout
+
+\begin_layout Itemize
+L.179 “rd” is too short to be meaningful for a RequestDispatcher
+\end_layout
+
+\begin_layout Itemize
+L.282 “ctx” is not a meaningful name for a ServletContext
+\end_layout
+
+\begin_layout Itemize
+L.283 “rh” is not a meaningful name for a RequestHandler 
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+C5
+\series default
+: L.64 “cms” is not a verb 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C7
+\series default
+: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.76 and L.111 “_ERROR_MESSAGE_”, is not valid constant name
+\end_layout
+
+\begin_layout Itemize
+L.123 "_CURRENT_CHAIN_VIEW_", is not valid constant name 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+C8
+\series default
+: indentation missing L.122-136, L.333.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C11
+\series default
+: if, while, do-while, try-catch, and for statements having only one statement
+ and not surrounded by curly braces: L.233, L.247, L.251, L.371.
+ L.196, L.198, L.424, L.427, ‘if’ construct with only one statement is not surrounde
+d by curly braces.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C12
+\series default
+: L.258, L.276, L.296, L.356, L.374-375 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C13
+\series default
+: multiple lines exceeding 80 characters, reducing readability: L.66-68,
+ L.76, L.82, L.102-123, L.129, L.136, L.139, L.143-145, L.167, L.179, L.196, L.198,
+ L.212, L.225-227, L.233-263, L.278-310, L.318-329, L.337, L.348, L.350, L.355-356,
+ L.374-377, L.382, L.397, L.401-403, L.412-418, L.424.
+ This is mainly due to: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+The deep nesting of if-else statements, which are a lot since the class
+ was not separated properly in sub functionalities.
+ 
+\end_layout
+
+\begin_layout Itemize
+Deep method calls chains.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+C14
+\series default
+: multiple lines are also exceeding 120 characters, reducing significantly
+ readability: L.76, L.106, L.108, L.111, L.117, L.167, L.252, L.261, L.291-310, L.412,
+ L.318 - 329, L.348, L.350, L.355, L.397, L.401, L.412.
+ This is mainly due to long chains of method calls which are put on the
+ same line.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C16
+\series default
+: higher level breaks are not used in lines L.238, L.239, L.240
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C18
+\series default
+: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+the JavaDoc of this class is basically inexistent.
+ 
+\end_layout
+
+\begin_layout Itemize
+In the code of the class some comments are present, although not always
+ useful.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+C22
+\series default
+: it’s quite hard to say whether the external interfaces are implemented
+ correctly, since there is basically no JavaDoc for this class.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C23
+\series default
+: JavaDoc missing completely.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C27
+\series default
+: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+The “cms” method is huge.
+ It contains almost all the internal logic of the class.
+ It could have been splitted in smaller methods in the CmsEvents class or
+ in some other classes in the /content package, each of which handling a
+ particular sub functionality.
+ 
+\end_layout
+
+\begin_layout Itemize
+Evident duplicated code: L.85-94 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+C29
+\series default
+: except from L.62, all the other variables are in the scope of methods,
+ since they’re strictly related to HTTP requests that vary every time.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C30
+\series default
+: L.277: method MapStack.create() refers to this: 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\color blue
+public static <K> MapStack<K> create() { 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color blue
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\family default
+MapStack<K> newValue = new MapStack<K>(); 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color blue
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\family default
+// initialize with a single entry 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color blue
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\family default
+newValue.push(); 
+\end_layout
+
+\begin_layout Standard
+
+\family typewriter
+\color blue
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\family default
+return newValue; 
+\end_layout
+
+\begin_layout Standard
+
+\color blue
+} 
+\end_layout
+
+\begin_layout Standard
+The create() method is used as a kind of static constructor which creates
+ the object and performs a computation on it.
+ The dev should have used directly the constructor and call another method
+ to perform the required computation.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+C32
+\series default
+: variables aren’t initialized when declared: lines L.391.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C33
+\series default
+: L.82, L.83, L.97-100, L.102, L.165, L.179, L.197, L.207, L.208, L.235, L.282, L.283,
+ L.291, L.295, L.334, L.335, L.391.
+\end_layout
+
+\begin_layout Subsubsection
+CommonWorkers class
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C9
+\series default
+: L.150 : even though the class has used 4 spaces for indentation until this
+ line, here two tabs are inserted.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C14
+\series default
+: Each of the lines in the following list exceeds 120 characters: L.58, L.59,
+ L.67, L.82, L.93, L.96, L.127, L.149, L.150, L.177, L.180
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+C16
+\series default
+: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.126-130: the canonical 8 spaces indentation after the higher-level break
+ is not used.
+ 
+\end_layout
+
+\begin_layout Itemize
+L.134-138: the canonical 8 spaces indentation after the higher-level break
+ is not used 
+\end_layout
+
+\begin_layout Itemize
+L.150: the canonical 8 spaces indentation after the higher-level break is
+ not used.
+ 
+\end_layout
+
+\begin_layout Itemize
+L.152-156: the canonical 8 spaces indentation after the higher-level break
+ is not used.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+C18
+\series default
+: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.40: the declaration of the class lacks a comment description.
+\end_layout
+
+\begin_layout Itemize
+L.46: the first method of the class getCountryList lacks an explanatory comment.
+\end_layout
+
+\begin_layout Itemize
+L.91: the second method of the class getStateList lacks an explanatory comment.
+ The lack of comments is probabily one of the biggest issue with the CommonWorke
+rs class.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+C23
+\series default
+: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.40: the declaration of the class lacks a sufficiently explainatory javadoc.
+\end_layout
+
+\begin_layout Itemize
+L.46: the method getCountryList lacks a sufficiently explainatory javadoc.
+\end_layout
+
+\begin_layout Itemize
+L.91: the method getStateList lacks a sufficiently explainatory javadoc.
+ 
+\end_layout
+
+\begin_layout Itemize
+L.103: the method getAssociatedStateList lacks a sufficiently explainatory
+ javadoc.
+\end_layout
+
+\begin_layout Itemize
+L.110: the method getAssociatedStateList lacks a sufficiently explainatory
+ javadoc.
+ Again, the lack of javadocs and documentation in general is one of the
+ biggest issue with the CommonWorkers class.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+C33
+\series default
+: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.58, the variable exprs is not declared at the beginning of the block.
+\end_layout
+
+\begin_layout Itemize
+L.59, the variable countriesAvailable is not declared at the beginning of
+ the block.
+\end_layout
+
+\begin_layout Itemize
+L.65, the variable countriesList is not declared at the beginning of the
+ block.
+\end_layout
+
+\begin_layout Itemize
+L.119, the variable sortList is not declared at the beginning of the block.
+ 
+\end_layout
+
+\begin_layout Itemize
+L.121, the variable geoList is not declared at the beginning of the block.
+\end_layout
+
+\begin_layout Itemize
+L.146, the variable stateProvinceFindCond is not declared at the beginning
+ of the block.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+C53
+\series default
+: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.69: in the catch block only a log is called, no significant action is taken
+ to deal with the exception.
+\end_layout
+
+\begin_layout Itemize
+L.97: in the catch block only a log is called, no significant action is taken
+ to deal with the exception.
+ 
+\end_layout
+
+\begin_layout Itemize
+L.159: in the catch block only a log is called, no significant action is
+ taken to deal with the exception.
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Other problems
+\end_layout
+
+\begin_layout Itemize
+Some methods in the CmsEvent class have too many parameters.
+ Maybe this is happening since the developers have decided to sacrifice
+ the OO principles for the sake of performance.
+ Howether, it would have been better to define some specific data structures
+ to keep together the parameters that are always used together.
+ An example can be found in CmsEvents class, line L.298.
+\end_layout
+
+\begin_layout Itemize
+In the CmsEvents class, hardcoded strings are reused multiple times: if
+ a modification will be needed, it will have to be propagated through all
+ the class.
+ It would have been better to use an enum or a specific abstract class to
+ contain all the necessary parameters.
+ 
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Software and tools used
+\end_layout
+
+\begin_layout Itemize
+Git (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/
+\end_layout
+
+\end_inset
+
+) : for the version controlling of files shared between the team.
+\end_layout
+
+\begin_layout Itemize
+Slack (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://slack.com/
+\end_layout
+
+\end_inset
+
+): used for group communication.
+\end_layout
+
+\begin_layout Itemize
+GoogleDocs (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.google.it/intl/it/docs/about/
+\end_layout
+
+\end_inset
+
+): to write this document.
+\end_layout
+
+\begin_layout Itemize
+Lyx (
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www.lyx.org/ 
+\end_layout
+
+\end_inset
+
+): to format this document.
+\end_layout
+
+\begin_layout Section
+Effort spent
+\end_layout
+
+\begin_layout Standard
+Total hours of work for the Code Inspection:
+\end_layout
+
+\begin_layout Itemize
+Stefano Brandoli: 10 hours
+\end_layout
+
+\begin_layout Itemize
+Silvia Calcaterra: 10 hours
+\end_layout
+
+\begin_layout Itemize
+Samuele Conti: 10 hours
+\end_layout
+
+\end_body
+\end_document
