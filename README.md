@@ -1,4 +1,4 @@
-# Software Engineering 2 2016/2017 Project - PowerEnJoy
+# Software Engineering 2 Project - 2016/2017 - PowerEnJoy
 
 This project has been made for the Software Engineering 2 course of the Master in Computer Science at Politecnico Di Milano.
 The goal was to apply software engineering principles to deal with real world software and its problems in a complex scenario.
