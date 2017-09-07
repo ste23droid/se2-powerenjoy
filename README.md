@@ -17,3 +17,4 @@ The deliverables produced by our team can be found below.
 3. ITPD  [v1.0 download](https://github.com/ste23droid/se2-powerenjoy/blob/master/releases/ITPD_v1.0.pdf)
 4. PP    [v1.0 download](https://github.com/ste23droid/se2-powerenjoy/blob/master/releases/PP_v1.0.pdf)
 5. CI    [v1.0 download](https://github.com/ste23droid/se2-powerenjoy/blob/master/releases/CI_v.1.0.pdf)
+6. SLIDES [download](https://github.com/ste23droid/se2-powerenjoy/blob/master/releases/Presentation_POWER_ENJOY.pdf)
